@@ -24,4 +24,31 @@
 			.dropdown()
 		;
   });
+
+	$(function() {
+		$('.selection.dropdown.profile.member')
+			.dropdown()
+		;
+	});
+
+	function onSetForm(formId, formObject) {
+		$("form#" + formId + " :input").each(function(){
+			if ($(this).is("input")) {
+				if ($(this).attr('type') !== 'file') {
+					if ($(this).attr('type') === 'date') {
+						if (formObject[$(this).attr("name")]) {
+							let jsDateTime = new Date(formObject[$(this).attr("name")]);
+							let jsDateTimeOffset = new Date(jsDateTime.setMinutes(jsDateTime.getMinutes() - jsDateTime.getTimezoneOffset()));
+							let birthDate = jsDateTimeOffset.toISOString().split('T')[0];
+							$(this).val(birthDate);
+						}
+					} else {
+						$(this).val(formObject[$(this).attr("name")]);
+					}
+				}
+			} else if ($(this).is("textarea") || $(this).is("select")) {
+				$(this).val(formObject[$(this).attr("name")]);
+			}
+		});
+	}
 </script>

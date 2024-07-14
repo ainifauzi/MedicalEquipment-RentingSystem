@@ -72,7 +72,7 @@
             </ul>
           </div>
           <!-- <button class="ui right labeled icon blue button" onclick="window.location.href='client_admin_dashboard.html'"> -->
-          <button class="ui right labeled icon blue button" type="submit">
+          <button type="submit" class="ui right labeled icon blue button">
             <i class="right arrow icon"></i>
             Log Masuk
           </button>
@@ -144,11 +144,11 @@
       </div>
     </div>
     <div class="actions bg-primary-grey">
-      <button class="ui right labeled icon deny red button">
+      <button type="button" class="ui right labeled icon deny red button">
         <i class="close icon"></i>
         Batal
       </button>
-      <button class="ui right labeled icon green button">
+      <button type="submit" class="ui right labeled icon green button">
         <i class="checkmark icon"></i>
         Daftar
       </button>
@@ -171,11 +171,10 @@
         success: function(res) {
           if (res) {
             $('#insertFormId').trigger('reset');
-            console.log("success");
           }
         },
         error: function(err) {
-          console.log("error")
+          console.log('error: ' + err);
         }
       });
     });
@@ -189,13 +188,14 @@
         data: $('#signinIdForm').serialize(),
         success: function(res) {
           if (res.data.responseStatus) {
+            sessionStorage.setItem('user_id', res.data.responseId);
             window.location.href = '/client_admin_dashboard';
           } else {
             alert(res.data.responseMessage)
           }
         },
         error: function(err) {
-          console.log('error')
+          console.log('error: ' + err);
         }
       });
     });

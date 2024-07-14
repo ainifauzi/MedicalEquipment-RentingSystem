@@ -31,3 +31,6 @@ Route::get('/client_history_dashboard', function () {
 // client routes
 Route::post('/client/signin', [ ClientController::class, 'signin' ]);
 Route::post('/client', [ ClientController::class, 'create' ]);
+Route::put('/client', [ ClientController::class, 'update' ]);
+Route::get('/clients', [ ClientController::class, 'readAll' ]);
+Route::get('/client/{id}', [ ClientController::class, 'read' ]);

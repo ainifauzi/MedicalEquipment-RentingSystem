@@ -35,6 +35,12 @@ class ClientController extends Controller
     $clients = Client::all();
     return response() -> json(array('data' => $clients), 200);
   }
+
+  public function read(string $id)
+  {
+    $client = Client::find($id);
+    return response() -> json(array('data' => $client), 200);
+  }
   
   public function create(Request $request)
   {
@@ -52,5 +58,18 @@ class ClientController extends Controller
     ]);
 
     return response() -> json(array('data' => $createClient), 200);
+  }
+
+  public function update(Request $request)
+  {
+    $client = Client::find($request -> input('clientId'));
+    $updateClient = $client -> update($request -> all());
+
+    if ($updateClient === true) {
+      $updatedClient = Client::find($request -> input('clientId'));
+      return response() -> json(array('data' => $updatedClient), 200);
+    } else {
+      return response() -> json(array('data' => null), 200);
+    }
   }
 }
