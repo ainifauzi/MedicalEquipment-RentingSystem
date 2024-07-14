@@ -4,7 +4,7 @@
   @include('section.head')
   <script>
     $(function() {
-      $('#myTable').DataTable({
+      $('#datatable').DataTable({
         "paging": false,
         "ordering": true,
         "searching": true,
@@ -13,7 +13,38 @@
           "search": ""
         }
       });
+
+      getTable();
     });
+
+    function getTable() {
+      $('#datatable').DataTable().clear().destroy();
+
+			$.ajax({
+				type: 'GET',
+				url: `/returns/client/${sessionStorage.getItem('user_id')}`
+			}).then(function(res) {
+				for (let returnData of res.data) {
+          $('#datatable > tbody:last').append($('<tr>')
+						.append($('<td>').append(returnData.clientIcNumber))
+						.append($('<td>').append(returnData.clientName))
+						.append($('<td>').append(returnData.equipmentName))
+						.append($('<td>').append(returnData.returnDate))
+						.append($('<td>').append(`<a class="ui ${returnData.returnColor} label">${returnData.returnCondition}</a>`))
+					);
+				}
+
+				$('#datatable').DataTable({
+          "paging": false,
+          "ordering": true,
+          "searching": true,
+          "info": false,
+          "language": {
+            "search": ""
+          }
+        });
+			});
+    }
   </script>
 </head>
 <body>
@@ -39,8 +70,8 @@
         </div>
       </div>
       <div class="p-2em">
-        <div class="ui segment">
-          <table id="myTable" class="display">
+        <div class="ui segment" style="overflow-x: scroll">
+          <table id="datatable" class="display">
             <thead>
               <tr>
                 <th>Nombor KP</th>
@@ -50,22 +81,7 @@
                 <th>Keadaan</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>990507015687</td>
-                <td>KHAIRIL AZUAN BIN RAMLI</td>
-                <td>KERUSI RODA</td>
-                <td>10 JUN 2024</td>
-                <td><a class="ui green label">Baik</a></td>
-              </tr>
-              <tr>
-                <td>990507015687</td>
-                <td>KHAIRIL AZUAN BIN RAMLI</td>
-                <td>KERUSI RODA</td>
-                <td>10 JUN 2024</td>
-                <td><a class="ui red label">Rosak</a></td>
-              </tr>
-            </tbody>
+            <tbody></tbody>
         </table>
         </div>
       </div>

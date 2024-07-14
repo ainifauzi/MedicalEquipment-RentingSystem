@@ -3,16 +3,38 @@
 <head>
   @include('section.head')
   <script>
-    // $(function() {
-    //   $.toast({
-    //     displayTime: 6000,
-    //     message: 'Permohonan anda telah diluluskan.',
-    //     class : 'green',
-    //     className: {
-    //       toast: 'ui message'
-    //     }
-    //   });
-    // });
+    $(function() {
+      displayCurrentTime('displayDate')
+      // $.toast({
+      //   displayTime: 6000,
+      //   message: 'Permohonan anda telah diluluskan.',
+      //   class : 'green',
+      //   className: {
+      //     toast: 'ui message'
+      //   }
+      // });
+    });
+
+    function displayCurrentTime(htmlClass) {
+      const currentDate = new Date();
+
+      const optionsDate = { 
+        day: '2-digit', 
+        month: 'short', 
+        year: 'numeric' 
+      };
+
+      const optionsTime = { 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        hour12: true 
+      };
+
+      const formattedDate = currentDate.toLocaleDateString('en-GB', optionsDate);
+      const formattedTime = currentDate.toLocaleTimeString('en-US', optionsTime);
+
+      $(`.${htmlClass}`).html(`data sehingga ${formattedDate}, ${formattedTime}`);
+    }
   </script>
 </head>
 <body>
@@ -43,7 +65,7 @@
             <div class="ui card w-100pct">
               <div class="content">
                 <div class="header">KERUSI RODA</div>
-                <div class="meta" style="margin-top: 4px;">data sehingga 08 Jun 2024, 05:30 pm</div>
+                <div class="meta displayDate" style="margin-top: 4px;"></div>
               </div>
               <div class="content">
                 <h1>500</h1>
@@ -58,7 +80,7 @@
             <div class="ui card w-100pct">
               <div class="content">
                 <div class="header">KATIL</div>
-                <div class="meta" style="margin-top: 4px;">data sehingga 08 Jun 2024, 05:30 pm</div>
+                <div class="meta displayDate" style="margin-top: 4px;"></div>
               </div>
               <div class="content">
                 <h1>500</h1>
@@ -73,7 +95,7 @@
             <div class="ui card w-100pct">
               <div class="content">
                 <div class="header">TANGKI OKSIGEN</div>
-                <div class="meta" style="margin-top: 4px;">data sehingga 08 Jun 2024, 05:30 pm</div>
+                <div class="meta displayDate" style="margin-top: 4px;"></div>
               </div>
               <div class="content">
                 <h1>500</h1>

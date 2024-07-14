@@ -7,21 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Equipment extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    protected $fillable = [
-        'equipmentId',
-        'equipmentName',
-        'equipmentBuyDate',
-        'equipmentBuyPrice',
-        'equipmentRentPrice',
-        'equipmentQuantity',
-        'equipmentSponsor',
-        'equipmentImage'
-    ];
+  protected $fillable = [
+    'equipmentId',
+    'equipmentName',
+    'equipmentBuyDate',
+    'equipmentBuyPrice',
+    'equipmentRentPrice',
+    'equipmentQuantity',
+    'equipmentSponsor',
+    'equipmentImage'
+  ];
 
-    public $timestamps = false;
-    public $incrementing = false;
-    protected $keyType = 'string';
-    protected $primaryKey = 'equipmentId';
+  public $timestamps = false;
+  public $incrementing = false;
+  protected $keyType = 'string';
+  protected $primaryKey = 'equipmentId';
 }

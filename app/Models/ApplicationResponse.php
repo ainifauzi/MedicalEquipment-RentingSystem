@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Application extends Model
+class ApplicationResponse extends Model
 {
   use HasFactory;
 
@@ -17,13 +17,16 @@ class Application extends Model
     'applicationRentPrice',
     'applicationMedicLetter',
     'applicationStatus',
+    'applicationColor',
     'clientId',
+    'clientName',
     'staffId',
-    'equipmentId'
+    'staffName',
+    'equipmentId',
+    'equipmentName',
+    'paymentId',
+    'paymentStatus',
+    'paymentDate',
+    'paymentColor'
   ];
-
-  public $timestamps = false;
-  public $incrementing = false;
-  protected $keyType = 'string';
-  protected $primaryKey = 'applicationId';
 }

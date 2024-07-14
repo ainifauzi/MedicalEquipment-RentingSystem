@@ -5,25 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class ReturnModel extends Model
 {
   use HasFactory;
 
   protected $fillable = [
-    'clientId',
-    'clientIcNumber',
-    'clientName',
-    'clientEmail',
-    'clientPhoneNo',
-    'clientAddress',
-    'clientJob',
-    'clientCancerType',
-    'clientMembership',
-    'clientPassword'
+    'returnId',
+    'returnDate',
+    'returnCondition',
+    'returnEvidence',
+    'applicationId'
   ];
 
   public $timestamps = false;
   public $incrementing = false;
   protected $keyType = 'string';
-  protected $primaryKey = 'clientId';
+  protected $primaryKey = 'returnId';
 }
