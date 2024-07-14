@@ -30,4 +30,4 @@ Route::get('/client_history_dashboard', function () {
 
 // client routes
 Route::post('/client/signin', [ ClientController::class, 'signin' ]);
-Route::post('/client', [ ClientController::class, 'insert' ]);
+Route::post('/client', [ ClientController::class, 'create' ]);

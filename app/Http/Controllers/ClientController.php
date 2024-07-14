@@ -9,7 +9,6 @@ use App\Models\SigninResponse;
 
 class ClientController extends Controller
 {
-  // signin client
   public function signin(Request $request)
   {
     $signinResponse = new SigninResponse();
@@ -36,9 +35,8 @@ class ClientController extends Controller
     $clients = Client::all();
     return response() -> json(array('data' => $clients), 200);
   }
-    
-  // insert client
-  public function insert(Request $request)
+  
+  public function create(Request $request)
   {
     $createClient = Client::create([
       'clientId' => Str::uuid() -> toString(),
