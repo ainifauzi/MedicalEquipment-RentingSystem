@@ -31,6 +31,12 @@ class ClientController extends Controller
     return response() -> json(array('data' => $signinResponse), 200);
   }
 
+  public function readAll()
+  {
+    $clients = Client::all();
+    return response() -> json(array('data' => $clients), 200);
+  }
+    
   // insert client
   public function insert(Request $request)
   {
