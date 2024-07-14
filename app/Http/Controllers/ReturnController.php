@@ -20,6 +20,12 @@ class ReturnController extends Controller
     return response() -> json(array('data' => $returnList), 200);
   }
 
+  public function read(string $id)
+  {
+    $return = ReturnModel::find($id);
+    return response() -> json(array('data' => $return), 200);
+  }
+
   public function readByClient(string $clientId)
   {
     // $returnList = ReturnModel::all();
@@ -67,5 +73,24 @@ class ReturnController extends Controller
     ]);
 
     return response() -> json(array('data' => $createReturn), 200);
-  } 
+  }
+
+  public function update(Request $request)
+  {
+    $return = ReturnModel::find($request -> input('returnId'));
+    $updateReturn = $return -> update($request -> all());
+    return response() -> json(array('data' => $updateReturn), 200);
+  }
+
+  public function delete(string $id)
+  {
+    $deleteStatus = false;
+    $return = ReturnModel::find($id);
+
+    if (!empty($return)) {
+        $deleteStatus = $return -> delete();
+    }
+
+    return response() -> json(array('data' => $deleteStatus), 200);
+  }
 }
