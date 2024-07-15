@@ -31,6 +31,12 @@
 		;
 	});
 
+	$(function() {
+		$('.selection.dropdown.profile.role')
+			.dropdown()
+		;
+	});
+
 	function onSetForm(formId, formObject) {
 		$("form#" + formId + " :input").each(function(){
 			if ($(this).is("input")) {

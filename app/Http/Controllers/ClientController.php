@@ -20,11 +20,11 @@ class ClientController extends Controller
         $signinResponse -> responseStatus = true;
       } else {
         $signinResponse -> responseStatus = false;
-        $signinResponse -> responseMessage = 'Failed! Wrong password.';
+        $signinResponse -> responseMessage = 'Log masuk gagal';
       }
     } else {
       $signinResponse -> responseStatus = false;
-      $signinResponse -> responseMessage = 'Failed! Not registered.';
+      $signinResponse -> responseMessage = 'Log masuk gagal';
     }
 
     return response() -> json(array('data' => $signinResponse), 200);

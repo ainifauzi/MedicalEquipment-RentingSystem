@@ -19,7 +19,64 @@ class ApplicationController extends Controller
   public function readAll()
   {
     $applications = Application::all();
-    return response() -> json(array('data' => $applications), 200);
+    $applicationResponses = [];
+
+    foreach ($applications as $application) {
+      $applicationResponse = new ApplicationResponse();
+
+      $applicationResponse -> applicationId = $application -> applicationId;
+      $applicationResponse -> applicationQuantity = $application -> applicationQuantity;
+      $applicationResponse -> applicationStartDate = strtoupper(Carbon::parse($application -> applicationStartDate)->format('d M Y'));
+      $applicationResponse -> applicationEndDate = strtoupper(Carbon::parse($application -> applicationEndDate)->format('d M Y'));
+      $applicationResponse -> applicationRentPrice = $application -> applicationRentPrice;
+      $applicationResponse -> applicationMedicLetter = $application -> applicationMedicLetter;
+
+      $applicationResponse -> applicationStatus = $application -> applicationStatus;
+      switch ($application -> applicationStatus) {
+        case 'Dalam Proses':
+          $applicationResponse -> applicationColor = 'yellow';
+          break;
+        case 'Berjaya':
+          $applicationResponse -> applicationColor = 'green';
+          break;
+        case 'Gagal':
+          $applicationResponse -> applicationColor = 'red';
+          break;
+      }
+
+      $client = Client::find($application -> clientId);
+      $applicationResponse -> clientId = $application -> clientId;
+      $applicationResponse -> clientName = $client -> clientName;
+
+      $applicationResponse -> staffId = $application -> staffId;
+      
+      $equipment = Equipment::find($application -> equipmentId);
+      $applicationResponse -> equipmentId = $application -> equipmentId;
+      $applicationResponse -> equipmentName = $equipment -> equipmentName;
+    
+      $payment = Payment::where('applicationId', $application -> applicationId) -> first();
+      $applicationResponse -> paymentId = $payment -> paymentId;
+      $applicationResponse -> paymentStatus = $payment -> paymentStatus;
+      switch ($payment -> paymentStatus) {
+        case 'Dalam Proses':
+          $applicationResponse -> paymentColor = 'yellow';
+          break;
+        case 'Telah Dibayar':
+          $applicationResponse -> paymentColor = 'green';
+          break;
+        case 'Belum Dibayar':
+          $applicationResponse -> paymentColor = 'red';
+          break;
+      }
+      $applicationResponse -> paymentDate = $payment -> paymentDate;
+    
+      $return = ReturnModel::where('applicationId', $application -> applicationId) -> first();
+      $applicationResponse -> returnId = $return -> returnId;
+      
+      $applicationResponses[] = $applicationResponse;
+    }
+
+    return response() -> json(array('data' => $applicationResponses), 200);
   }
 
   public function create(Request $request)

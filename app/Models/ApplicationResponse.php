@@ -27,6 +27,7 @@ class ApplicationResponse extends Model
     'paymentId',
     'paymentStatus',
     'paymentDate',
-    'paymentColor'
+    'paymentColor',
+    'returnId'
   ];
 }

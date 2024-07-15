@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Staff;
+use App\Models\SigninResponse;
 
 class StaffController extends Controller
 {
@@ -15,15 +16,16 @@ class StaffController extends Controller
   
       if(!empty($existingStaff)) {
         if (strcmp($existingStaff -> staffPassword, $request -> input('staffPassword')) == 0) {
+          $signinResponse -> responseRole = $existingStaff -> staffRole;
           $signinResponse -> responseId = $existingStaff -> staffId;
           $signinResponse -> responseStatus = true;
         } else {
           $signinResponse -> responseStatus = false;
-          $signinResponse -> responseMessage = 'Failed! Wrong password.';
+          $signinResponse -> responseMessage = 'Log masuk gagal';
         }
       } else {
         $signinResponse -> responseStatus = false;
-        $signinResponse -> responseMessage = 'Failed! Not registered.';
+        $signinResponse -> responseMessage = 'Log masuk gagal';
       }
   
       return response() -> json(array('data' => $signinResponse), 200);
@@ -31,8 +33,8 @@ class StaffController extends Controller
     
     public function readAll()
     {
-      $staffs = Staff::all();
-      return response() -> json(array('data' => $staffs), 200);
+      $staffList = Staff::all();
+      return response() -> json(array('data' => $staffList), 200);
     }
   
     public function read(string $id)
@@ -72,12 +74,13 @@ class StaffController extends Controller
 
     public function delete(string $id)
     {
-        $deleteStatus = false;
-        $staff = Staff::find($id);
+      $deleteStatus = false;
+      $staff = Staff::find($id);
 
-        if (!empty($staff)) {
-            $deleteStatus = $staff -> delete();
-        }
-        return response() -> json(array('data' => $deleteStatus), 200);
+      if (!empty($staff)) {
+        $deleteStatus = $staff -> delete();
+      }
+
+      return response() -> json(array('data' => $deleteStatus), 200);
     }
 }

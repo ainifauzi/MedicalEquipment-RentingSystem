@@ -6,6 +6,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReturnController;
+use App\Http\Controllers\StaffController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,19 +19,27 @@ use App\Http\Controllers\ReturnController;
 |
 */
 
-// views routes
+// client view routes
 Route::get('/', function () {
-    return view('index');
+  return view('index');
 });
 Route::get('/client_admin_dashboard', function () {
-    return view('client_admin_dashboard');
+  return view('client_admin_dashboard');
 });
 Route::get('/client_application_dashboard', function () {
-    return view('client_application_dashboard');
+  return view('client_application_dashboard');
 });
 Route::get('/client_history_dashboard', function () {
-    return view('client_history_dashboard');
+  return view('client_history_dashboard');
 });
+// staff view routes
+Route::get('/staff_application_dashboard', function () {
+  return view('staff_application_dashboard');
+});
+Route::get('/staff_history_dashboard', function () {
+  return view('staff_history_dashboard');
+});
+// admin view routes
 
 // client routes
 Route::post('/client/signin', [ ClientController::class, 'signin' ]);
@@ -41,6 +50,7 @@ Route::get('/client/{id}', [ ClientController::class, 'read' ]);
 
 // application routes
 Route::post('/application', [ ApplicationController::class, 'create' ]);
+Route::get('/applications', [ ApplicationController::class, 'readAll' ]);
 Route::get('/application/{id}', [ ApplicationController::class, 'read' ]);
 Route::get('/applications/client/{clientId}', [ ApplicationController::class, 'readByClient' ]);
 Route::delete('/application/{id}', [ ApplicationController::class, 'delete' ]);
@@ -53,4 +63,12 @@ Route::put('/payment', [ PaymentController::class, 'update' ]);
 Route::get('/payment/{id}', [ PaymentController::class, 'read' ]);
 
 // return routes
+Route::get('/returns', [ ReturnController::class, 'readAll' ]);
+Route::put('/return', [ ReturnController::class, 'update' ]);
 Route::get('/returns/client/{clientId}', [ ReturnController::class, 'readByClient' ]);
+Route::get('/return/{id}', [ ReturnController::class, 'read' ]);
+
+// staff routes
+Route::post('/staff/signin', [ StaffController::class, 'signin' ]);
+Route::put('/staff', [ StaffController::class, 'update' ]);
+Route::get('/staff/{id}', [ StaffController::class, 'read' ]);

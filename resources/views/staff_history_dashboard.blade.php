@@ -20,21 +20,21 @@
     function getTable() {
       $('#datatable').DataTable().clear().destroy();
 
-			$.ajax({
-				type: 'GET',
-				url: `/returns/client/${sessionStorage.getItem('user_id')}`
-			}).then(function(res) {
-				for (let returnData of res.data) {
+      $.ajax({
+        type: 'GET',
+        url: `/returns`
+      }).then(function(res) {
+        for (let returnData of res.data) {
           $('#datatable > tbody:last').append($('<tr>')
-						.append($('<td>').append(returnData.clientIcNumber))
-						.append($('<td>').append(returnData.clientName))
-						.append($('<td>').append(returnData.equipmentName))
-						.append($('<td>').append(returnData.returnDate))
-						.append($('<td>').append(`<a class="ui ${returnData.returnColor} label">${returnData.returnCondition}</a>`))
-					);
-				}
+            .append($('<td>').append(returnData.clientIcNumber))
+            .append($('<td>').append(returnData.clientName))
+            .append($('<td>').append(returnData.equipmentName))
+            .append($('<td>').append(returnData.returnDate))
+            .append($('<td>').append(`<a class="ui ${returnData.returnColor} label">${returnData.returnCondition}</a>`))
+          );
+        }
 
-				$('#datatable').DataTable({
+        $('#datatable').DataTable({
           "paging": false,
           "ordering": true,
           "searching": true,
@@ -43,22 +43,23 @@
             "search": ""
           }
         });
-			});
+      });
     }
   </script>
 </head>
 <body>
-  @include('section.client_top_nav')
+  <div class="topnav border-top border-bottom">
+    <a class="p-15px-25px" href="#"></a>
+    <a class="p-15px-25px" href="javascript:void(0);" onclick="promptLogout()">Log Keluar</a>
+    <a class="p-15px-25px" href="javascript:void(0);" onclick="displayProfile()">Profil</a>
+  </div>
   <div>
     <div class="ui visible left vertical sidebar menu bg-primary-almond">
-      <a class="item h-100px" href="/client_admin_dashboard"></a>
-      <a class="item" href="/client_admin_dashboard">
-        Laman Utama
-      </a>
-      <a class="item" href="/client_application_dashboard">
+      <a class="item h-100px" href="/staff_application_dashboard"></a>
+      <a class="item" href="/staff_application_dashboard">
         Permohonan Sewaan
       </a>
-      <a class="item active" href="/client_history_dashboard">
+      <a class="item active" href="/staff_history_dashboard">
         Sejarah Sewaan
       </a>
     </div>
@@ -82,13 +83,13 @@
               </tr>
             </thead>
             <tbody></tbody>
-        </table>
+          </table>
         </div>
       </div>
     </div>
   </div>
-  @include('section.client_modal')
-  @include('section.client_modal_script')
+  @include('section.staff_modal')
+  @include('section.staff_modal_script')
   <script></script>
 </body>
 </html>

@@ -32,14 +32,14 @@
         <div class="item w-50pct cursor-pointer" data-tab="client-login">Pelanggan</div>
       </div>
       <div class="ui tab p-40px border-bottom border-left border-right border-bottom-radius bg-primary-grey" data-tab="staff-login">
-        <div class="ui form info">
+        <form class="ui form info" id="staffSigninId" method="post" enctype="multipart/form-data">
           <div class="field">
             <label>Nombor KP</label>
-            <input type="text" placeholder="sila isi nombor kad pengenalan">
+            <input type="text" placeholder="sila isi nombor kad pengenalan" name="staffIcNumber" required>
           </div>
           <div class="field">
             <label>Kata Laluan</label>
-            <input type="password" placeholder="sila isi kata laluan">
+            <input type="password" placeholder="sila isi kata laluan" name="staffPassword" required>
           </div>
           <div class="ui info message">
             <div class="header">Garis Panduan</div>
@@ -48,14 +48,15 @@
               <li>Perlu mengandungi gabungan huruf, nombor & simbol.</li>
             </ul>
           </div>
-          <button class="ui right labeled icon blue button" onclick="window.location.href='staff_application_dashboard.html'">
+          <!-- <button class="ui right labeled icon blue button" onclick="window.location.href='client_admin_dashboard.html'"> -->
+          <button type="submit" class="ui right labeled icon blue button">
             <i class="right arrow icon"></i>
             Log Masuk
           </button>
-        </div>
+        </form>
       </div>
       <div class="ui tab p-40px border-bottom border-left border-right border-bottom-radius bg-primary-grey" data-tab="client-login">
-        <form class="ui form info" id="signinIdForm" method="post" enctype="multipart/form-data">
+        <form class="ui form info" id="clientSigninId" method="post" enctype="multipart/form-data">
           <div class="field">
             <label>Nombor KP</label>
             <input type="text" placeholder="sila isi nombor kad pengenalan" name="clientIcNumber" required>
@@ -179,17 +180,38 @@
       });
     });
 
-    $('#signinIdForm').on('submit', function(event) {
+    $('#clientSigninId').on('submit', function(event) {
       event.preventDefault();
       
       $.ajax({
         url: '/client/signin',
         method: 'POST',
-        data: $('#signinIdForm').serialize(),
+        data: $('#clientSigninId').serialize(),
         success: function(res) {
           if (res.data.responseStatus) {
             sessionStorage.setItem('user_id', res.data.responseId);
             window.location.href = '/client_admin_dashboard';
+          } else {
+            alert(res.data.responseMessage)
+          }
+        },
+        error: function(err) {
+          console.log('error: ' + err);
+        }
+      });
+    });
+
+    $('#staffSigninId').on('submit', function(event) {
+      event.preventDefault();
+      
+      $.ajax({
+        url: '/staff/signin',
+        method: 'POST',
+        data: $('#staffSigninId').serialize(),
+        success: function(res) {
+          if (res.data.responseStatus) {
+            sessionStorage.setItem('user_id', res.data.responseId);
+            window.location.href = '/staff_application_dashboard';
           } else {
             alert(res.data.responseMessage)
           }
