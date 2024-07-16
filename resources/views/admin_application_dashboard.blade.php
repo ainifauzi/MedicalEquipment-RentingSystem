@@ -7,9 +7,6 @@
       $('.selection.dropdown.application.status')
         .dropdown()
       ;
-      $('.selection.dropdown.condition')
-        .dropdown()
-      ;
       $('#datatable').DataTable({
         "paging": false,
         "ordering": true,
@@ -19,7 +16,41 @@
           "search": ""
         }
       });
+
+      getTable();
     });
+
+    function getTable() {
+      $('#datatable').DataTable().clear().destroy();
+
+      $.ajax({
+        type: 'GET',
+        url: `/applications`
+      }).then(function(res) {
+        for (let application of res.data) {
+          let detailButton = `<button class="ui right labeled icon olive button" onclick="detailPrompt('${application.applicationId}')"><i class="info icon"></i>Butiran</button>`;
+          let updateButton = `<button class="ui right labeled icon teal button" onclick="updatePrompt('${application.applicationId}')"><i class="pen icon"></i>Kemaskini</button>`;
+
+          $('#datatable > tbody:last').append($('<tr>')
+            .append($('<td>').append(application.clientName))
+            .append($('<td>').append(application.equipmentName))
+            .append($('<td>').append(`<a class="ui ${application.applicationColor} label">${application.applicationStatus}</a>`))
+            .append($('<td>').append(`<a class="ui ${application.paymentColor} label">${application.paymentStatus}</a>`))
+            .append($('<td>').append(detailButton).append(updateButton))
+          );
+        }
+
+        $('#datatable').DataTable({
+          "paging": false,
+          "ordering": true,
+          "searching": true,
+          "info": false,
+          "language": {
+            "search": ""
+          }
+        });
+      });
+    }
   </script>
 </head>
 <body>
@@ -51,7 +82,7 @@
         </div>
       </div>
       <div class="p-2em">
-        <div class="ui segment">
+        <div class="ui segment" style="overflow-x: scroll">
           <table id="datatable" class="display">
             <thead>
               <tr>
@@ -62,145 +93,178 @@
                 <th>Tindakan</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>KHAIRIL AZUAN BIN RAMLI</td>
-                <td>KERUSI RODA</td>
-                <td><a class="ui red label">Gagal</a></td>
-                <td><a class="ui yellow label">Dalam Proses</a></td>
-                <td>
-                  <button class="ui right labeled icon olive button" onclick="displayPrompt()">
-                    <i class="info icon"></i>
-                    Butiran
-                  </button>
-                  <button class="ui right labeled icon teal button" onclick="updatePrompt()">
-                    <i class="pen icon"></i>
-                    Kemaskini
-                  </button>
-                </td>
-              </tr>
-            </tbody>
         </table>
         </div>
       </div>
     </div>
   </div>
-  <div class="ui modal display">
+  <form class="ui modal detail" id="detailFormId" method="post" enctype="multipart/form-data">
     <div class="header bg-primary-grey">Maklumat Permohonan</div>
     <div class="content bg-primary-grey">
-      <form class="ui form info">
-        <div class="field">
-          <label>Peralatan</label>
-          <input type="number" disabled>
+      <div class="ui form info">
+        <div class="two fields">
+          <div class="field">
+            <label>Peralatan</label>
+            <input type="text" readonly name="equipmentName">
+          </div>
+          <div class="field">
+            <label>Status Permohonan</label>
+            <input type="text" readonly name="applicationStatus">
+          </div>
         </div>
         <div class="three fields">
           <div class="field">
             <label>Kuantiti</label>
-            <input type="text" disabled>
+            <input type="text" readonly name="applicationQuantity">
           </div>
           <div class="field">
             <label>Tarikh Mula Sewaan</label>
-            <input type="text" disabled>
+            <input type="text" readonly name="applicationStartDate">
           </div>
           <div class="field">
             <label>Tarikh Tamat Sewaan</label>
-            <input type="text" disabled>
+            <input type="text" readonly name="applicationEndDate">
           </div>
         </div>
         <div class="three fields">
           <div class="field">
             <label>Harga Sewaan</label>
-            <input type="text" disabled>
+            <input type="text" readonly name="applicationRentPrice">
           </div>
           <div class="field">
             <label>Status Pembayaran</label>
-            <input type="text" disabled>
+            <input type="text" readonly name="paymentStatus">
           </div>
           <div class="field">
-            <label>Status Permohonan</label>
-            <input type="text" disabled>
+            <label>Tarikh Pembayaran</label>
+            <input type="text" readonly name="paymentDate">
           </div>
         </div>
-      </form>
+      </div>
     </div>
     <div class="actions bg-primary-grey">
-      <button class="ui right labeled icon deny button">
+      <button type="button" class="ui right labeled icon deny grey button">
         <i class="close icon"></i>
         Tutup
       </button>
     </div>
-  </div>
-  <div class="ui modal update">
-    <div class="header bg-primary-grey">Kemaskini Permohonan</div>
+  </form>
+  <form class="ui modal update" id="updateFormId" method="post" enctype="multipart/form-data">
+    <div class="header bg-primary-grey">Maklumat Permohonan</div>
     <div class="content bg-primary-grey">
-      <form class="ui form info">
-        <div class="field">
-          <label>Peralatan</label>
-          <input type="number" disabled>
+      <div class="ui form info">
+        <input type="hidden" name="applicationId" id="applicationId">
+        <div class="two fields">
+          <div class="field">
+            <label>Peralatan</label>
+            <input type="text" disabled name="equipmentName">
+          </div>
+          <div class="field">
+            <label>Status Permohonan</label>
+            <div class="ui selection dropdown application status">
+              <input type="hidden" name="applicationStatus">
+              <i class="dropdown icon"></i>
+              <div class="text" id="applicationStatus"></div>
+              <div class="menu">
+                <div class="item" data-value="Dalam Proses">Dalam Proses</div>
+                <div class="item" data-value="Berjaya">Berjaya</div>
+                <div class="item" data-value="Gagal">Gagal</div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="three fields">
           <div class="field">
             <label>Kuantiti</label>
-            <input type="text" disabled>
+            <input type="text" disabled name="applicationQuantity">
           </div>
           <div class="field">
             <label>Tarikh Mula Sewaan</label>
-            <input type="text" disabled>
+            <input type="text" disabled name="applicationStartDate">
           </div>
           <div class="field">
             <label>Tarikh Tamat Sewaan</label>
-            <input type="text" disabled>
+            <input type="text" disabled name="applicationEndDate">
           </div>
         </div>
         <div class="three fields">
           <div class="field">
             <label>Harga Sewaan</label>
-            <input type="text" disabled>
+            <input type="text" disabled name="applicationRentPrice">
           </div>
           <div class="field">
             <label>Status Pembayaran</label>
-            <input type="text" disabled>
+            <input type="text" disabled name="paymentStatus">
           </div>
           <div class="field">
-            <label>Status Permohonan</label>
-            <div class="ui selection dropdown application status">
-              <input type="hidden" name="application status">
-              <i class="dropdown icon"></i>
-              <div class="default text">sila pilih status permohonan</div>
-              <div class="menu">
-                <div class="item" data-value="1">Dalam Proses</div>
-                <div class="item" data-value="0">Gagal</div>
-                <div class="item" data-value="0">Lulus</div>
-              </div>
-            </div>
+            <label>Tarikh Pembayaran</label>
+            <input type="text" disabled name="paymentDate">
           </div>
         </div>
-      </form>
+      </div>
     </div>
     <div class="actions bg-primary-grey">
-      <button class="ui right labeled icon deny red button">
+      <button type="button" class="ui right labeled icon deny red button">
         <i class="close icon"></i>
         Batal
       </button>
-      <button class="ui right labeled icon green button">
+      <button type="submit" class="ui right labeled icon green button">
         <i class="checkmark icon"></i>
         Simpan
       </button>
     </div>
-  </div>
+  </form>
   @include('section.staff_modal')
   @include('section.staff_modal_script')
   <script>
-    function displayPrompt() {
-      $('.ui.modal.display')
-        .modal('show')
-      ;
+    function detailPrompt(applicationId) {
+      $.ajax({
+        type: 'GET',
+        url: `/application/${applicationId}`
+      }).then(function(res) {
+        onSetForm('detailFormId', res.data);
+
+        $('.ui.modal.detail')
+          .modal('show')
+        ;
+      });
     }
-    function updatePrompt() {
-      $('.ui.modal.update')
-        .modal('show')
-      ;
+
+    function updatePrompt(applicationId) {
+      $.ajax({
+        type: 'GET',
+        url: `/application/${applicationId}`
+      }).then(function(res) {
+        onSetForm('updateFormId', res.data);
+        $('#applicationStatus').html(res.data.applicationStatus);
+
+        $('.ui.modal.update')
+          .modal('show')
+        ;
+      });
     }
+
+    $('#updateFormId').on('submit', function(event) {
+      event.preventDefault();
+      
+      $.ajax({
+        url: '/application',
+        method: 'PUT',
+        data: $('#updateFormId').serialize(),
+        success: function(res) {
+          if (res) {
+            getTable();
+
+            $('.ui.modal.update')
+              .modal('hide')
+            ;
+          }
+        },
+        error: function(err) {
+          console.log('error: ' + err);
+        }
+      });
+    });
   </script>
 </body>
 </html>

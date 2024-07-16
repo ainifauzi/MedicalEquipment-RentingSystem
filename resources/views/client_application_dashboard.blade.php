@@ -20,12 +20,6 @@
       $('.selection.dropdown.equipment')
         .dropdown()
       ;
-      $('.selection.dropdown.application.status')
-        .dropdown()
-      ;
-      $('.selection.dropdown.payment.status')
-        .dropdown()
-      ;
       $('.selection.dropdown.condition')
         .dropdown()
       ;
@@ -301,7 +295,7 @@
         let today = new Date();
         let formattedDate = today.toISOString().substr(0, 10);
         $('#paymentDate').val(formattedDate);
-        $('#paymentStatus').val('Dalam Proses');
+        $('#paymentStatus').val('Telah Dibayar');
 
         $('.ui.tiny.modal.payment')
           .modal('show')

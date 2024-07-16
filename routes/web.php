@@ -52,6 +52,9 @@ Route::get('/admin_customer_dashboard', function () {
 Route::get('/admin_equipment_dashboard', function () {
   return view('admin_equipment_dashboard');
 });
+Route::get('/admin_application_dashboard', function () {
+  return view('admin_application_dashboard');
+});
 
 // client routes
 Route::post('/client/signin', [ ClientController::class, 'signin' ]);
@@ -63,6 +66,7 @@ Route::delete('/client/{id}', [ ClientController::class, 'delete' ]);
 
 // application routes
 Route::post('/application', [ ApplicationController::class, 'create' ]);
+Route::put('/application', [ ApplicationController::class, 'update' ]);
 Route::get('/applications', [ ApplicationController::class, 'readAll' ]);
 Route::get('/application/{id}', [ ApplicationController::class, 'read' ]);
 Route::get('/applications/client/{clientId}', [ ApplicationController::class, 'readByClient' ]);

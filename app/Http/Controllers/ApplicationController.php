@@ -58,9 +58,6 @@ class ApplicationController extends Controller
       $applicationResponse -> paymentId = $payment -> paymentId;
       $applicationResponse -> paymentStatus = $payment -> paymentStatus;
       switch ($payment -> paymentStatus) {
-        case 'Dalam Proses':
-          $applicationResponse -> paymentColor = 'yellow';
-          break;
         case 'Telah Dibayar':
           $applicationResponse -> paymentColor = 'green';
           break;
