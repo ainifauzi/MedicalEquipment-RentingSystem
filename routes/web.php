@@ -40,6 +40,18 @@ Route::get('/staff_history_dashboard', function () {
   return view('staff_history_dashboard');
 });
 // admin view routes
+Route::get('/admin_dashboard', function () {
+  return view('admin_dashboard');
+});
+Route::get('/admin_staff_dashboard', function () {
+  return view('admin_staff_dashboard');
+});
+Route::get('/admin_customer_dashboard', function () {
+  return view('admin_customer_dashboard');
+});
+Route::get('/admin_equipment_dashboard', function () {
+  return view('admin_equipment_dashboard');
+});
 
 // client routes
 Route::post('/client/signin', [ ClientController::class, 'signin' ]);
@@ -47,6 +59,7 @@ Route::post('/client', [ ClientController::class, 'create' ]);
 Route::put('/client', [ ClientController::class, 'update' ]);
 Route::get('/clients', [ ClientController::class, 'readAll' ]);
 Route::get('/client/{id}', [ ClientController::class, 'read' ]);
+Route::delete('/client/{id}', [ ClientController::class, 'delete' ]);
 
 // application routes
 Route::post('/application', [ ApplicationController::class, 'create' ]);
@@ -56,7 +69,11 @@ Route::get('/applications/client/{clientId}', [ ApplicationController::class, 'r
 Route::delete('/application/{id}', [ ApplicationController::class, 'delete' ]);
 
 // equipment routes
+Route::post('/equipment', [ EquipmentController::class, 'create' ]);
+Route::put('/equipment', [ EquipmentController::class, 'update' ]);
 Route::get('/equipments', [ EquipmentController::class, 'readAll' ]);
+Route::get('/equipment/{id}', [ EquipmentController::class, 'read' ]);
+Route::delete('/equipment/{id}', [ EquipmentController::class, 'delete' ]);
 
 // payment routes
 Route::put('/payment', [ PaymentController::class, 'update' ]);
@@ -70,5 +87,8 @@ Route::get('/return/{id}', [ ReturnController::class, 'read' ]);
 
 // staff routes
 Route::post('/staff/signin', [ StaffController::class, 'signin' ]);
+Route::post('/staff', [ StaffController::class, 'create' ]);
 Route::put('/staff', [ StaffController::class, 'update' ]);
+Route::get('/staffs', [ StaffController::class, 'readAll' ]);
 Route::get('/staff/{id}', [ StaffController::class, 'read' ]);
+Route::delete('/staff/{id}', [ StaffController::class, 'delete' ]);

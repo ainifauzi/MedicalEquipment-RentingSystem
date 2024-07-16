@@ -211,7 +211,11 @@
         success: function(res) {
           if (res.data.responseStatus) {
             sessionStorage.setItem('user_id', res.data.responseId);
-            window.location.href = '/staff_application_dashboard';
+            if (res.data.responseRole === 'Petugas') {
+              window.location.href = '/staff_application_dashboard';
+            } else if (res.data.responseRole === 'Pentadbir') {
+              window.location.href = '/admin_dashboard';
+            }
           } else {
             alert(res.data.responseMessage)
           }

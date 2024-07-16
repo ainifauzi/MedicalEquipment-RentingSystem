@@ -112,7 +112,6 @@
   </div>
   @include('section.client_modal')
   @include('section.client_modal_script')
-  <script>
-  </script>
+  <script></script>
 </body>
 </html>

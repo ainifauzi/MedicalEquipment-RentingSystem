@@ -72,4 +72,16 @@ class ClientController extends Controller
       return response() -> json(array('data' => null), 200);
     }
   }
+
+  public function delete(string $id)
+  {
+    $deleteStatus = false;
+    $deleteClient = Client::find($id);
+
+    if (!empty($deleteClient)) {
+      $deleteStatus = $deleteClient -> delete();
+    }
+
+    return response() -> json(array('data' => $deleteStatus), 200);
+  }
 }
