@@ -110,94 +110,56 @@
     <div class="header bg-primary-grey">Maklumat Peralatan</div>
     <div class="content bg-primary-grey">
       <div class="ui form info">
+        <div class="ui red message" id="insertMessageId"></div>
+        <input type="hidden" name="equipmentId" id="equipmentId">
         <div class="field">
           <label>Nama Peralatan</label>
-          <input type="text" placeholder="sila isi nama" name="equipmentName" required>
+          <input type="text" placeholder="sila isi nama peralatan" name="equipmentName">
         </div>
         <div class="three fields">
           <div class="field">
             <label>Harga Belian</label>
-            <input type="text" placeholder="sila isi harga belian" name="equipmentBuyPrice" required>
+            <div class="ui left labeled input">
+              <div class="ui basic label">RM</div>
+              <input type="text" placeholder="sila isi harga belian - e.g: 10.00" name="equipmentBuyPrice">
+            </div>
           </div>
           <div class="field">
             <label>Harga Sewaan</label>
-            <input type="text" placeholder="sila isi harga sewaan" name="equipmentRentPrice" required>
+            <div class="ui left labeled input">
+              <div class="ui basic label">RM</div>
+              <input type="text" placeholder="sila isi harga sewaan - e.g: 10.00" name="equipmentRentPrice">
+            </div>
           </div>
           <div class="field">
             <label>Kuantiti</label>
-            <input type="number" placeholder="sila isi kuantiti" name="equipmentQuantity" required>
+            <input type="number" placeholder="sila isi kuantiti" name="equipmentQuantity">
           </div>
         </div>
         <div class="three fields">
           <div class="field">
             <label>Tarikh Beli</label>
-            <input type="date" placeholder="sila isi tarikh beli" name="equipmentBuyDate" required>
+            <input type="date" placeholder="sila isi tarikh beli" name="equipmentBuyDate">
           </div>
           <div class="field">
             <label>Penaja</label>
-            <input type="text" placeholder="sila isi nama penaja" name="equipmentSponsor" required>
+            <input type="text" placeholder="sila isi nama penaja" name="equipmentSponsor">
           </div>
           <div class="field">
             <label>Gambar</label>
-            <input type="file">
+            <!-- <input type="file"> -->
           </div>
         </div>
       </div>
     </div>
     <div class="actions bg-primary-grey">
-      <button type="button" class="ui right labeled icon deny red button">
+      <button type="button" class="ui right labeled icon reset deny red button">
         <i class="close icon"></i>
         Batal
       </button>
-      <button type="submit" class="ui right labeled icon green button">
-        <i class="checkmark icon"></i>
-        Simpan
-      </button>
-    </div>
-  </form>
-  <form class="ui modal update" id="updateFormId" method="post" enctype="multipart/form-data">
-    <div class="header bg-primary-grey">Maklumat Peralatan</div>
-    <div class="content bg-primary-grey">
-      <div class="ui form info">
-        <input type="text" name="equipmentId">
-        <div class="field">
-          <label>Nama Peralatan</label>
-          <input type="text" placeholder="sila isi nama" name="equipmentName" required>
-        </div>
-        <div class="three fields">
-          <div class="field">
-            <label>Harga Belian</label>
-            <input type="text" placeholder="sila isi harga belian" name="equipmentBuyPrice" required>
-          </div>
-          <div class="field">
-            <label>Harga Sewaan</label>
-            <input type="text" placeholder="sila isi harga sewaan" name="equipmentRentPrice" required>
-          </div>
-          <div class="field">
-            <label>Kuantiti</label>
-            <input type="number" placeholder="sila isi kuantiti" name="equipmentQuantity" required>
-          </div>
-        </div>
-        <div class="three fields">
-          <div class="field">
-            <label>Tarikh Beli</label>
-            <input type="date" placeholder="sila isi tarikh beli" name="equipmentBuyDate" required>
-          </div>
-          <div class="field">
-            <label>Penaja</label>
-            <input type="text" placeholder="sila isi nama penaja" name="equipmentSponsor" required>
-          </div>
-          <div class="field">
-            <label>Gambar</label>
-            <input type="file">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="actions bg-primary-grey">
-      <button type="button" class="ui right labeled icon deny red button">
-        <i class="close icon"></i>
-        Batal
+      <button type="button" class="ui right labeled icon reset yellow button">
+        <i class="refresh icon"></i>
+        Set Semula
       </button>
       <button type="submit" class="ui right labeled icon green button">
         <i class="checkmark icon"></i>
@@ -224,8 +186,33 @@
   @include('section.staff_modal')
   @include('section.staff_modal_script')
   <script>
+    onUpperCaseForm('insertFormId');
+    $('#insertMessageId').hide();
+
+    $('.ui.modal.insert#insertFormId').form({
+      fields: {
+        equipmentName : 'empty',
+        equipmentBuyPrice : {
+          identifier: 'equipmentBuyPrice',
+          rules: [{
+            type: 'regExp[/^\\d+(\\.\\d{1,2})?$/]',
+          }]
+        },
+        equipmentRentPrice : {
+          identifier: 'equipmentRentPrice',
+          rules: [{
+            type: 'regExp[/^\\d+(\\.\\d{1,2})?$/]',
+          }]
+        },
+        equipmentQuantity : 'empty',
+        equipmentBuyDate : 'empty',
+        equipmentSponsor : 'empty',
+      }
+    });
+
     function insert() {
       $('.ui.modal.insert')
+        .modal('setting', 'closable', false)
         .modal('show')
       ;
     }
@@ -233,23 +220,31 @@
     $('#insertFormId').on('submit', function(event) {
       event.preventDefault();
       
-      $.ajax({
-        url: '/equipment',
-        method: 'POST',
-        data: $('#insertFormId').serialize(),
-        success: function(res) {
-          if (res) {
-            getTable();
-            $('#insertFormId').trigger('reset');
-            $('.ui.modal.insert')
-              .modal('hide')
-            ;
+      if ($('.ui.modal.insert#insertFormId').form('is valid')) {
+        $.ajax({
+          url: '/equipment',
+          method: $('#insertFormId #equipmentId').val() ? 'PUT': 'POST',
+          data: $('#insertFormId').serialize(),
+          success: function(res) {
+            if (res) {
+              getTable();
+              $('#insertFormId').form('reset');
+              
+              $('.ui.modal.insert')
+                .modal('hide')
+              ;
+            } else {
+              $('#insertMessageId').show();
+              $('#insertMessageId').html("Kemasukan Data Gagal.");
+            }
+          },
+          error: function(err) {
+            $('#insertMessageId').show();
+            $('#insertMessageId').html("Kemasukan Data Gagal.");
+            console.log('error: ' + err);
           }
-        },
-        error: function(err) {
-          console.log('error: ' + err);
-        }
-      });
+        });
+      }
     });
 
     function updatePrompt(equipmentId) {
@@ -257,38 +252,18 @@
         type: 'GET',
         url: '/equipment/' + equipmentId
       }).then(function(res) {
-        onSetForm('updateFormId', res.data);
+        onSetForm('insertFormId', res.data);
 
-        $('.ui.modal.update')
+        $('.ui.modal.insert')
+          .modal('setting', 'closable', false)
           .modal('show')
         ;
       });
     }
 
-    $('#updateFormId').on('submit', function(event) {
-      event.preventDefault();
-      
-      $.ajax({
-        url: '/equipment',
-        method: 'PUT',
-        data: $('#updateFormId').serialize(),
-        success: function(res) {
-          if (res) {
-            getTable();
-            $('#updateFormId').trigger('reset');
-            $('.ui.modal.update')
-              .modal('hide')
-            ;
-          }
-        },
-        error: function(err) {
-          console.log('error: ' + err);
-        }
-      });
-    });
-
     function deletePrompt(deleteId) {
       $('#deleteInputId').val(deleteId);
+
       $('.ui.tiny.modal.delete')
         .modal('show')
       ;

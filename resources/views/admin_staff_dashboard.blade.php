@@ -109,35 +109,35 @@
     <div class="header bg-primary-grey">Maklumat Akaun</div>
     <div class="content bg-primary-grey">
       <div class="ui form info">
-        <input type="hidden" name="staffId">
+        <div class="ui red message" id="insertMessageId"></div>
         <div class="two fields">
           <div class="field">
             <label>Nombor KP</label>
-            <input type="text" placeholder="sila isi nombor kad pengenalan" name="staffIcNumber" required>
+            <input type="text" placeholder="sila isi nombor kad pengenalan" name="staffIcNumber">
           </div>
           <div class="field">
             <label>Nama Penuh</label>
-            <input type="text" placeholder="sila isi nama penuh" name="staffName" required>
+            <input type="text" placeholder="sila isi nama penuh" name="staffName">
           </div>
         </div>
         <div class="two fields">
           <div class="field">
             <label>E-mel</label>
-            <input type="email" placeholder="sila isi alamat e-mel" name="staffEmail" required>
+            <input type="email" placeholder="sila isi alamat e-mel" name="staffEmail">
           </div>
           <div class="field">
             <label>Nombor Telefon</label>
-            <input type="text" placeholder="sila isi nombor telefon" name="staffPhoneNo" required>
+            <input type="text" placeholder="sila isi nombor telefon" name="staffPhoneNo">
           </div>
         </div>
         <div class="field">
           <label>Alamat</label>
-          <textarea class="resize-none" rows="3" name="staffAddress" required></textarea>
+          <textarea class="resize-none" rows="3" name="staffAddress"></textarea>
         </div>
         <div class="field">
           <label>Peranan</label>
           <div class="ui selection dropdown profile role">
-            <input type="hidden" name="staffRole" required>
+            <input type="hidden" name="staffRole">
             <i class="dropdown icon"></i>
             <div class="text" id="staffRole"></div>
             <div class="menu">
@@ -148,7 +148,7 @@
         </div>
         <div class="field">
           <label>Kata Laluan</label>
-          <input type="password" placeholder="sila isi kata laluan" name="staffPassword" required>
+          <input type="password" placeholder="sila isi kata laluan" name="staffPassword">
         </div>
         <div class="ui info message">
           <div class="header">Garis Panduan</div>
@@ -160,9 +160,13 @@
       </div>
     </div>
     <div class="actions bg-primary-grey">
-      <button type="button" class="ui right labeled icon deny red button">
+      <button type="button" class="ui right labeled icon reset deny red button">
         <i class="close icon"></i>
         Batal
+      </button>
+      <button type="button" class="ui right labeled icon reset yellow button">
+        <i class="refresh icon"></i>
+        Set Semula
       </button>
       <button type="submit" class="ui right labeled icon green button">
         <i class="checkmark icon"></i>
@@ -230,11 +234,58 @@
   @include('section.staff_modal')
   @include('section.staff_modal_script')
   <script>
+    onUpperCaseForm('insertFormId');
+    $('#insertMessageId').hide();
+
+    $('.ui.modal.insert#insertFormId').form({
+      fields: {
+        staffIcNumber : 'empty',
+        staffName : 'empty',
+        staffEmail : 'empty',
+        staffPhoneNo : 'empty',
+        staffAddress : 'empty',
+        staffRole : 'empty',
+        staffPassword : 'empty',
+      }
+    });
+
     function insert() {
       $('.ui.modal.insert')
+        .modal('setting', 'closable', false)
         .modal('show')
       ;
     }
+
+    $('#insertFormId').on('submit', function(event) {
+      event.preventDefault();
+      
+      if ($('.ui.modal.insert#insertFormId').form('is valid')) {
+        $.ajax({
+          url: '/staff',
+          method: 'POST',
+          data: $('#insertFormId').serialize(),
+          success: function(res) {
+            if (res) {
+              getTable();
+              $('#insertFormId').form('set as clean');
+              
+              $('.ui.modal.insert')
+                .modal('hide')
+              ;
+            } else {
+              $('#insertMessageId').show();
+              $('#insertMessageId').html("Kemasukan Data Gagal.");
+            }
+          },
+          error: function(err) {
+            $('#insertMessageId').show();
+            $('#insertMessageId').html("Kemasukan Data Gagal.");
+            console.log('error: ' + err);
+          }
+        });
+      }
+    });
+
     function detailPrompt(staffId) {
       $.ajax({
         type: 'GET',
@@ -248,30 +299,9 @@
       });
     }
 
-    $('#insertFormId').on('submit', function(event) {
-      event.preventDefault();
-      
-      $.ajax({
-        url: '/staff',
-        method: 'POST',
-        data: $('#insertFormId').serialize(),
-        success: function(res) {
-          if (res) {
-            getTable();
-            $('#insertFormId').trigger('reset');
-            $('.ui.modal.insert')
-              .modal('hide')
-            ;
-          }
-        },
-        error: function(err) {
-          console.log('error: ' + err);
-        }
-      });
-    });
-
     function deletePrompt(deleteId) {
       $('#deleteInputId').val(deleteId);
+
       $('.ui.tiny.modal.delete')
         .modal('show')
       ;

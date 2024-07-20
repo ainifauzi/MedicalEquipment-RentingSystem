@@ -3,11 +3,12 @@
   <div class="header bg-primary-grey">Maklumat Akaun</div>
   <div class="content bg-primary-grey">
     <div class="ui form info">
+      <div class="ui message" id="updateProfileMessageId"></div>
       <input type="hidden" name="staffId">
       <div class="two fields">
         <div class="field">
           <label>Nombor KP</label>
-          <input type="text" placeholder="sila isi nombor kad pengenalan" name="staffIcNumber" required>
+          <input type="text" name="staffIcNumber" readonly>
         </div>
         <div class="field">
           <label>Nama Penuh</label>
@@ -54,7 +55,7 @@
     </div>
   </div>
   <div class="actions bg-primary-grey">
-    <button type="button" class="ui right labeled icon deny red button">
+    <button onclick="resetUpdateProfileForm()" type="button" class="ui right labeled icon deny red button">
       <i class="close icon"></i>
       Batal
     </button>
@@ -77,6 +78,35 @@
     <button class="ui right labeled icon green button" onclick="logout()">
       <i class="checkmark icon"></i>
       Log Keluar
+    </button>
+  </div>
+</div>
+<!-- notification modal -->
+<div class="ui tiny modal notification">
+  <div class="header bg-primary-grey">Notifikasi</div>
+  <div class="content">
+    <div class="ui segments">
+      <div class="ui segment">
+        <p>Permohonan <a href="">KERUSI RODA</a> anda telah diluluskan.</p>
+      </div>
+      <div class="ui segment">
+        <p>Middle</p>
+      </div>
+      <div class="ui segment">
+        <p>Middle</p>
+      </div>
+      <div class="ui segment">
+        <p>Middle</p>
+      </div>
+      <div class="ui segment">
+        <p>Bottom</p>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="ui right labeled icon deny button">
+      <i class="close icon"></i>
+      Tutup
     </button>
   </div>
 </div>

@@ -38,7 +38,7 @@
 	});
 
 	function onSetForm(formId, formObject) {
-		$("form#" + formId + " :input").each(function(){
+		$("form#" + formId + " :input").each(function() {
 			if ($(this).is("input")) {
 				if ($(this).attr('type') !== 'file') {
 					if ($(this).attr('type') === 'date') {
@@ -54,6 +54,22 @@
 				}
 			} else if ($(this).is("textarea") || $(this).is("select")) {
 				$(this).val(formObject[$(this).attr("name")]);
+			}
+		});
+	}
+
+	function onUpperCaseForm(formId) {
+		$("form#" + formId + " :input").each(function() {
+			if ($(this).is("input")) {
+				if ($(this).attr('type') === 'text') {
+					$(this).on('input', function(event) {
+						event.target.value = event.target.value.toUpperCase();
+					});
+				}
+			} else if ($(this).is("textarea")) {
+				$(this).on('input', function(event) {
+					event.target.value = event.target.value.toUpperCase();
+				});
 			}
 		});
 	}
