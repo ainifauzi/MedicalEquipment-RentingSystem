@@ -3,56 +3,46 @@
   <div class="header bg-primary-grey">Maklumat Akaun</div>
   <div class="content bg-primary-grey">
     <div class="ui form info">
-      <input type="hidden" name="clientId">
+      <input type="hidden" name="staffId">
       <div class="two fields">
         <div class="field">
           <label>Nombor KP</label>
-          <input type="text" placeholder="sila isi nombor kad pengenalan" name="clientIcNumber" required>
+          <input type="text" placeholder="sila isi nombor kad pengenalan" name="staffIcNumber" required>
         </div>
         <div class="field">
           <label>Nama Penuh</label>
-          <input type="text" placeholder="sila isi nama penuh" name="clientName" required>
+          <input type="text" placeholder="sila isi nama penuh" name="staffName" required>
         </div>
       </div>
       <div class="two fields">
         <div class="field">
           <label>E-mel</label>
-          <input type="email" placeholder="sila isi alamat e-mel" name="clientEmail" required>
+          <input type="email" placeholder="sila isi alamat e-mel" name="staffEmail" required>
         </div>
         <div class="field">
           <label>Nombor Telefon</label>
-          <input type="text" placeholder="sila isi nombor telefon" name="clientPhoneNo" required>
+          <input type="text" placeholder="sila isi nombor telefon" name="staffPhoneNo" required>
         </div>
       </div>
       <div class="field">
         <label>Alamat</label>
-        <textarea class="resize-none" rows="3" name="clientAddress" required></textarea>
+        <textarea class="resize-none" rows="3" name="staffAddress" required></textarea>
       </div>
       <div class="field">
-        <label>Pekerjaan</label>
-        <input type="text" placeholder="sila isi pekerjaan" name="clientJob" required>
-      </div>
-      <div class="two fields">
-        <div class="field">
-          <label>Jenis Kanser</label>
-          <input type="text" placeholder="sila isi jenis kanser" name="clientCancerType" required>
-        </div>
-        <div class="field">
-          <label>Keahlian</label>
-          <div class="ui selection dropdown profile member">
-            <input type="hidden" name="clientMembership" required>
-            <i class="dropdown icon"></i>
-            <div class="text" id="clientMembership"></div>
-            <div class="menu">
-              <div class="item" data-value="Ahli">Ahli</div>
-              <div class="item" data-value="Bukan Ahli">Bukan Ahli</div>
-            </div>
+        <label>Peranan</label>
+        <div class="ui selection dropdown profile role">
+          <input type="hidden" name="staffRole" required>
+          <i class="dropdown icon"></i>
+          <div class="text" id="staffRole"></div>
+          <div class="menu">
+            <div class="item" data-value="Petugas">Petugas</div>
+            <div class="item" data-value="Pentadbir">Pentadbir</div>
           </div>
         </div>
       </div>
       <div class="field">
         <label>Kata Laluan</label>
-        <input type="password" placeholder="sila isi kata laluan" name="clientPassword" required>
+        <input type="password" placeholder="sila isi kata laluan" name="staffPassword" required>
       </div>
       <div class="ui info message">
         <div class="header">Garis Panduan</div>
@@ -87,35 +77,6 @@
     <button class="ui right labeled icon green button" onclick="logout()">
       <i class="checkmark icon"></i>
       Log Keluar
-    </button>
-  </div>
-</div>
-<!-- notification modal -->
-<div class="ui tiny modal notification">
-  <div class="header bg-primary-grey">Notifikasi</div>
-  <div class="content">
-    <div class="ui segments">
-      <div class="ui segment">
-        <p>Permohonan <a href="">KERUSI RODA</a> anda telah diluluskan.</p>
-      </div>
-      <div class="ui segment">
-        <p>Middle</p>
-      </div>
-      <div class="ui segment">
-        <p>Middle</p>
-      </div>
-      <div class="ui segment">
-        <p>Middle</p>
-      </div>
-      <div class="ui segment">
-        <p>Bottom</p>
-      </div>
-    </div>
-  </div>
-  <div class="actions">
-    <button class="ui right labeled icon deny button">
-      <i class="close icon"></i>
-      Tutup
     </button>
   </div>
 </div>

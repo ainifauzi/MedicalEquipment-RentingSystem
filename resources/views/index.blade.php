@@ -16,7 +16,7 @@
     <a class="p-15px-25px" href="#">Peralatan Perubatan</a>
     <a class="p-15px-25px" href="javascript:void(0);" onclick="register()">Daftar Masuk</a>
     <a class="p-15px-25px" href="#">Tentang Kami</a>
-  </div> 
+  </div>
   <div class="grid-3-equal">
     <div class="grid-landing-page-item p-5em">
       <div class="ui piled segment">
@@ -33,13 +33,14 @@
       </div>
       <div class="ui tab p-40px border-bottom border-left border-right border-bottom-radius bg-primary-grey" data-tab="staff-login">
         <form class="ui form info" id="staffSigninId" method="post" enctype="multipart/form-data">
+          <div class="ui red message" id="staffMessageId"></div>
           <div class="field">
             <label>Nombor KP</label>
-            <input type="text" placeholder="sila isi nombor kad pengenalan" name="staffIcNumber" required>
+            <input type="text" placeholder="sila isi nombor kad pengenalan" name="staffIcNumber">
           </div>
           <div class="field">
             <label>Kata Laluan</label>
-            <input type="password" placeholder="sila isi kata laluan" name="staffPassword" required>
+            <input type="password" placeholder="sila isi kata laluan" name="staffPassword">
           </div>
           <div class="ui info message">
             <div class="header">Garis Panduan</div>
@@ -57,13 +58,14 @@
       </div>
       <div class="ui tab p-40px border-bottom border-left border-right border-bottom-radius bg-primary-grey" data-tab="client-login">
         <form class="ui form info" id="clientSigninId" method="post" enctype="multipart/form-data">
+        <div class="ui red message" id="clientMessageId"></div>
           <div class="field">
             <label>Nombor KP</label>
-            <input type="text" placeholder="sila isi nombor kad pengenalan" name="clientIcNumber" required>
+            <input type="text" placeholder="sila isi nombor kad pengenalan" name="clientIcNumber">
           </div>
           <div class="field">
             <label>Kata Laluan</label>
-            <input type="password" placeholder="sila isi kata laluan" name="clientPassword" required>
+            <input type="password" placeholder="sila isi kata laluan" name="clientPassword">
           </div>
           <div class="ui info message">
             <div class="header">Garis Panduan</div>
@@ -81,47 +83,48 @@
       </div>
     </div>
   </div>
-  <form class="ui modal register" id="insertFormId" method="post" enctype="multipart/form-data">
+  <form class="ui modal register" id="registerFormId" method="post" enctype="multipart/form-data">
     <div class="header bg-primary-grey">Daftar Akaun</div>
     <div class="content bg-primary-grey">
       <div class="ui form info">
+        <div class="ui message" id="registerMessageId"></div>
         <div class="two fields">
           <div class="field">
             <label>Nombor KP</label>
-            <input type="text" placeholder="sila isi nombor kad pengenalan" name="clientIcNumber" required>
+            <input type="text" placeholder="sila isi nombor kad pengenalan" name="clientIcNumber">
           </div>
           <div class="field">
             <label>Nama Penuh</label>
-            <input type="text" placeholder="sila isi nama penuh" name="clientName" required>
+            <input type="text" placeholder="sila isi nama penuh" name="clientName">
           </div>
         </div>
         <div class="two fields">
           <div class="field">
             <label>E-mel</label>
-            <input type="email" placeholder="sila isi alamat e-mel" name="clientEmail" required>
+            <input type="email" placeholder="sila isi alamat e-mel" name="clientEmail">
           </div>
           <div class="field">
             <label>Nombor Telefon</label>
-            <input type="text" placeholder="sila isi nombor telefon" name="clientPhoneNo" required>
+            <input type="text" placeholder="sila isi nombor telefon" name="clientPhoneNo">
           </div>
         </div>
         <div class="field">
           <label>Alamat</label>
-          <textarea class="resize-none" rows="3" name="clientAddress" required></textarea>
+          <textarea class="resize-none" rows="2" name="clientAddress"></textarea>
         </div>
         <div class="field">
           <label>Pekerjaan</label>
-          <input type="text" placeholder="sila isi pekerjaan" name="clientJob" required>
+          <input type="text" placeholder="sila isi pekerjaan" name="clientJob">
         </div>
         <div class="two fields">
           <div class="field">
             <label>Jenis Kanser</label>
-            <input type="text" placeholder="sila isi jenis kanser" name="clientCancerType" required>
+            <input type="text" placeholder="sila isi jenis kanser" name="clientCancerType">
           </div>
           <div class="field">
             <label>Keahlian</label>
             <div class="ui selection dropdown member">
-              <input type="hidden"  name="clientMembership" required>
+              <input type="hidden" name="clientMembership">
               <i class="dropdown icon"></i>
               <div class="default text">sila pilih jenis keahlian</div>
               <div class="menu">
@@ -133,7 +136,7 @@
         </div>
         <div class="field">
           <label>Kata Laluan</label>
-          <input type="password" placeholder="sila isi kata laluan" name="clientPassword" required>
+          <input type="password" placeholder="sila isi kata laluan" name="clientPassword">
         </div>
         <div class="ui info message">
           <div class="header">Garis Panduan</div>
@@ -145,9 +148,13 @@
       </div>
     </div>
     <div class="actions bg-primary-grey">
-      <button type="button" class="ui right labeled icon deny red button">
+      <button onclick="resetRegisterForm()" type="button" class="ui right labeled icon deny red button">
         <i class="close icon"></i>
         Batal
+      </button>
+      <button onclick="resetRegisterForm()" type="button" class="ui right labeled icon yellow button">
+        <i class="refresh icon"></i>
+        Set Semula
       </button>
       <button type="submit" class="ui right labeled icon green button">
         <i class="checkmark icon"></i>
@@ -156,74 +163,128 @@
     </div>
   </form>
   <script>
+    $('#staffMessageId').hide();
+    $('#clientMessageId').hide();
+    $('#registerMessageId').hide();
+
+    $('.ui.form.info#staffSigninId').form({
+      fields: {
+        staffIcNumber : 'empty',
+        staffPassword : 'empty',
+      }
+    });
+    $('.ui.form.info#clientSigninId').form({
+      fields: {
+        clientIcNumber : 'empty',
+        clientPassword : 'empty',
+      }
+    });
+    $('.ui.modal.register#registerFormId').form({
+      fields: {
+        clientIcNumber : 'empty',
+        clientName : 'empty',
+        clientEmail : 'empty',
+        clientPhoneNo : 'empty',
+        clientAddress : 'empty',
+        clientJob : 'empty',
+        clientCancerType : 'empty',
+        clientMembership : 'empty',
+        clientPassword : 'empty',
+      }
+    });
+
     function register() {
       $('.ui.modal.register')
+        .modal('setting', 'closable', false)
         .modal('show')
       ;
     }
 
-    $('#insertFormId').on('submit', function(event) {
+    $('#registerFormId').on('submit', function(event) {
       event.preventDefault();
       
-      $.ajax({
-        url: '/client',
-        method: 'POST',
-        data: $('#insertFormId').serialize(),
-        success: function(res) {
-          if (res) {
-            $('#insertFormId').trigger('reset');
+      if($('.ui.modal.register#registerFormId').form('is valid')) {
+        $.ajax({
+          url: '/client',
+          method: 'POST',
+          data: $('#registerFormId').serialize(),
+          success: function(res) {
+            if (res) {
+              $('#registerFormId').trigger('reset');
+              $('#registerMessageId').show();
+              $('#registerMessageId').html("Pendaftaran Berjaya.");
+              $('#registerMessageId').addClass('green');
+            } else {
+              $('#registerMessageId').show();
+              $('#registerMessageId').html("Pendaftaran Gagal.");
+              $('#registerMessageId').addClass('red');
+            }
+          },
+          error: function(err) {
+            $('#registerMessageId').show();
+            $('#registerMessageId').html("Pendaftaran Gagal.");
+            $('#registerMessageId').addClass('red');
+            console.log('error: ' + err);
           }
-        },
-        error: function(err) {
-          console.log('error: ' + err);
-        }
-      });
+        });
+      }
     });
 
+    function resetRegisterForm() {
+      $('#registerMessageId').hide();
+      $('.ui.modal.register#registerFormId').form('clear');
+    }
+    
     $('#clientSigninId').on('submit', function(event) {
       event.preventDefault();
       
-      $.ajax({
-        url: '/client/signin',
-        method: 'POST',
-        data: $('#clientSigninId').serialize(),
-        success: function(res) {
-          if (res.data.responseStatus) {
-            sessionStorage.setItem('user_id', res.data.responseId);
-            window.location.href = '/client_admin_dashboard';
-          } else {
-            alert(res.data.responseMessage)
+      if($('.ui.form.info#clientSigninId').form('is valid')) {
+        $.ajax({
+          url: '/client/signin',
+          method: 'POST',
+          data: $('#clientSigninId').serialize(),
+          success: function(res) {
+            if (res.data.responseStatus) {
+              sessionStorage.setItem('user_id', res.data.responseId);
+              window.location.href = '/client_admin_dashboard';
+            } else {
+              $('#clientMessageId').show();
+              $('#clientMessageId').html(res.data.responseMessage);
+            }
+          },
+          error: function(err) {
+            console.log('error: ' + err);
           }
-        },
-        error: function(err) {
-          console.log('error: ' + err);
-        }
-      });
+        });
+      }
     });
 
     $('#staffSigninId').on('submit', function(event) {
       event.preventDefault();
-      
-      $.ajax({
-        url: '/staff/signin',
-        method: 'POST',
-        data: $('#staffSigninId').serialize(),
-        success: function(res) {
-          if (res.data.responseStatus) {
-            sessionStorage.setItem('user_id', res.data.responseId);
-            if (res.data.responseRole === 'Petugas') {
-              window.location.href = '/staff_application_dashboard';
-            } else if (res.data.responseRole === 'Pentadbir') {
-              window.location.href = '/admin_dashboard';
+
+      if($('.ui.form.info#staffSigninId').form('is valid')) {
+        $.ajax({
+          url: '/staff/signin',
+          method: 'POST',
+          data: $('#staffSigninId').serialize(),
+          success: function(res) {
+            if (res.data.responseStatus) {
+              sessionStorage.setItem('user_id', res.data.responseId);
+              if (res.data.responseRole === 'Petugas') {
+                window.location.href = '/staff_application_dashboard';
+              } else if (res.data.responseRole === 'Pentadbir') {
+                window.location.href = '/admin_dashboard';
+              }
+            } else {
+              $('#staffMessageId').show();
+              $('#staffMessageId').html(res.data.responseMessage);
             }
-          } else {
-            alert(res.data.responseMessage)
+          },
+          error: function(err) {
+            console.log('error: ' + err);
           }
-        },
-        error: function(err) {
-          console.log('error: ' + err);
-        }
-      });
+        });
+      }
     });
   </script>
 </body>

@@ -1,4 +1,20 @@
 <script>
+  $('#updateProfileMessageId').hide();
+
+  $('.ui.modal.profile#updateProfileFormId').form({
+    fields: {
+      clientIcNumber : 'empty',
+      clientName : 'empty',
+      clientEmail : 'empty',
+      clientPhoneNo : 'empty',
+      clientAddress : 'empty',
+      clientJob : 'empty',
+      clientCancerType : 'empty',
+      clientMembership : 'empty',
+      clientPassword : 'empty',
+    }
+  });
+
   function promptLogout() {
     $('.ui.tiny.modal.logout')
       .modal('show')
@@ -19,6 +35,7 @@
       $('#clientMembership').html(res.data.clientMembership);
 
       $('.ui.modal.profile')
+        .modal('setting', 'closable', false)
         .modal('show')
       ;
     });
@@ -33,19 +50,37 @@
   $('#updateProfileFormId').on('submit', function(event) {
     event.preventDefault();
     
-    $.ajax({
-      url: '/client',
-      method: 'PUT',
-      data: $('#updateProfileFormId').serialize(),
-      success: function(res) {
-        if (res) {
-          onSetForm('updateProfileFormId', res.data);
-          $('#clientMembership').html(res.data.clientMembership);
+    if($('.ui.modal.profile#updateProfileFormId').form('is valid')) {
+      $.ajax({
+        url: '/client',
+        method: 'PUT',
+        data: $('#updateProfileFormId').serialize(),
+        success: function(res) {
+          if (res) {
+            onSetForm('updateProfileFormId', res.data);
+            $('#clientMembership').html(res.data.clientMembership);
+            
+            $('#updateProfileMessageId').show();
+            $('#updateProfileMessageId').html("Pendaftaran Berjaya.");
+            $('#updateProfileMessageId').addClass('green');
+          } else {
+            $('#updateProfileMessageId').show();
+            $('#updateProfileMessageId').html("Pendaftaran Gagal.");
+            $('#updateProfileMessageId').addClass('red');
+          }
+        },
+        error: function(err) {
+          $('#updateProfileMessageId').show();
+          $('#updateProfileMessageId').html("Pendaftaran Gagal.");
+          $('#updateProfileMessageId').addClass('red');
+          console.log('error: ' + err);
         }
-      },
-      error: function(err) {
-        console.log('error: ' + err);
-      }
-    });
+      });
+    }
   });
+
+  function resetUpdateProfileForm() {
+    $('#updateProfileMessageId').hide();
+    $('.ui.modal.profile#updateProfileFormId').form('clear');
+  }
 </script>

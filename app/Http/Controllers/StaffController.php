@@ -21,11 +21,11 @@ class StaffController extends Controller
         $signinResponse -> responseStatus = true;
       } else {
         $signinResponse -> responseStatus = false;
-        $signinResponse -> responseMessage = 'Log masuk gagal';
+        $signinResponse -> responseMessage = 'Log masuk gagal.';
       }
     } else {
       $signinResponse -> responseStatus = false;
-      $signinResponse -> responseMessage = 'Log masuk gagal';
+      $signinResponse -> responseMessage = 'Log masuk gagal.';
     }
 
     return response() -> json(array('data' => $signinResponse), 200);

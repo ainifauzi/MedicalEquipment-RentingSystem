@@ -56,20 +56,20 @@
   @include('section.staff_top_nav')
   <div>
     <div class="ui visible left vertical sidebar menu bg-primary-almond">
-      <a class="item h-100px" href="admin_dashboard.html"></a>
-      <a class="item" href="admin_dashboard.html">
+      <a class="item h-100px" href="/admin_dashboard"></a>
+      <a class="item" href="/admin_dashboard">
         Laman Utama
       </a>
-      <a class="item" href="admin_staff_dashboard.html">
+      <a class="item" href="/admin_staff_dashboard">
         Petugas
       </a>
-      <a class="item" href="admin_customer_dashboard.html">
+      <a class="item" href="/admin_customer_dashboard">
         Pelanggan
       </a>
-      <a class="item active" href="admin_equipment_dashboard.html">
+      <a class="item active" href="/admin_equipment_dashboard">
         Peralatan
       </a>
-      <a class="item" href="admin_application_dashboard.html">
+      <a class="item" href="/admin_application_dashboard">
         Permohonan Sewaan
       </a>
     </div>

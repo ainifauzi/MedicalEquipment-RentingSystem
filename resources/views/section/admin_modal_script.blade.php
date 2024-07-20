@@ -13,10 +13,10 @@
   function displayProfile() {
     $.ajax({
       type: 'GET',
-      url: '/client/' + sessionStorage.getItem('user_id')
+      url: '/staff/' + sessionStorage.getItem('user_id')
     }).then(function(res) {
       onSetForm('updateProfileFormId', res.data);
-      $('#clientMembership').html(res.data.clientMembership);
+      $('#staffRole').html(res.data.staffRole);
 
       $('.ui.modal.profile')
         .modal('show')
@@ -24,23 +24,17 @@
     });
   }
 
-  function displayNotification() {
-    $('.ui.tiny.modal.notification')
-      .modal('show')
-    ;
-  }
-
   $('#updateProfileFormId').on('submit', function(event) {
     event.preventDefault();
     
     $.ajax({
-      url: '/client',
+      url: '/staff',
       method: 'PUT',
       data: $('#updateProfileFormId').serialize(),
       success: function(res) {
         if (res) {
           onSetForm('updateProfileFormId', res.data);
-          $('#clientMembership').html(res.data.clientMembership);
+          $('#staffRole').html(res.data.staffRole);
         }
       },
       error: function(err) {

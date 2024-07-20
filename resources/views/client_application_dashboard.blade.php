@@ -46,7 +46,11 @@
 				for (let application of res.data) {
           let detailButton = `<button class="ui right labeled icon olive button" onclick="detailPrompt('${application.applicationId}')"><i class="info icon"></i>Butiran</button>`;
           let deleteButton = `<button class="ui right labeled icon orange button" onclick="deletePrompt('${application.applicationId}')"><i class="eraser icon"></i>Hapus</button>`;
-          let paymentButton = `<button class="ui right labeled icon teal button" onclick="paymentPrompt('${application.paymentId}')"><i class="credit card outline icon"></i>Bayar</button>`;
+
+          let paymentButton = '';
+          if (application.paymentStatus === 'Belum Dibayar') {
+            paymentButton = `<button class="ui right labeled icon teal button" onclick="paymentPrompt('${application.paymentId}')"><i class="credit card outline icon"></i>Bayar</button>`;
+          }
 
 					$('#datatable > tbody:last').append($('<tr>')
 						.append($('<td>').append(application.clientName))
@@ -120,13 +124,14 @@
     <div class="header bg-primary-grey">Maklumat Permohonan</div>
     <div class="content bg-primary-grey">
       <div class="ui form info">
+        <div class="ui red message" id="insertMessageId"></div>
         <input type="hidden" name="clientId" id="clientId">
-        <input type="hidden" name="applicationStatus" id="applicationStatus" value="Dalam Proses">
+        <input type="hidden" name="applicationStatus" value="Dalam Proses">
         <div class="two fields">
           <div class="field">
             <label>Peralatan</label>
             <div class="ui selection dropdown equipment">
-              <input type="hidden" name="equipmentId" required>
+              <input type="hidden" name="equipmentId">
               <i class="dropdown icon"></i>
               <div class="default text">sila pilih peralatan</div>
               <div class="menu" id="equipmentOptionId"></div>
@@ -134,27 +139,27 @@
           </div>
           <div class="field">
             <label>Surat Sakit</label>
-            <input type="file">
+            <!-- <input type="file"> -->
           </div>
         </div>
         <div class="three fields">
           <div class="field">
             <label>Tarikh Mula Sewaan</label>
-            <input type="date" name="applicationStartDate" required>
+            <input type="date" id="applicationStartDate" name="applicationStartDate" oninput="setMinMax()">
           </div>
           <div class="field">
             <label>Tarikh Tamat Sewaan</label>
-            <input type="date" name="applicationEndDate" required>
+            <input type="date" id="applicationEndDate" name="applicationEndDate" oninput="setMinMax()">
           </div>
           <div class="field">
             <label>Kuantiti</label>
-            <input type="number" placeholder="sila isi kuantiti peralatan" name="applicationQuantity" required>
+            <input type="number" placeholder="sila isi kuantiti peralatan" name="applicationQuantity">
           </div>
         </div>
       </div>
     </div>
     <div class="actions bg-primary-grey">
-      <button type="button" class="ui right labeled icon deny red button">
+      <button onclick="resetInsertForm()" type="button" class="ui right labeled icon deny red button">
         <i class="close icon"></i>
         Batal
       </button>
@@ -219,6 +224,7 @@
     <div class="header bg-primary-grey">Pembayaran</div>
     <div class="content bg-primary-grey">
       <div class="ui form info">
+        <div class="ui message" id="paymentMessageId"></div>
         <input type="hidden" name="paymentId" id="paymentId">
         <input type="hidden" name="paymentDate" id="paymentDate">
         <input type="hidden" name="paymentStatus" id="paymentStatus">
@@ -237,7 +243,7 @@
       </div>
     </div>
     <div class="actions bg-primary-grey">
-      <button type="button" class="ui right labeled icon deny red button">
+      <button onclick="resetPaymentForm()" type="button" class="ui right labeled icon deny red button">
         <i class="close icon"></i>
         Batal
       </button>
@@ -266,8 +272,28 @@
   @include('section.client_modal')
   @include('section.client_modal_script')
   <script>
+    function setMinMax() {
+      $('#applicationEndDate').attr('min', $('#applicationStartDate').val());
+      $('#applicationStartDate').attr('max', $('#applicationEndDate').val());
+    }
+
+    $('#insertMessageId').hide();
+    $('#paymentMessageId').hide();
+
+    $('.ui.modal.insert#insertFormId').form({
+      fields: {
+        clientId : 'empty',
+        applicationStatus : 'empty',
+        equipmentId : 'empty',
+        applicationStartDate : 'empty',
+        applicationEndDate : 'empty',
+        applicationQuantity : 'empty',
+      }
+    });
+
     function insertPrompt() {
       $('.ui.modal.insert')
+        .modal('setting', 'closable', false)
         .modal('show')
       ;
     }
@@ -298,6 +324,7 @@
         $('#paymentStatus').val('Telah Dibayar');
 
         $('.ui.tiny.modal.payment')
+          .modal('setting', 'closable', false)
           .modal('show')
         ;
 			});
@@ -306,6 +333,7 @@
     function deletePrompt(deleteId) {
       $('#deleteInputId').val(deleteId);
       $('.ui.tiny.modal.delete')
+        .modal('setting', 'closable', false)
         .modal('show')
       ;
     }
@@ -328,20 +356,39 @@
     $('#insertFormId').on('submit', function(event) {
       event.preventDefault();
       
-      $.ajax({
-        url: '/application',
-        method: 'POST',
-        data: $('#insertFormId').serialize(),
-        success: function(res) {
-          if (res) {
-            getTable();
+      if ($('.ui.modal.insert#insertFormId').form('is valid')) {
+        $.ajax({
+          url: '/application',
+          method: 'POST',
+          data: $('#insertFormId').serialize(),
+          success: function(res) {
+            if (res) {
+              getTable();
+
+              $('.ui.modal.insert')
+                .modal('hide')
+              ;
+            } else {
+              $('#insertMessageId').show();
+              $('#insertMessageId').html("Kemasukan Data Gagal.");
+            }
+          },
+          error: function(err) {
+            $('#insertMessageId').show();
+            $('#insertMessageId').html("Kemasukan Data Gagal.");
+            console.log('error: ' + err);
           }
-        },
-        error: function(err) {
-          console.log('error: ' + err);
-        }
-      });
+        });
+      }
     });
+
+    function resetInsertForm() {
+      $('.ui.modal.insert#insertFormId').form('clear');
+    }
+
+    function resetPaymentForm() {
+      $('#paymentMessageId').hide();
+    }
 
     $('#paymentFormId').on('submit', function(event) {
       event.preventDefault();
@@ -353,9 +400,20 @@
         success: function(res) {
           if (res) {
             getTable();
+            
+            $('#paymentMessageId').show();
+            $('#paymentMessageId').html("Pembayaran Berjaya.");
+            $('#paymentMessageId').addClass('green');
+          } else {
+            $('#paymentMessageId').show();
+            $('#paymentMessageId').html("Pembayaran Gagal.");
+            $('#paymentMessageId').addClass('red');
           }
         },
         error: function(err) {
+          $('#paymentMessageId').show();
+          $('#paymentMessageId').html("Pembayaran Gagal.");
+          $('#paymentMessageId').addClass('red');
           console.log('error: ' + err);
         }
       });

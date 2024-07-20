@@ -153,7 +153,12 @@ class ApplicationController extends Controller
     $payment = Payment::where('applicationId', $application -> applicationId) -> first();
     $applicationResponse -> paymentId = $payment -> paymentId;
     $applicationResponse -> paymentStatus = $payment -> paymentStatus;
-    $applicationResponse -> paymentDate = $payment -> paymentDate;
+
+    if ($payment -> paymentDate) {
+      $applicationResponse -> paymentDate = strtoupper(Carbon::parse($payment -> paymentDate)->format('d M Y'));
+    } else {
+      $applicationResponse -> paymentDate = '-';
+    }
 
     return response() -> json(array('data' => $applicationResponse), 200);
   }

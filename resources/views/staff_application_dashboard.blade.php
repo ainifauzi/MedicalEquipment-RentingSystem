@@ -100,10 +100,11 @@
     <div class="header bg-primary-grey">Maklumat Pemulangan</div>
     <div class="content bg-primary-grey">
       <div class="ui form info">
+        <div class="ui message" id="returnMessageId"></div>
         <input type="hidden" name="returnId" id="returnId">
         <div class="field">
           <label>Tarikh Pemulangan</label>
-          <input type="date" name="returnDate" required>
+          <input type="date" name="returnDate">
         </div>
         <div class="field">
           <label>Keadaan Peralatan</label>
@@ -119,12 +120,12 @@
         </div>
         <div class="field">
           <label>Bukti Pemulangan</label>
-          <input type="file">
+          <!-- <input type="file"> -->
         </div>
       </div>
     </div>
     <div class="actions bg-primary-grey">
-      <button type="button" class="ui right labeled icon deny red button">
+      <button type="reset" class="ui right labeled icon deny red button">
         <i class="close icon"></i>
         Batal
       </button>
@@ -137,7 +138,21 @@
   @include('section.staff_modal')
   @include('section.staff_modal_script')
   <script>
+    $('#returnMessageId').hide();
+
+    $('ui.tiny.modal.return#returnFormId').form({
+      fields: {
+        returnDate : 'empty',
+        returnCondition : 'empty',
+      }
+    });
+
     function returnPrompt(returnId) {
+      $('ui.tiny.modal.return#returnFormId').form('clear');
+      $('input[type=date]').reset();
+      let inputTypeDate = null;
+      let inputTypeString = "";
+
       $.ajax({
 				type: 'GET',
 				url: `/return/${returnId}`
@@ -146,6 +161,7 @@
         $('#returnCondition').html(res.data.returnCondition);
 
         $('.ui.modal.return')
+          .modal('setting', 'closable', false)
           .modal('show')
         ;
 			});
@@ -161,9 +177,20 @@
         success: function(res) {
           if (res) {
             getTable();
+
+            $('.ui.modal.return')
+              .modal('hide')
+            ;
+          } else {
+            $('#returnMessageId').show();
+            $('#returnMessageId').html("Pemulangan Gagal.");
+            $('#returnMessageId').addClass('red');
           }
         },
         error: function(err) {
+          $('#returnMessageId').show();
+          $('#returnMessageId').html("Pemulangan Gagal.");
+          $('#returnMessageId').addClass('red');
           console.log('error: ' + err);
         }
       });

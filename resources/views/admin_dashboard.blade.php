@@ -16,7 +16,7 @@
   </script>
 </head>
 <body>
-  @include('section.staff_top_nav')
+  @include('section.admin_top_nav')
   <div>
     <div class="ui visible left vertical sidebar menu bg-primary-almond">
       <a class="item h-100px" href="/admin_dashboard"></a>
@@ -117,94 +117,8 @@
       </div>
     </div>
   </div>
-  <div class="ui modal profile">
-    <div class="header bg-primary-grey">Maklumat Akaun</div>
-    <div class="content bg-primary-grey">
-      <form class="ui form info">
-        <div class="two fields">
-          <div class="field">
-            <label>Nombor KP</label>
-            <input type="text" placeholder="sila isi nombor kad pengenalan">
-          </div>
-          <div class="field">
-            <label>Nama Penuh</label>
-            <input type="text" placeholder="sila isi nama penuh">
-          </div>
-        </div>
-        <div class="two fields">
-          <div class="field">
-            <label>E-mel</label>
-            <input type="text" placeholder="sila isi alamat e-mel">
-          </div>
-          <div class="field">
-            <label>Nombor Telefon</label>
-            <input type="text" placeholder="sila isi nombor telefon">
-          </div>
-        </div>
-        <div class="field">
-          <label>Peranan</label>
-          <div class="ui selection dropdown">
-            <input type="hidden" name="gender">
-            <i class="dropdown icon"></i>
-            <div class="default text">sila pilih peranan</div>
-            <div class="menu">
-              <div class="item" data-value="1">Pentadbir</div>
-              <div class="item" data-value="0">Kakitangan</div>
-            </div>
-          </div>
-        </div>
-        <div class="field">
-          <label>Kata Laluan</label>
-          <input type="password" placeholder="sila isi kata laluan">
-        </div>
-        <div class="ui info message">
-          <div class="header">Garis Panduan</div>
-          <ul class="list">
-            <li>Perlu mengandungi lebih daripada 8 karakter.</li>
-            <li>Perlu mengandungi gabungan huruf, nombor & simbol.</li>
-          </ul>
-        </div>
-      </form>
-    </div>
-    <div class="actions bg-primary-grey">
-      <button class="ui right labeled icon deny red button">
-        <i class="close icon"></i>
-        Batal
-      </button>
-      <button class="ui right labeled icon green button">
-        <i class="checkmark icon"></i>
-        Simpan
-      </button>
-    </div>
-  </div>
-  <div class="ui tiny modal logout">
-    <div class="content">
-      Adakah anda pasti untuk <i>log keluar?</i>
-    </div>
-    <div class="actions">
-      <button class="ui right labeled icon deny red button">
-        <i class="close icon"></i>
-        Batal
-      </button>
-      <button class="ui right labeled icon green button" onclick="window.location.href='landing_page.html'">
-        <i class="checkmark icon"></i>
-        Log Keluar
-      </button>
-    </div>
-  </div>
-  @include('section.staff_modal')
-  @include('section.staff_modal_script')
-  <script>
-    function logout() {
-      $('.ui.tiny.modal.logout')
-        .modal('show')
-      ;
-    }
-    function openProfile() {
-      $('.ui.modal.profile')
-        .modal('show')
-      ;
-    }
-  </script>
+  @include('section.admin_modal')
+  @include('section.admin_modal_script')
+  <script></script>
 </body>
 </html>

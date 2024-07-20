@@ -61,16 +61,16 @@
       <a class="item" href="/admin_dashboard">
         Laman Utama
       </a>
-      <a class="item" href="admin_staff_dashboard.html">
+      <a class="item" href="/admin_staff_dashboard">
         Petugas
       </a>
-      <a class="item" href="admin_customer_dashboard.html">
+      <a class="item" href="/admin_customer_dashboard">
         Pelanggan
       </a>
-      <a class="item" href="admin_equipment_dashboard.html">
+      <a class="item" href="/admin_equipment_dashboard">
         Peralatan
       </a>
-      <a class="item active" href="admin_application_dashboard.html">
+      <a class="item active" href="/admin_application_dashboard">
         Permohonan Sewaan
       </a>
     </div>
@@ -93,7 +93,7 @@
                 <th>Tindakan</th>
               </tr>
             </thead>
-        </table>
+          </table>
         </div>
       </div>
     </div>

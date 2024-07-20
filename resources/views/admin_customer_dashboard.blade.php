@@ -142,6 +142,12 @@
         </div>
       </div>
     </div>
+    <div class="actions bg-primary-grey">
+      <button type="button" class="ui right labeled icon deny button">
+        <i class="close icon"></i>
+        Tutup
+      </button>
+    </div>
   </form>
   <div class="ui tiny modal delete">
     <div class="content">
