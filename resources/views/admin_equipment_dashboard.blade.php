@@ -242,6 +242,7 @@
 
       const maxSize = 2 * 1024 * 1024;
       let fileInput = $('#insertFormId #equipmentImage')[0].files[0];
+      
       if (fileInput) {
         if (fileInput.size > maxSize) {
           $('#insertMessageId').show();

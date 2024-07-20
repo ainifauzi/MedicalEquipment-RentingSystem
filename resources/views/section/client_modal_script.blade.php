@@ -6,7 +6,12 @@
       clientIcNumber : 'empty',
       clientName : 'empty',
       clientEmail : 'empty',
-      clientPhoneNo : 'empty',
+      clientPhoneNo : {
+        identifier: 'clientPhoneNo',
+        rules: [{
+          type: 'regExp[/^\\d{3}-\\d{7,8}$/]',
+        }]
+      },
       clientAddress : 'empty',
       clientJob : 'empty',
       clientCancerType : 'empty',
@@ -39,12 +44,6 @@
         .modal('show')
       ;
     });
-  }
-
-  function displayNotification() {
-    $('.ui.tiny.modal.notification')
-      .modal('show')
-    ;
   }
 
   $('#updateProfileFormId').on('submit', function(event) {
@@ -81,6 +80,12 @@
 
   function resetUpdateProfileForm() {
     $('#updateProfileMessageId').hide();
-    $('.ui.modal.profile#updateProfileFormId').form('clear');
+    $('#updateProfileFormId').form('clear');
+  }
+
+  function displayNotification() {
+    $('.ui.tiny.modal.notification')
+      .modal('show')
+    ;
   }
 </script>

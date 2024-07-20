@@ -29,7 +29,6 @@ class EquipmentController extends Controller
   public function readFile(string $id)
   {
     $equipment = Equipment::find($id);
-
     return response() -> json(array('data' => $equipment -> equipmentImage), 200);
   }
 

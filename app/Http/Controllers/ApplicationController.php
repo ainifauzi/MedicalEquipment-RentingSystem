@@ -76,57 +76,6 @@ class ApplicationController extends Controller
     return response() -> json(array('data' => $applicationResponses), 200);
   }
 
-  public function create(Request $request)
-  {
-    $equipment = Equipment::find($request -> input('equipmentId'));
-    $equipmentRentPrice = $equipment -> equipmentRentPrice;
-
-    $rentDuration = 0;
-    $rentStartDate = new DateTime($request -> input('applicationStartDate'));
-    $rentEndDate = new DateTime($request -> input('applicationEndDate'));
-    $rentQuantity = $request -> input('applicationQuantity');
-
-    if ($rentStartDate == $rentEndDate) {
-      $rentDuration = 1;
-    } else {
-      $rentDuration = ($rentEndDate -> diff($rentStartDate)) -> days;
-    }
-
-    $applicationRentPrice = $rentDuration * $equipmentRentPrice * $rentQuantity;
-
-    $applicationId = Str::uuid() -> toString();
-    $createApplication = Application::create([
-      'applicationId' => $applicationId,
-      'applicationQuantity' => $request -> input('applicationQuantity'),
-      'applicationStartDate' => $request -> input('applicationStartDate'),
-      'applicationEndDate' => $request -> input('applicationEndDate'),
-      'applicationRentPrice' => $applicationRentPrice,
-      // 'applicationMedicLetter' => $request -> input('applicationMedicLetter'),
-      'applicationStatus' => $request -> input('applicationStatus'),
-      'clientId' => $request -> input('clientId'),
-      'equipmentId' => $request -> input('equipmentId')
-    ]);
-
-    $createPayment = Payment::create([
-      'paymentId' => Str::uuid() -> toString(),
-      // 'paymentAmount' => $request -> input('paymentAmount'),
-      // 'paymentReceipt' => $request -> input('paymentReceipt'),
-      // 'paymentDate' => $request -> input('paymentDate'),
-      'paymentStatus' => "Belum Dibayar",
-      'applicationId' => $applicationId
-    ]);
-    
-    $createReturn = ReturnModel::create([
-      'returnId' => Str::uuid() -> toString(),
-      // 'returnDate' => $request -> input('returnDate'),
-      // 'returnCondition' => $request -> input('returnCondition'), 
-      // 'returnEvidence' => $request -> input('returnEvidence'),
-      'applicationId' => $applicationId
-    ]);
-
-    return response() -> json(array('data' => $createApplication), 200);
-  }
-
   public function read(string $id)
   {
     $application = Application::find($id);
@@ -205,13 +154,10 @@ class ApplicationController extends Controller
       $applicationResponse -> paymentId = $payment -> paymentId;
       $applicationResponse -> paymentStatus = $payment -> paymentStatus;
       switch ($payment -> paymentStatus) {
-        case 'Dalam Proses':
-          $applicationResponse -> paymentColor = 'yellow';
-          break;
-        case 'Telah Dibayar':
+        case 'TELAH DIBAYAR':
           $applicationResponse -> paymentColor = 'green';
           break;
-        case 'Belum Dibayar':
+        case 'BELUM DIBAYAR':
           $applicationResponse -> paymentColor = 'red';
           break;
       }
@@ -221,6 +167,66 @@ class ApplicationController extends Controller
     }
 
     return response() -> json(array('data' => $applicationResponses), 200);
+  }
+
+  public function readFile(string $id)
+  {
+    $application = Application::find($id);
+    return response() -> json(array('data' => $application -> applicationMedicLetter), 200);
+  }
+
+  public function create(Request $request)
+  {
+    $applicationMedicLetter = $request -> file('applicationMedicLetter');
+    $applicationMedicLetterContent = base64_encode($applicationMedicLetter -> get());
+
+    $equipment = Equipment::find($request -> input('equipmentId'));
+    $equipmentRentPrice = $equipment -> equipmentRentPrice;
+
+    $rentDuration = 0;
+    $rentStartDate = new DateTime($request -> input('applicationStartDate'));
+    $rentEndDate = new DateTime($request -> input('applicationEndDate'));
+    $rentQuantity = $request -> input('applicationQuantity');
+
+    if ($rentStartDate == $rentEndDate) {
+      $rentDuration = 1;
+    } else {
+      $rentDuration = ($rentEndDate -> diff($rentStartDate)) -> days;
+    }
+
+    $applicationRentPrice = $rentDuration * $equipmentRentPrice * $rentQuantity;
+
+    $applicationId = Str::uuid() -> toString();
+    $createApplication = Application::create([
+      'applicationId' => $applicationId,
+      'applicationQuantity' => $request -> input('applicationQuantity'),
+      'applicationStartDate' => $request -> input('applicationStartDate'),
+      'applicationEndDate' => $request -> input('applicationEndDate'),
+      'applicationRentPrice' => $applicationRentPrice,
+      'applicationMedicLetter' => $applicationMedicLetterContent,
+      'applicationStatus' => $request -> input('applicationStatus'),
+      'clientId' => $request -> input('clientId'),
+      'equipmentId' => $request -> input('equipmentId')
+    ]);
+
+    $createPayment = Payment::create([
+      'paymentId' => Str::uuid() -> toString(),
+      // 'paymentAmount' => $request -> input('paymentAmount'),
+      // 'paymentReceipt' => $request -> input('paymentReceipt'),
+      // 'paymentDate' => $request -> input('paymentDate'),
+      'paymentStatus' => "BELUM DIBAYAR",
+      'applicationId' => $applicationId
+    ]);
+    
+    $createReturn = ReturnModel::create([
+      'returnId' => Str::uuid() -> toString(),
+      // 'returnDate' => $request -> input('returnDate'),
+      // 'returnCondition' => $request -> input('returnCondition'), 
+      // 'returnEvidence' => $request -> input('returnEvidence'),
+      'applicationId' => $applicationId
+    ]);
+
+    return response() -> json(array('data' => $createApplication), 200);
   }
 
   public function update(Request $request)

@@ -32,6 +32,12 @@ class PaymentController extends Controller
     return response() -> json(array('data' => $paymentResponse), 200);
   }
 
+  public function readFile(string $id)
+  {
+    $payment = Payment::find($id);
+    return response() -> json(array('data' => $payment -> paymentReceipt), 200);
+  }
+
 	public function create(Request $request)
 	{
     $createPayment = Payment::create([
@@ -48,14 +54,18 @@ class PaymentController extends Controller
 
   public function update(Request $request)
   {
-    $payment = Payment::find($request -> input('paymentId'));
-    $updatePayment = $payment -> update($request -> all());
+    $paymentReceipt = $request -> file('paymentReceipt');
+    $paymentReceiptContent = base64_encode($paymentReceipt -> get());
 
-    if ($updatePayment === true) {
-      $updatedPayment = Payment::find($request -> input('paymentId'));
-      return response() -> json(array('data' => $updatedPayment), 200);
-    } else {
-      return response() -> json(array('data' => null), 200);
-    }
+    $payment = Payment::find($request -> input('paymentId'));
+
+    $payment -> paymentAmount = $request -> paymentAmount;
+    $payment -> paymentStatus = $request -> paymentStatus;
+    $payment -> paymentDate = $request -> paymentDate;
+    $payment -> paymentReceipt = $paymentReceiptContent;
+
+    $updatedPayment = $payment -> save();
+
+    return response() -> json(array('data' => $updatedPayment), 200);
   }
 }

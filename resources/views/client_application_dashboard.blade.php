@@ -46,10 +46,15 @@
 				for (let application of res.data) {
           let detailButton = `<button class="ui right labeled icon olive button" onclick="detailPrompt('${application.applicationId}')"><i class="info icon"></i>Butiran</button>`;
           let deleteButton = `<button class="ui right labeled icon orange button" onclick="deletePrompt('${application.applicationId}')"><i class="eraser icon"></i>Hapus</button>`;
-
+          let medicLetterButton = `<button class="ui right labeled icon purple button" onclick="medicalLetterPrompt('${application.applicationId}')"><i class="expand alternate icon"></i>Surat Sakit</button>`;
+          
           let paymentButton = '';
-          if (application.paymentStatus === 'Belum Dibayar') {
+          if (application.paymentStatus === 'BELUM DIBAYAR') {
             paymentButton = `<button class="ui right labeled icon teal button" onclick="paymentPrompt('${application.paymentId}')"><i class="credit card outline icon"></i>Bayar</button>`;
+          }
+          let receiptButton = '';
+          if (application.paymentStatus !== 'BELUM DIBAYAR') {
+            receiptButton = `<button class="ui right labeled icon teal button" onclick="receiptPrompt('${application.paymentId}')"><i class="expand alternate icon"></i>Resit</button>`;
           }
 
 					$('#datatable > tbody:last').append($('<tr>')
@@ -57,7 +62,7 @@
 						.append($('<td>').append(application.equipmentName))
 						.append($('<td>').append(`<a class="ui ${application.applicationColor} label">${application.applicationStatus}</a>`))
 						.append($('<td>').append(`<a class="ui ${application.paymentColor} label">${application.paymentStatus}</a>`))
-						.append($('<td>').append(detailButton).append(deleteButton).append(paymentButton))
+						.append($('<td>').append(paymentButton).append(detailButton).append(deleteButton).append(medicLetterButton).append(receiptButton))
 					);
 				}
 
@@ -139,7 +144,7 @@
           </div>
           <div class="field">
             <label>Surat Sakit</label>
-            <!-- <input type="file"> -->
+            <input type="file" name="applicationMedicLetter" id="applicationMedicLetter" accept="image/jpeg, image/png">
           </div>
         </div>
         <div class="three fields">
@@ -238,7 +243,7 @@
         </div>
         <div class="field">
           <label>Resit</label>
-          <input type="file">
+          <input type="file" name="paymentReceipt" id="paymentReceipt" accept="image/jpeg, image/png">
         </div>
       </div>
     </div>
@@ -269,6 +274,38 @@
       </button>
     </div>
   </div>
+  <div class="ui small modal medical letter">
+    <div class="header bg-primary-grey">Gambar Surat Sakit</div>
+    <div class="scrolling content">
+      <img id="applicationMedicLetterId" alt="Medical Letter">
+    </div>
+    <div class="actions">
+      <button onclick="resetMedicalLetterPrompt()" type="button" class="ui right labeled icon deny button">
+        <i class="close icon"></i>
+        Tutup
+      </button>
+      <a id="applicationMedicLetterDownloadId" class="ui right labeled icon blue button">
+        <i class="arrow down icon"></i>
+        Muat Turun
+      </a>
+    </div>
+  </div>
+  <div class="ui small modal receipt">
+    <div class="header bg-primary-grey">Gambar Resit</div>
+    <div class="scrolling content">
+      <img id="paymentReceiptId" alt="Payment Receipt">
+    </div>
+    <div class="actions">
+      <button onclick="resetReceiptPrompt()" type="button" class="ui right labeled icon deny button">
+        <i class="close icon"></i>
+        Tutup
+      </button>
+      <a id="paymentReceiptDownloadId" class="ui right labeled icon blue button">
+        <i class="arrow down icon"></i>
+        Muat Turun
+      </a>
+    </div>
+  </div>
   @include('section.client_modal')
   @include('section.client_modal_script')
   <script>
@@ -288,6 +325,13 @@
         applicationStartDate : 'empty',
         applicationEndDate : 'empty',
         applicationQuantity : 'empty',
+        applicationMedicLetter : 'empty',
+      }
+    });
+
+    $('.ui.tiny.modal.payment#paymentFormId').form({
+      fields: {
+        paymentReceipt : 'empty',
       }
     });
 
@@ -296,6 +340,57 @@
         .modal('setting', 'closable', false)
         .modal('show')
       ;
+    }
+    
+    $('#insertFormId').on('submit', function(event) {
+      event.preventDefault();
+      
+      let formData = new FormData(this);
+
+      const maxSize = 2 * 1024 * 1024;
+      let fileInput = $('#insertFormId #applicationMedicLetter')[0].files[0];
+      
+      if (fileInput) {
+        if (fileInput.size > maxSize) {
+          $('#insertMessageId').show();
+          $('#insertMessageId').html('Saiz gambar melebihi 2MB. Sila pilih gambar dengan saiz yang lebih kecil.');
+        } else {
+          $('#insertMessageId').hide();
+          $('#insertMessageId').html('');
+
+          if ($('.ui.modal.insert#insertFormId').form('is valid')) {
+            $.ajax({
+              url: '/application',
+              method: 'POST',
+              data: formData,
+              contentType: false,
+              processData: false,
+              success: function(res) {
+                if (res) {
+                  getTable();
+                  $('#insertFormId').form('reset');
+
+                  $('.ui.modal.insert')
+                    .modal('hide')
+                  ;
+                } else {
+                  $('#insertMessageId').show();
+                  $('#insertMessageId').html("Kemasukan Data Gagal.");
+                }
+              },
+              error: function(err) {
+                $('#insertMessageId').show();
+                $('#insertMessageId').html("Kemasukan Data Gagal.");
+                console.log('error: ' + err);
+              }
+            });
+          }
+        }
+      }
+    });
+
+    function resetInsertForm() {
+      $('.ui.modal.insert#insertFormId').form('clear');
     }
 
     function detailPrompt(applicationId) {
@@ -321,7 +416,7 @@
         let today = new Date();
         let formattedDate = today.toISOString().substr(0, 10);
         $('#paymentDate').val(formattedDate);
-        $('#paymentStatus').val('Telah Dibayar');
+        $('#paymentStatus').val('TELAH DIBAYAR');
 
         $('.ui.tiny.modal.payment')
           .modal('setting', 'closable', false)
@@ -329,6 +424,58 @@
         ;
 			});
     }
+
+    function resetPaymentForm() {
+      $('#paymentMessageId').hide();
+    }
+
+    $('#paymentFormId').on('submit', function(event) {
+      event.preventDefault();
+      
+      let formData = new FormData(this);
+
+      const maxSize = 2 * 1024 * 1024;
+      let fileInput = $('#paymentFormId #paymentReceipt')[0].files[0];
+      
+      if (fileInput) {
+        if (fileInput.size > maxSize) {
+          $('#paymentMessageId').show();
+          $('#paymentMessageId').html('Saiz gambar melebihi 2MB. Sila pilih gambar dengan saiz yang lebih kecil.');
+        } else {
+          $('#paymentMessageId').hide();
+          $('#paymentMessageId').html('');
+          
+          if ($('.ui.tiny.modal.payment#paymentFormId').form('is valid')) {
+            $.ajax({
+              url: '/payment/update',
+              method: 'POST',
+              data: formData,
+              contentType: false,
+              processData: false,
+              success: function(res) {
+                if (res) {
+                  getTable();
+                  
+                  $('#paymentMessageId').show();
+                  $('#paymentMessageId').html("Pembayaran Berjaya.");
+                  $('#paymentMessageId').addClass('green');
+                } else {
+                  $('#paymentMessageId').show();
+                  $('#paymentMessageId').html("Pembayaran Gagal.");
+                  $('#paymentMessageId').addClass('red');
+                }
+              },
+              error: function(err) {
+                $('#paymentMessageId').show();
+                $('#paymentMessageId').html("Pembayaran Gagal.");
+                $('#paymentMessageId').addClass('red');
+                console.log('error: ' + err);
+              }
+            });
+          }
+        }
+      }
+    });
 
     function deletePrompt(deleteId) {
       $('#deleteInputId').val(deleteId);
@@ -353,71 +500,47 @@
 			});
     }
 
-    $('#insertFormId').on('submit', function(event) {
-      event.preventDefault();
-      
-      if ($('.ui.modal.insert#insertFormId').form('is valid')) {
-        $.ajax({
-          url: '/application',
-          method: 'POST',
-          data: $('#insertFormId').serialize(),
-          success: function(res) {
-            if (res) {
-              getTable();
-
-              $('.ui.modal.insert')
-                .modal('hide')
-              ;
-            } else {
-              $('#insertMessageId').show();
-              $('#insertMessageId').html("Kemasukan Data Gagal.");
-            }
-          },
-          error: function(err) {
-            $('#insertMessageId').show();
-            $('#insertMessageId').html("Kemasukan Data Gagal.");
-            console.log('error: ' + err);
-          }
-        });
-      }
-    });
-
-    function resetInsertForm() {
-      $('.ui.modal.insert#insertFormId').form('clear');
-    }
-
-    function resetPaymentForm() {
-      $('#paymentMessageId').hide();
-    }
-
-    $('#paymentFormId').on('submit', function(event) {
-      event.preventDefault();
-      
+    function medicalLetterPrompt(applicationId) {
       $.ajax({
-        url: '/payment',
-        method: 'PUT',
-        data: $('#paymentFormId').serialize(),
-        success: function(res) {
-          if (res) {
-            getTable();
-            
-            $('#paymentMessageId').show();
-            $('#paymentMessageId').html("Pembayaran Berjaya.");
-            $('#paymentMessageId').addClass('green');
-          } else {
-            $('#paymentMessageId').show();
-            $('#paymentMessageId').html("Pembayaran Gagal.");
-            $('#paymentMessageId').addClass('red');
-          }
-        },
-        error: function(err) {
-          $('#paymentMessageId').show();
-          $('#paymentMessageId').html("Pembayaran Gagal.");
-          $('#paymentMessageId').addClass('red');
-          console.log('error: ' + err);
-        }
+        type: 'GET',
+        url: '/application/file/' + applicationId
+      }).then(function(res) {
+        $('#applicationMedicLetterId').attr('src', `data:image/jpeg;base64,${res.data}`);
+        $('#applicationMedicLetterDownloadId').attr('href', `data:image/jpeg;base64,${res.data}`);
+        $('#applicationMedicLetterDownloadId').attr('download', 'Surat Sakit');
+
+        $('.ui.small.modal.medical.letter')
+          .modal('show')
+        ;
       });
-    });
+    }
+
+    function resetMedicalLetterPrompt() {
+      $('#applicationMedicLetterId').attr('src', '');
+      $('#applicationMedicLetterDownloadId').attr('href', '');
+      $('#applicationMedicLetterDownloadId').attr('download', '');
+    }
+
+    function receiptPrompt(paymentId) {
+      $.ajax({
+        type: 'GET',
+        url: '/payment/file/' + paymentId
+      }).then(function(res) {
+        $('#paymentReceiptId').attr('src', `data:image/jpeg;base64,${res.data}`);
+        $('#paymentReceiptDownloadId').attr('href', `data:image/jpeg;base64,${res.data}`);
+        $('#paymentReceiptDownloadId').attr('download', 'Surat Sakit');
+
+        $('.ui.small.modal.receipt')
+          .modal('show')
+        ;
+      });
+    }
+
+    function resetReceiptPrompt() {
+      $('#paymentReceiptId').attr('src', '');
+      $('#paymentReceiptDownloadId').attr('href', '');
+      $('#paymentReceiptDownloadId').attr('download', '');
+    }
   </script>
 </body>
 </html>

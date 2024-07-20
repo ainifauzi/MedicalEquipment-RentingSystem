@@ -22,7 +22,7 @@
         </div>
         <div class="field">
           <label>Nombor Telefon</label>
-          <input type="text" placeholder="sila isi nombor telefon" name="clientPhoneNo">
+          <input type="text" placeholder="sila isi nombor telefon - e.g: 000-00000000" name="clientPhoneNo">
         </div>
       </div>
       <div class="field">
@@ -71,7 +71,7 @@
     </button>
     <button type="submit" class="ui right labeled icon green button">
       <i class="checkmark icon"></i>
-      Daftar
+      Simpan
     </button>
   </div>
 </form>

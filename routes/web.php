@@ -74,6 +74,7 @@ Route::put('/application', [ ApplicationController::class, 'update' ]);
 Route::get('/applications', [ ApplicationController::class, 'readAll' ]);
 Route::get('/application/{id}', [ ApplicationController::class, 'read' ]);
 Route::get('/applications/client/{clientId}', [ ApplicationController::class, 'readByClient' ]);
+Route::get('/application/file/{id}', [ ApplicationController::class, 'readFile' ]);
 Route::delete('/application/{id}', [ ApplicationController::class, 'delete' ]);
 
 // equipment routes
@@ -85,8 +86,9 @@ Route::get('/equipment/file/{id}', [ EquipmentController::class, 'readFile' ]);
 Route::delete('/equipment/{id}', [ EquipmentController::class, 'delete' ]);
 
 // payment routes
-Route::put('/payment', [ PaymentController::class, 'update' ]);
+Route::post('/payment/update', [ PaymentController::class, 'update' ]);
 Route::get('/payment/{id}', [ PaymentController::class, 'read' ]);
+Route::get('/payment/file/{id}', [ PaymentController::class, 'readFile' ]);
 
 // return routes
 Route::get('/returns', [ ReturnController::class, 'readAll' ]);

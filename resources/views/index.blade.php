@@ -36,11 +36,11 @@
           <div class="ui red message" id="staffMessageId"></div>
           <div class="field">
             <label>Nombor KP</label>
-            <input type="text" placeholder="sila isi nombor kad pengenalan" name="staffIcNumber">
+            <input type="text" placeholder="sila isi nombor kad pengenalan" name="staffIcNumber" value="990507-02-5545">
           </div>
           <div class="field">
             <label>Kata Laluan</label>
-            <input type="password" placeholder="sila isi kata laluan" name="staffPassword">
+            <input type="password" placeholder="sila isi kata laluan" name="staffPassword" value="password">
           </div>
           <div class="ui info message">
             <div class="header">Garis Panduan</div>
@@ -61,11 +61,11 @@
         <div class="ui red message" id="clientMessageId"></div>
           <div class="field">
             <label>Nombor KP</label>
-            <input type="text" placeholder="sila isi nombor kad pengenalan" name="clientIcNumber">
+            <input type="text" placeholder="sila isi nombor kad pengenalan" name="clientIcNumber" value="990507-01-4474">
           </div>
           <div class="field">
             <label>Kata Laluan</label>
-            <input type="password" placeholder="sila isi kata laluan" name="clientPassword">
+            <input type="password" placeholder="sila isi kata laluan" name="clientPassword" value="password">
           </div>
           <div class="ui info message">
             <div class="header">Garis Panduan</div>
@@ -91,7 +91,7 @@
         <div class="two fields">
           <div class="field">
             <label>Nombor KP</label>
-            <input type="text" placeholder="sila isi nombor kad pengenalan" name="clientIcNumber">
+            <input type="text" placeholder="sila isi nombor kad pengenalan - e.g: 000000-00-0000" name="clientIcNumber">
           </div>
           <div class="field">
             <label>Nama Penuh</label>
@@ -105,7 +105,7 @@
           </div>
           <div class="field">
             <label>Nombor Telefon</label>
-            <input type="text" placeholder="sila isi nombor telefon" name="clientPhoneNo">
+            <input type="text" placeholder="sila isi nombor telefon - e.g: 000-00000000" name="clientPhoneNo">
           </div>
         </div>
         <div class="field">
@@ -128,8 +128,8 @@
               <i class="dropdown icon"></i>
               <div class="default text">sila pilih jenis keahlian</div>
               <div class="menu">
-                <div class="item" data-value="Ahli">Ahli</div>
-                <div class="item" data-value="Bukan Ahli">Bukan Ahli</div>
+                <div class="item" data-value="AHLI">AHLI</div>
+                <div class="item" data-value="BUKAN AHLI">BUKAN AHLI</div>
               </div>
             </div>
           </div>
@@ -148,11 +148,11 @@
       </div>
     </div>
     <div class="actions bg-primary-grey">
-      <button onclick="resetRegisterForm()" type="button" class="ui right labeled icon deny red button">
+      <button onclick="resetRegisterForm()" type="button" class="ui right labeled icon deny clear red button">
         <i class="close icon"></i>
         Batal
       </button>
-      <button onclick="resetRegisterForm()" type="button" class="ui right labeled icon yellow button">
+      <button onclick="resetRegisterForm()" type="button" class="ui right labeled icon reset yellow button">
         <i class="refresh icon"></i>
         Set Semula
       </button>
@@ -163,6 +163,8 @@
     </div>
   </form>
   <script>
+    onUpperCaseForm('registerFormId');
+
     $('#staffMessageId').hide();
     $('#clientMessageId').hide();
     $('#registerMessageId').hide();
@@ -181,10 +183,20 @@
     });
     $('.ui.modal.register#registerFormId').form({
       fields: {
-        clientIcNumber : 'empty',
+        clientIcNumber : {
+          identifier: 'clientIcNumber',
+          rules: [{
+            type: 'regExp[/^\\d{6}-\\d{2}-\\d{4}$/]',
+          }]
+        },
         clientName : 'empty',
         clientEmail : 'empty',
-        clientPhoneNo : 'empty',
+        clientPhoneNo : {
+          identifier: 'clientPhoneNo',
+          rules: [{
+            type: 'regExp[/^\\d{3}-\\d{7,8}$/]',
+          }]
+        },
         clientAddress : 'empty',
         clientJob : 'empty',
         clientCancerType : 'empty',
@@ -211,6 +223,7 @@
           success: function(res) {
             if (res) {
               $('#registerFormId').trigger('reset');
+
               $('#registerMessageId').show();
               $('#registerMessageId').html("Pendaftaran Berjaya.");
               $('#registerMessageId').addClass('green');
@@ -232,7 +245,7 @@
 
     function resetRegisterForm() {
       $('#registerMessageId').hide();
-      $('.ui.modal.register#registerFormId').form('clear');
+      $('registerFormId').form('clear');
     }
     
     $('#clientSigninId').on('submit', function(event) {
