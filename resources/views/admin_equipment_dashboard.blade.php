@@ -27,6 +27,7 @@
         for (let equipment of res.data) {
           let detailButton = `<button class="ui right labeled icon olive button" onclick="updatePrompt('${equipment.equipmentId}')"><i class="pen icon"></i>Kemaskini</button>`;
           let deleteButton = `<button class="ui right labeled icon orange button" onclick="deletePrompt('${equipment.equipmentId}')"><i class="eraser icon"></i>Hapus</button>`;
+          let fileButton = `<button class="ui right labeled icon yellow button" onclick="filePrompt('${equipment.equipmentId}', '${equipment.equipmentName}')"><i class="expand alternate icon"></i>Gambar</button>`;
 
           $('#datatable > tbody:last').append($('<tr>')
             .append($('<td>').append(equipment.equipmentName))
@@ -35,7 +36,7 @@
             .append($('<td>').append(equipment.equipmentRentPrice))
             .append($('<td>').append(equipment.equipmentQuantity))
             .append($('<td>').append(equipment.equipmentSponsor))
-            .append($('<td>').append(detailButton).append(deleteButton))
+            .append($('<td>').append(detailButton).append(deleteButton).append(fileButton))
           );
         }
 
@@ -106,7 +107,7 @@
       </div>
     </div>
   </div>
-  <form class="ui modal insert" id="insertFormId" method="post" enctype="multipart/form-data">
+  <form class="ui modal insert" id="insertFormId" enctype="multipart/form-data">
     <div class="header bg-primary-grey">Maklumat Peralatan</div>
     <div class="content bg-primary-grey">
       <div class="ui form info">
@@ -147,17 +148,17 @@
           </div>
           <div class="field">
             <label>Gambar</label>
-            <!-- <input type="file"> -->
+            <input type="file" name="equipmentImage" id="equipmentImage" accept="image/jpeg, image/png">
           </div>
         </div>
       </div>
     </div>
     <div class="actions bg-primary-grey">
-      <button type="button" class="ui right labeled icon reset deny red button">
+      <button onclick="closeInsertMessage();" type="button" class="ui right labeled icon clear deny red button">
         <i class="close icon"></i>
         Batal
       </button>
-      <button type="button" class="ui right labeled icon reset yellow button">
+      <button onclick="resetInsertForm();" type="button" class="ui right labeled icon reset yellow button">
         <i class="refresh icon"></i>
         Set Semula
       </button>
@@ -181,6 +182,22 @@
         <i class="checkmark icon"></i>
         Hapus
       </button>
+    </div>
+  </div>
+  <div class="ui small modal file">
+    <div class="header bg-primary-grey">Gambar Peralatan</div>
+    <div class="scrolling content">
+      <img id="equipmentImageId" alt="Equipment Image">
+    </div>
+    <div class="actions">
+      <button onclick="resetFilePrompt()" type="button" class="ui right labeled icon deny button">
+        <i class="close icon"></i>
+        Tutup
+      </button>
+      <a id="equipmentImageDownloadId" class="ui right labeled icon blue button">
+        <i class="arrow down icon"></i>
+        Muat Turun
+      </a>
     </div>
   </div>
   @include('section.staff_modal')
@@ -207,6 +224,7 @@
         equipmentQuantity : 'empty',
         equipmentBuyDate : 'empty',
         equipmentSponsor : 'empty',
+        equipmentImage : 'empty',
       }
     });
 
@@ -220,32 +238,65 @@
     $('#insertFormId').on('submit', function(event) {
       event.preventDefault();
       
-      if ($('.ui.modal.insert#insertFormId').form('is valid')) {
-        $.ajax({
-          url: '/equipment',
-          method: $('#insertFormId #equipmentId').val() ? 'PUT': 'POST',
-          data: $('#insertFormId').serialize(),
-          success: function(res) {
-            if (res) {
-              getTable();
-              $('#insertFormId').form('reset');
-              
-              $('.ui.modal.insert')
-                .modal('hide')
-              ;
-            } else {
-              $('#insertMessageId').show();
-              $('#insertMessageId').html("Kemasukan Data Gagal.");
-            }
-          },
-          error: function(err) {
-            $('#insertMessageId').show();
-            $('#insertMessageId').html("Kemasukan Data Gagal.");
-            console.log('error: ' + err);
+      let formData = new FormData(this);
+
+      const maxSize = 2 * 1024 * 1024;
+      let fileInput = $('#insertFormId #equipmentImage')[0].files[0];
+      if (fileInput) {
+        if (fileInput.size > maxSize) {
+          $('#insertMessageId').show();
+          $('#insertMessageId').html('Saiz gambar melebihi 2MB. Sila pilih gambar dengan saiz yang lebih kecil.');
+        } else {
+          $('#insertMessageId').hide();
+          $('#insertMessageId').html('');
+
+          if ($('.ui.modal.insert#insertFormId').form('is valid')) {
+            $.ajax({
+              url: $('#insertFormId #equipmentId').val() ? '/equipment/update': '/equipment',
+              method: 'POST',
+              data: formData,
+              contentType: false,
+              processData: false,
+              success: function(res) {
+                if (res) {
+                  getTable();
+                  $('#insertFormId').form('reset');
+                  
+                  $('.ui.modal.insert')
+                    .modal('hide')
+                  ;
+                } else {
+                  $('#insertMessageId').show();
+                  $('#insertMessageId').html('Kemasukan Data Gagal.');
+                }
+              },
+              error: function(err) {
+                $('#insertMessageId').show();
+                $('#insertMessageId').html('Kemasukan Data Gagal.');
+                console.log('error: ' + err);
+              }
+            });
           }
-        });
+        }
       }
     });
+
+    function resetInsertForm() {
+      if ($('#equipmentId').val()) {
+        $.ajax({
+          type: 'GET',
+          url: '/equipment/' + $('#equipmentId').val()
+        }).then(function(res) {
+          onSetForm('insertFormId', res.data);
+          closeInsertMessage();
+        });
+      }
+    }
+
+    function closeInsertMessage() {
+      $('#insertMessageId').hide();
+      $('#insertMessageId').html('');
+    }
 
     function updatePrompt(equipmentId) {
       $.ajax({
@@ -282,6 +333,27 @@
           ;
         }
       });
+    }
+
+    function filePrompt(equipmentId, equipmentName) {
+      $.ajax({
+        type: 'GET',
+        url: '/equipment/file/' + equipmentId
+      }).then(function(res) {
+        $('#equipmentImageId').attr('src', `data:image/jpeg;base64,${res.data}`);
+        $('#equipmentImageDownloadId').attr('href', `data:image/jpeg;base64,${res.data}`);
+        $('#equipmentImageDownloadId').attr('download', equipmentName);
+
+        $('.ui.small.modal.file')
+          .modal('show')
+        ;
+      });
+    }
+
+    function resetFilePrompt() {
+      $('#equipmentImageId').attr('src', '');
+      $('#equipmentImageDownloadId').attr('href', '');
+      $('#equipmentImageDownloadId').attr('download', '');
     }
   </script>
 </body>

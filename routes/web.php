@@ -74,9 +74,10 @@ Route::delete('/application/{id}', [ ApplicationController::class, 'delete' ]);
 
 // equipment routes
 Route::post('/equipment', [ EquipmentController::class, 'create' ]);
-Route::put('/equipment', [ EquipmentController::class, 'update' ]);
+Route::post('/equipment/update', [ EquipmentController::class, 'update' ]);
 Route::get('/equipments', [ EquipmentController::class, 'readAll' ]);
 Route::get('/equipment/{id}', [ EquipmentController::class, 'read' ]);
+Route::get('/equipment/file/{id}', [ EquipmentController::class, 'readFile' ]);
 Route::delete('/equipment/{id}', [ EquipmentController::class, 'delete' ]);
 
 // payment routes
