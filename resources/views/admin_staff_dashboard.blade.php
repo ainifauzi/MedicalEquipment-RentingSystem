@@ -112,8 +112,8 @@
         <div class="ui red message" id="insertMessageId"></div>
         <div class="two fields">
           <div class="field">
-            <label>Nombor KP</label>
-            <input type="text" placeholder="sila isi nombor kad pengenalan" name="staffIcNumber">
+            <label>Nombor Kad Pengenalan</label>
+            <input type="text" placeholder="sila isi nombor kad pengenalan - e.g: 000000-00-0000" name="staffIcNumber">
           </div>
           <div class="field">
             <label>Nama Penuh</label>
@@ -127,7 +127,7 @@
           </div>
           <div class="field">
             <label>Nombor Telefon</label>
-            <input type="text" placeholder="sila isi nombor telefon" name="staffPhoneNo">
+            <input type="text" placeholder="sila isi nombor telefon - e.g: 000-00000000" name="staffPhoneNo">
           </div>
         </div>
         <div class="field">
@@ -141,8 +141,8 @@
             <i class="dropdown icon"></i>
             <div class="text" id="staffRole"></div>
             <div class="menu">
-              <div class="item" data-value="Petugas">Petugas</div>
-              <div class="item" data-value="Pentadbir">Pentadbir</div>
+              <div class="item" data-value="PETUGAS">PETUGAS</div>
+              <div class="item" data-value="PENTADBIR">PENTADBIR</div>
             </div>
           </div>
         </div>
@@ -160,7 +160,7 @@
       </div>
     </div>
     <div class="actions bg-primary-grey">
-      <button type="button" class="ui right labeled icon reset deny red button">
+      <button type="button" class="ui right labeled icon clear deny red button">
         <i class="close icon"></i>
         Batal
       </button>
@@ -239,10 +239,20 @@
 
     $('.ui.modal.insert#insertFormId').form({
       fields: {
-        staffIcNumber : 'empty',
+        staffIcNumber : {
+          identifier: 'staffIcNumber',
+          rules: [{
+            type: 'regExp[/^\\d{6}-\\d{2}-\\d{4}$/]',
+          }]
+        },
         staffName : 'empty',
         staffEmail : 'empty',
-        staffPhoneNo : 'empty',
+        staffPhoneNo : {
+          identifier: 'staffPhoneNo',
+          rules: [{
+            type: 'regExp[/^\\d{3}-\\d{7,8}$/]',
+          }]
+        },
         staffAddress : 'empty',
         staffRole : 'empty',
         staffPassword : 'empty',
@@ -267,7 +277,7 @@
           success: function(res) {
             if (res) {
               getTable();
-              $('#insertFormId').form('set as clean');
+              $('#insertFormId').form('reset');
               
               $('.ui.modal.insert')
                 .modal('hide')

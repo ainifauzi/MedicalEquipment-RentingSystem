@@ -1,4 +1,28 @@
 <script>
+  onUpperCaseForm('updateProfileFormId');
+  $('#updateMessageId').hide();
+  $('.ui.modal.profile#updateProfileFormId').form({
+    fields: {
+      staffIcNumber : {
+        identifier: 'staffIcNumber',
+        rules: [{
+          type: 'regExp[/^\\d{6}-\\d{2}-\\d{4}$/]',
+        }]
+      },
+      staffName : 'empty',
+      staffEmail : 'empty',
+      staffPhoneNo : {
+        identifier: 'staffPhoneNo',
+        rules: [{
+          type: 'regExp[/^\\d{3}-\\d{7,8}$/]',
+        }]
+      },
+      staffAddress : 'empty',
+      staffRole : 'empty',
+      staffPassword : 'empty',
+    }
+  });
+
   function promptLogout() {
     $('.ui.tiny.modal.logout')
       .modal('show')
@@ -11,12 +35,16 @@
   }
 
   function displayProfile() {
+    $('#updateMessageId').hide();
+    $('#updateMessageId').html('');
+    $('#updateMessageId').removeClass().addClass('ui message');
+
     $.ajax({
       type: 'GET',
       url: '/staff/' + sessionStorage.getItem('user_id')
     }).then(function(res) {
       onSetForm('updateProfileFormId', res.data);
-      $('#staffRole').html(res.data.staffRole);
+      $('#profileStaffRole').html(res.data.staffRole);
 
       $('.ui.modal.profile')
         .modal('show')
@@ -27,19 +55,32 @@
   $('#updateProfileFormId').on('submit', function(event) {
     event.preventDefault();
     
-    $.ajax({
-      url: '/staff',
-      method: 'PUT',
-      data: $('#updateProfileFormId').serialize(),
-      success: function(res) {
-        if (res) {
-          onSetForm('updateProfileFormId', res.data);
-          $('#staffRole').html(res.data.staffRole);
+    if ($('.ui.modal.profile#updateProfileFormId').form('is valid')) {
+      $.ajax({
+        url: '/staff',
+        method: 'PUT',
+        data: $('#updateProfileFormId').serialize(),
+        success: function(res) {
+          if (res) {
+            onSetForm('updateProfileFormId', res.data);
+            $('#profileStaffRole').html(res.data.staffRole);
+
+            $('#updateMessageId').show();
+            $('#updateMessageId').html("Kemaskini Berjaya.");
+            $('#updateMessageId').addClass('green');
+          } else {
+            $('#updateMessageId').show();
+            $('#updateMessageId').html("Kemaskini Gagal.");
+            $('#updateMessageId').addClass('red');
+          }
+        },
+        error: function(err) {
+          $('#updateMessageId').show();
+          $('#updateMessageId').html("Kemaskini Gagal.");
+          $('#updateMessageId').addClass('red');
+          console.log('error: ' + err);
         }
-      },
-      error: function(err) {
-        console.log('error: ' + err);
-      }
-    });
+      });
+    }
   });
 </script>

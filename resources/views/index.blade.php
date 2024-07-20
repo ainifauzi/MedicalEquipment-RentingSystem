@@ -270,9 +270,9 @@
           success: function(res) {
             if (res.data.responseStatus) {
               sessionStorage.setItem('user_id', res.data.responseId);
-              if (res.data.responseRole === 'Petugas') {
+              if (res.data.responseRole === 'PETUGAS') {
                 window.location.href = '/staff_application_dashboard';
-              } else if (res.data.responseRole === 'Pentadbir') {
+              } else if (res.data.responseRole === 'PENTADBIR') {
                 window.location.href = '/admin_dashboard';
               }
             } else {

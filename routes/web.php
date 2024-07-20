@@ -7,6 +7,7 @@ use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReturnController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,9 @@ Route::get('/admin_equipment_dashboard', function () {
 Route::get('/admin_application_dashboard', function () {
   return view('admin_application_dashboard');
 });
+
+Route::get('/dashboard/admin', [ DashboardController::class, 'adminDashboard' ]);
+Route::get('/dashboard/client', [ DashboardController::class, 'clientDashboard' ]);
 
 // client routes
 Route::post('/client/signin', [ ClientController::class, 'signin' ]);

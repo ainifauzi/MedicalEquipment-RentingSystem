@@ -3,16 +3,51 @@
 <head>
   @include('section.head') 
   <script>
-    // $(function() {
-    //   $.toast({
-    //     displayTime: 6000,
-    //     message: 'Anda mempunyai permohonan baru. <a href="https://www.google.com/" style="text-decoration: underline;">Lihat</a>',
-    //     class : 'yellow',
-    //     className: {
-    //       toast: 'ui message'
-    //     }
-    //   });
-    // });
+    $(function() {
+      displayCurrentTime('displayDate');
+      displayDashboard();
+      // $.toast({
+      //   displayTime: 6000,
+      //   message: 'Anda mempunyai permohonan baru. <a href="https://www.google.com/" style="text-decoration: underline;">Lihat</a>',
+      //   class : 'yellow',
+      //   className: {
+      //     toast: 'ui message'
+      //   }
+      // });
+    });
+
+    function displayCurrentTime(htmlClass) {
+      const currentDate = new Date();
+
+      const optionsDate = { 
+        day: '2-digit', 
+        month: 'short', 
+        year: 'numeric' 
+      };
+
+      const optionsTime = { 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        hour12: true 
+      };
+
+      const formattedDate = currentDate.toLocaleDateString('en-GB', optionsDate);
+      const formattedTime = currentDate.toLocaleTimeString('en-US', optionsTime);
+
+      $(`.${htmlClass}`).html(`data sehingga ${formattedDate}, ${formattedTime}`);
+    }
+
+    function displayDashboard() {
+      $.ajax({
+        type: 'GET',
+        url: '/dashboard/admin'
+      }).then(function(res) {
+        $('#totalStaff').html(res.data.totalStaff);
+        $('#totalClient').html(res.data.totalClient);
+        $('#totalEquipment').html(res.data.totalEquipment);
+        $('#totalApplication').html(res.data.totalApplication);
+      });
+    }
   </script>
 </head>
 <body>
@@ -49,13 +84,13 @@
             <div class="ui card w-100pct">
               <div class="content">
                 <div class="header">Jumlah Petugas</div>
-                <div class="meta" style="margin-top: 4px;">data sehingga 08 Jun 2024, 05:30 pm</div>
+                <div class="meta displayDate" style="margin-top: 4px;"></div>
               </div>
               <div class="content">
-                <h1>500</h1>
+                <h1 id="totalStaff"></h1>
               </div>
               <div class="extra content">
-                <button class="ui right labeled icon teal button w-100pct" onclick="window.location.href='staff_dashboard.html'">
+                <button class="ui right labeled icon teal button w-100pct" onclick="window.location.href='/admin_staff_dashboard'">
                   <i class="right arrow icon"></i>
                   Lihat Butiran
                 </button>
@@ -66,30 +101,13 @@
             <div class="ui card w-100pct">
               <div class="content">
                 <div class="header">Jumlah Pelangggan</div>
-                <div class="meta" style="margin-top: 4px;">data sehingga 08 Jun 2024, 05:30 pm</div>
+                <div class="meta displayDate" style="margin-top: 4px;"></div>
               </div>
               <div class="content">
-                <h1>500</h1>
+                <h1 id="totalClient"></h1>
               </div>
               <div class="extra content">
-                <button class="ui right labeled icon teal button w-100pct" onclick="window.location.href='customer_dashboard.html'">
-                  <i class="right arrow icon"></i>
-                  Lihat Butiran
-                </button>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="ui card w-100pct">
-              <div class="content">
-                <div class="header">Jumlah Permohonan</div>
-                <div class="meta" style="margin-top: 4px;">data sehingga 08 Jun 2024, 05:30 pm</div>
-              </div>
-              <div class="content">
-                <h1>500</h1>
-              </div>
-              <div class="extra content">
-                <button class="ui right labeled icon teal button w-100pct" onclick="window.location.href='application_dashboard.html'">
+                <button class="ui right labeled icon teal button w-100pct" onclick="window.location.href='/admin_customer_dashboard'">
                   <i class="right arrow icon"></i>
                   Lihat Butiran
                 </button>
@@ -100,13 +118,30 @@
             <div class="ui card w-100pct">
               <div class="content">
                 <div class="header">Jumlah Peralatan Perubatan</div>
-                <div class="meta" style="margin-top: 4px;">data sehingga 08 Jun 2024, 05:30 pm</div>
+                <div class="meta displayDate" style="margin-top: 4px;"></div>
               </div>
               <div class="content">
-                <h1>500</h1>
+                <h1 id="totalEquipment"></h1>
               </div>
               <div class="extra content">
-                <button class="ui right labeled icon teal button w-100pct" onclick="window.location.href='equipment_dashboard.html'">
+                <button class="ui right labeled icon teal button w-100pct" onclick="window.location.href='/admin_equipment_dashboard'">
+                  <i class="right arrow icon"></i>
+                  Lihat Butiran
+                </button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="ui card w-100pct">
+              <div class="content">
+                <div class="header">Jumlah Permohonan</div>
+                <div class="meta displayDate" style="margin-top: 4px;"></div>
+              </div>
+              <div class="content">
+                <h1 id="totalApplication"></h1>
+              </div>
+              <div class="extra content">
+                <button class="ui right labeled icon teal button w-100pct" onclick="window.location.href='/admin_application_dashboard'">
                   <i class="right arrow icon"></i>
                   Lihat Butiran
                 </button>
@@ -117,8 +152,8 @@
       </div>
     </div>
   </div>
-  @include('section.admin_modal')
-  @include('section.admin_modal_script')
+  @include('section.staff_modal')
+  @include('section.staff_modal_script')
   <script></script>
 </body>
 </html>
