@@ -30,8 +30,8 @@
             );
             
             let footer = $('<div>', { class: 'extra content' }).append(
-              $('<button>', { class: 'ui red button', text: element.totalAvailableEquipment }),
-              $('<button>', { class: 'ui green button', text: element.totalUnavailableEquipment })
+              $('<button>', { class: 'ui red button', text: element.totalUnavailableEquipment }),
+              $('<button>', { class: 'ui green button', text: element.totalAvailableEquipment })
             );
             
             card.append(header, content, footer);

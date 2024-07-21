@@ -25,7 +25,7 @@
         url: `/equipments`
       }).then(function(res) {
         for (let equipment of res.data) {
-          let detailButton = `<button class="ui right labeled icon olive button" onclick="updatePrompt('${equipment.equipmentId}')"><i class="pen icon"></i>Kemaskini</button>`;
+          let updateButton = `<button class="ui right labeled icon olive button" onclick="updatePrompt('${equipment.equipmentId}')"><i class="pen icon"></i>Kemaskini</button>`;
           let deleteButton = `<button class="ui right labeled icon orange button" onclick="deletePrompt('${equipment.equipmentId}')"><i class="eraser icon"></i>Hapus</button>`;
           let fileButton = `<button class="ui right labeled icon yellow button" onclick="filePrompt('${equipment.equipmentId}', '${equipment.equipmentName}')"><i class="expand alternate icon"></i>Gambar</button>`;
 
@@ -36,7 +36,7 @@
             .append($('<td>').append(equipment.equipmentRentPrice))
             .append($('<td>').append(equipment.equipmentQuantity))
             .append($('<td>').append(equipment.equipmentSponsor))
-            .append($('<td>').append(detailButton).append(deleteButton).append(fileButton))
+            .append($('<td>').append(updateButton).append(deleteButton).append(fileButton))
           );
         }
 
@@ -54,7 +54,7 @@
   </script>
 </head>
 <body>
-  @include('section.staff_top_nav')
+  @include('section.admin_top_nav')
   <div>
     <div class="ui visible left vertical sidebar menu bg-primary-almond">
       <a class="item h-100px" href="/admin_dashboard"></a>
@@ -306,6 +306,11 @@
       }).then(function(res) {
         onSetForm('insertFormId', res.data);
 
+        const base64Image = 'data:image/jpeg;base64,' + res.data.equipmentImage;
+        const filename = res.data.equipmentName + '.jpeg';
+
+        setFileInput(base64Image, filename, 'equipmentImage');
+
         $('.ui.modal.insert')
           .modal('setting', 'closable', false)
           .modal('show')
@@ -355,6 +360,24 @@
       $('#equipmentImageId').attr('src', '');
       $('#equipmentImageDownloadId').attr('href', '');
       $('#equipmentImageDownloadId').attr('download', '');
+    }
+
+    function base64ToFile(base64, filename) {
+      const [metadata, data] = base64.split(',');
+      const mime = metadata.match(/:(.*?);/)[1];
+      const binary = atob(data);
+      const array = [];
+      for (let i = 0; i < binary.length; i++) {
+        array.push(binary.charCodeAt(i));
+      }
+      return new File([new Uint8Array(array)], filename, { type: mime });
+    }
+
+    function setFileInput(base64, filename, inputId) {
+      const file = base64ToFile(base64, filename);
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(file);
+      document.getElementById(inputId).files = dataTransfer.files;
     }
   </script>
 </body>

@@ -19,7 +19,12 @@
       },
       staffAddress : 'empty',
       staffRole : 'empty',
-      staffPassword : 'empty',
+      staffPassword : {
+        identifier: 'staffPassword',
+        rules: [{
+          type: 'regExp[/^[a-zA-Z\\d\\W_]{9,}$/]',
+        }]
+      },
     }
   });
 

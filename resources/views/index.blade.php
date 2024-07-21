@@ -172,13 +172,23 @@
     $('.ui.form.info#staffSigninId').form({
       fields: {
         staffIcNumber : 'empty',
-        staffPassword : 'empty',
+        staffPassword : {
+          identifier: 'staffPassword',
+          rules: [{
+            type: 'regExp[/^[a-zA-Z\\d\\W_]{9,}$/]',
+          }]
+        },
       }
     });
     $('.ui.form.info#clientSigninId').form({
       fields: {
         clientIcNumber : 'empty',
-        clientPassword : 'empty',
+        clientPassword : {
+          identifier: 'clientPassword',
+          rules: [{
+            type: 'regExp[/^[a-zA-Z\\d\\W_]{9,}$/]',
+          }]
+        },
       }
     });
     $('.ui.modal.register#registerFormId').form({
@@ -201,7 +211,12 @@
         clientJob : 'empty',
         clientCancerType : 'empty',
         clientMembership : 'empty',
-        clientPassword : 'empty',
+        clientPassword : {
+          identifier: 'clientPassword',
+          rules: [{
+            type: 'regExp[/^[a-zA-Z\\d\\W_]{9,}$/]',
+          }]
+        },
       }
     });
 

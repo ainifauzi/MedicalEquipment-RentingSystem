@@ -32,7 +32,7 @@
 
           let evidenceButton = '';
           if (application.returnCondition) {
-            evidenceButton = `<button class="ui right labeled icon teal button" onclick="evidencePrompt('${application.returnId}')"><i class="expand alternate icon"></i>Resit</button>`;
+            evidenceButton = `<button class="ui right labeled icon teal button" onclick="evidencePrompt('${application.returnId}')"><i class="expand alternate icon"></i>Bukti</button>`;
           }
 
           $('#datatable > tbody:last').append($('<tr>')

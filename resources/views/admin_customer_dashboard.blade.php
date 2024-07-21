@@ -52,7 +52,7 @@
   </script>
 </head>
 <body>
-  @include('section.staff_top_nav')
+  @include('section.admin_top_nav')
   <div>
     <div class="ui visible left vertical sidebar menu bg-primary-almond">
       <a class="item h-100px" href="/admin_dashboard"></a>

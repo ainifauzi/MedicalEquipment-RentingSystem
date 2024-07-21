@@ -16,7 +16,12 @@
       clientJob : 'empty',
       clientCancerType : 'empty',
       clientMembership : 'empty',
-      clientPassword : 'empty',
+      clientPassword : {
+        identifier: 'clientPassword',
+        rules: [{
+          type: 'regExp[/^[a-zA-Z\\d\\W_]{9,}$/]',
+        }]
+      },
     }
   });
 

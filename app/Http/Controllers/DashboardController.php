@@ -60,7 +60,6 @@ class DashboardController extends Controller
         $totalAvailable = $totalEquipment;
       }
       
-
       $dashboardResponse -> equipmentName = $equipment -> equipmentName;
       $dashboardResponse -> totalEquipment = $totalEquipment;
       $dashboardResponse -> totalAvailableEquipment = $totalAvailable;

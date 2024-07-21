@@ -49,7 +49,7 @@
           let medicLetterButton = `<button class="ui right labeled icon purple button" onclick="medicalLetterPrompt('${application.applicationId}')"><i class="expand alternate icon"></i>Surat Sakit</button>`;
           
           let paymentButton = '';
-          if (application.paymentStatus === 'BELUM DIBAYAR') {
+          if (application.applicationStatus === 'BERJAYA' && application.paymentStatus === 'BELUM DIBAYAR') {
             paymentButton = `<button class="ui right labeled icon teal button" onclick="paymentPrompt('${application.paymentId}')"><i class="credit card outline icon"></i>Bayar</button>`;
           }
           let receiptButton = '';
@@ -62,7 +62,7 @@
 						.append($('<td>').append(application.equipmentName))
 						.append($('<td>').append(`<a class="ui ${application.applicationColor} label">${application.applicationStatus}</a>`))
 						.append($('<td>').append(`<a class="ui ${application.paymentColor} label">${application.paymentStatus}</a>`))
-						.append($('<td>').append(paymentButton).append(detailButton).append(deleteButton).append(medicLetterButton).append(receiptButton))
+						.append($('<td>').append(paymentButton).append(detailButton).append(medicLetterButton).append(receiptButton))
 					);
 				}
 
