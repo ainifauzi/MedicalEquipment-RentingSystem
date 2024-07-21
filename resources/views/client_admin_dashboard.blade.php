@@ -4,7 +4,7 @@
   @include('section.head')
   <script>
     $(function() {
-      displayCurrentTime('displayDate')
+      displayDashboard();
       // $.toast({
       //   displayTime: 6000,
       //   message: 'Permohonan anda telah diluluskan.',
@@ -15,7 +15,42 @@
       // });
     });
 
-    function displayCurrentTime(htmlClass) {
+    function displayDashboard() {
+      $.ajax({
+        type: 'GET',
+        url: '/dashboard/client'
+      }).then(function(res) {
+        let currentTime = displayCurrentTime();
+
+        if (res.data.length) {
+          res.data.forEach((element, index, array) => {
+            let div = $('<div>');
+            let card = $('<div>', { class: 'ui card w-100pct' });
+            
+            let header = $('<div>', { class: 'content' }).append(
+              $('<div>', { class: 'header', text: element.equipmentName }),
+              $('<div>', { class: 'meta', text: currentTime, css: { marginTop: '4px' } })
+            );
+            
+            let content = $('<div>', { class: 'content' }).append(
+              $('<h1>', { text: element.totalEquipment })
+            );
+            
+            let footer = $('<div>', { class: 'extra content' }).append(
+              $('<button>', { class: 'ui red button', text: element.totalAvailableEquipment }),
+              $('<button>', { class: 'ui green button', text: element.totalUnavailableEquipment })
+            );
+            
+            card.append(header, content, footer);
+            div.append(card);
+            $('#cardContainer').append(div);
+          });
+        }
+        console.log(res.data)
+      });
+    }
+
+    function displayCurrentTime() {
       const currentDate = new Date();
 
       const optionsDate = { 
@@ -33,7 +68,7 @@
       const formattedDate = currentDate.toLocaleDateString('en-GB', optionsDate);
       const formattedTime = currentDate.toLocaleTimeString('en-US', optionsTime);
 
-      $(`.${htmlClass}`).html(`data sehingga ${formattedDate}, ${formattedTime}`);
+      return `data sehingga ${formattedDate}, ${formattedTime}`;
     }
   </script>
 </head>
@@ -60,53 +95,7 @@
         </div>
       </div>
       <div class="p-2em">
-        <div class="grid-4-equal">
-          <div>
-            <div class="ui card w-100pct">
-              <div class="content">
-                <div class="header">KERUSI RODA</div>
-                <div class="meta displayDate" style="margin-top: 4px;"></div>
-              </div>
-              <div class="content">
-                <h1>500</h1>
-              </div>
-              <div class="extra content">
-                <button class="ui red button">100</button>
-                <button class="ui green button">400</button>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="ui card w-100pct">
-              <div class="content">
-                <div class="header">KATIL</div>
-                <div class="meta displayDate" style="margin-top: 4px;"></div>
-              </div>
-              <div class="content">
-                <h1>500</h1>
-              </div>
-              <div class="extra content">
-                <button class="ui red button">100</button>
-                <button class="ui green button">400</button>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="ui card w-100pct">
-              <div class="content">
-                <div class="header">TANGKI OKSIGEN</div>
-                <div class="meta displayDate" style="margin-top: 4px;"></div>
-              </div>
-              <div class="content">
-                <h1>500</h1>
-              </div>
-              <div class="extra content">
-                <button class="ui red button">100</button>
-                <button class="ui green button">400</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="grid-4-equal" id="cardContainer"></div>
       </div>
     </div>
   </div>

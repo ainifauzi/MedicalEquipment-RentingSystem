@@ -131,7 +131,7 @@
       <div class="ui form info">
         <div class="ui red message" id="insertMessageId"></div>
         <input type="hidden" name="clientId" id="clientId">
-        <input type="hidden" name="applicationStatus" value="Dalam Proses">
+        <input type="hidden" name="applicationStatus" value="DALAM PROSES">
         <div class="two fields">
           <div class="field">
             <label>Peralatan</label>
@@ -457,7 +457,7 @@
                   getTable();
                   
                   $('#paymentMessageId').show();
-                  $('#paymentMessageId').html("Pembayaran Berjaya.");
+                  $('#paymentMessageId').html("Pembayaran BERJAYA.");
                   $('#paymentMessageId').addClass('green');
                 } else {
                   $('#paymentMessageId').show();

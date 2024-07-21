@@ -28,10 +28,10 @@ class ReturnController extends Controller
 
       $returnResponse -> returnCondition = $return -> returnCondition;
       switch ($return -> returnCondition) {
-        case 'Baik':
+        case 'BAIK':
           $returnResponse -> returnColor = 'green';
           break;
-        case 'Rosak':
+        case 'ROSAK':
           $returnResponse -> returnColor = 'red';
           break;
       }
@@ -55,6 +55,12 @@ class ReturnController extends Controller
     $return = ReturnModel::find($id);
     return response() -> json(array('data' => $return), 200);
   }
+  
+  public function readFile(string $id)
+  {
+    $return = ReturnModel::find($id);
+    return response() -> json(array('data' => $return -> returnEvidence), 200);
+  }
 
   public function readByClient(string $clientId)
   {
@@ -70,10 +76,10 @@ class ReturnController extends Controller
         $returnResponse -> returnDate = strtoupper(Carbon::parse($return -> returnDate)->format('d M Y'));
         $returnResponse -> returnCondition = $return -> returnCondition;
         switch ($return -> returnCondition) {
-          case 'Baik':
+          case 'BAIK':
             $returnResponse -> returnColor = 'green';
             break;
-          case 'Rosak':
+          case 'ROSAK':
             $returnResponse -> returnColor = 'red';
             break;
         }
@@ -106,9 +112,18 @@ class ReturnController extends Controller
 
   public function update(Request $request)
   {
+    $returnEvidence = $request -> file('returnEvidence');
+    $returnEvidenceContent = base64_encode($returnEvidence -> get());
+
     $return = ReturnModel::find($request -> input('returnId'));
-    $updateReturn = $return -> update($request -> all());
-    return response() -> json(array('data' => $updateReturn), 200);
+
+    $return -> returnDate = $request -> returnDate;
+    $return -> returnCondition = $request -> returnCondition;
+    $return -> returnEvidence = $returnEvidenceContent;
+
+    $updatedReturn = $return -> save();
+
+    return response() -> json(array('data' => $updatedReturn), 200);
   }
 
   public function delete(string $id)
@@ -117,7 +132,7 @@ class ReturnController extends Controller
     $return = ReturnModel::find($id);
 
     if (!empty($return)) {
-        $deleteStatus = $return -> delete();
+      $deleteStatus = $return -> delete();
     }
 
     return response() -> json(array('data' => $deleteStatus), 200);

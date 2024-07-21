@@ -66,7 +66,7 @@
             $('#profileStaffRole').html(res.data.staffRole);
 
             $('#updateMessageId').show();
-            $('#updateMessageId').html("Kemaskini Berjaya.");
+            $('#updateMessageId').html("Kemaskini BERJAYA.");
             $('#updateMessageId').addClass('green');
           } else {
             $('#updateMessageId').show();

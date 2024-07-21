@@ -33,13 +33,13 @@ class ApplicationController extends Controller
 
       $applicationResponse -> applicationStatus = $application -> applicationStatus;
       switch ($application -> applicationStatus) {
-        case 'Dalam Proses':
+        case 'DALAM PROSES':
           $applicationResponse -> applicationColor = 'yellow';
           break;
-        case 'Berjaya':
+        case 'BERJAYA':
           $applicationResponse -> applicationColor = 'green';
           break;
-        case 'Gagal':
+        case 'GAGAL':
           $applicationResponse -> applicationColor = 'red';
           break;
       }
@@ -58,10 +58,10 @@ class ApplicationController extends Controller
       $applicationResponse -> paymentId = $payment -> paymentId;
       $applicationResponse -> paymentStatus = $payment -> paymentStatus;
       switch ($payment -> paymentStatus) {
-        case 'Telah Dibayar':
+        case 'TELAH DIBAYAR':
           $applicationResponse -> paymentColor = 'green';
           break;
-        case 'Belum Dibayar':
+        case 'BELUM DIBAYAR':
           $applicationResponse -> paymentColor = 'red';
           break;
       }
@@ -69,6 +69,7 @@ class ApplicationController extends Controller
     
       $return = ReturnModel::where('applicationId', $application -> applicationId) -> first();
       $applicationResponse -> returnId = $return -> returnId;
+      $applicationResponse -> returnCondition = $return -> returnCondition;
       
       $applicationResponses[] = $applicationResponse;
     }
@@ -129,13 +130,13 @@ class ApplicationController extends Controller
 
       $applicationResponse -> applicationStatus = $application -> applicationStatus;
       switch ($application -> applicationStatus) {
-        case 'Dalam Proses':
+        case 'DALAM PROSES':
           $applicationResponse -> applicationColor = 'yellow';
           break;
-        case 'Berjaya':
+        case 'BERJAYA':
           $applicationResponse -> applicationColor = 'green';
           break;
-        case 'Gagal':
+        case 'GAGAL':
           $applicationResponse -> applicationColor = 'red';
           break;
       }

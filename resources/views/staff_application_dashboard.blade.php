@@ -4,9 +4,6 @@
   @include('section.head')
   <script>
     $(function() {
-      $('.selection.dropdown.application.status')
-        .dropdown()
-      ;
       $('.selection.dropdown.condition')
         .dropdown()
       ;
@@ -33,12 +30,17 @@
         for (let application of res.data) {
           let returnButton = `<button class="ui right labeled icon brown button" onclick="returnPrompt('${application.returnId}')"><i class="info icon"></i>Pemulangan</button>`;
 
+          let evidenceButton = '';
+          if (application.returnCondition) {
+            evidenceButton = `<button class="ui right labeled icon teal button" onclick="evidencePrompt('${application.returnId}')"><i class="expand alternate icon"></i>Resit</button>`;
+          }
+
           $('#datatable > tbody:last').append($('<tr>')
             .append($('<td>').append(application.clientName))
             .append($('<td>').append(application.equipmentName))
             .append($('<td>').append(`<a class="ui ${application.applicationColor} label">${application.applicationStatus}</a>`))
             .append($('<td>').append(`<a class="ui ${application.paymentColor} label">${application.paymentStatus}</a>`))
-            .append($('<td>').append(returnButton))
+            .append($('<td>').append(returnButton).append(evidenceButton))
           );
         }
 
@@ -56,11 +58,7 @@
   </script>
 </head>
 <body>
-  <div class="topnav border-top border-bottom">
-    <a class="p-15px-25px" href="#"></a>
-    <a class="p-15px-25px" href="javascript:void(0);" onclick="promptLogout()">Log Keluar</a>
-    <a class="p-15px-25px" href="javascript:void(0);" onclick="displayProfile()">Profil</a>
-  </div>
+  @include('section.staff_top_nav')
   <div>
     <div class="ui visible left vertical sidebar menu bg-primary-almond">
       <a class="item h-100px" href="/staff_application_dashboard"></a>
@@ -100,7 +98,7 @@
     <div class="header bg-primary-grey">Maklumat Pemulangan</div>
     <div class="content bg-primary-grey">
       <div class="ui form info">
-        <div class="ui message" id="returnMessageId"></div>
+        <div class="ui red message" id="returnMessageId"></div>
         <input type="hidden" name="returnId" id="returnId">
         <div class="field">
           <label>Tarikh Pemulangan</label>
@@ -113,19 +111,19 @@
             <i class="dropdown icon"></i>
             <div class="text" id="returnCondition"></div>
             <div class="menu">
-              <div class="item" data-value="Baik">Baik</div>
-              <div class="item" data-value="Rosak">Rosak</div>
+              <div class="item" data-value="BAIK">BAIK</div>
+              <div class="item" data-value="ROSAK">ROSAK</div>
             </div>
           </div>
         </div>
         <div class="field">
           <label>Bukti Pemulangan</label>
-          <!-- <input type="file"> -->
+          <input type="file" name="returnEvidence" id="returnEvidence" accept="image/jpeg, image/png">
         </div>
       </div>
     </div>
     <div class="actions bg-primary-grey">
-      <button type="reset" class="ui right labeled icon deny red button">
+      <button onclick="closeReturnMessage();" type="button" class="ui right labeled icon clear deny red button">
         <i class="close icon"></i>
         Batal
       </button>
@@ -135,24 +133,36 @@
       </button>
     </div>
   </form>
+  <div class="ui small modal evidence">
+    <div class="header bg-primary-grey">Bukti Pemulangan</div>
+    <div class="scrolling content">
+      <img id="returnEvidenceId" alt="Return Evidence">
+    </div>
+    <div class="actions">
+      <button onclick="resetEvidencePrompt()" type="button" class="ui right labeled icon deny button">
+        <i class="close icon"></i>
+        Tutup
+      </button>
+      <a id="returnEvidenceDownloadId" class="ui right labeled icon blue button">
+        <i class="arrow down icon"></i>
+        Muat Turun
+      </a>
+    </div>
+  </div>
   @include('section.staff_modal')
   @include('section.staff_modal_script')
   <script>
     $('#returnMessageId').hide();
 
-    $('ui.tiny.modal.return#returnFormId').form({
+    $('.ui.tiny.modal.return#returnFormId').form({
       fields: {
         returnDate : 'empty',
         returnCondition : 'empty',
+        returnEvidence : 'empty',
       }
     });
 
     function returnPrompt(returnId) {
-      $('ui.tiny.modal.return#returnFormId').form('clear');
-      $('input[type=date]').reset();
-      let inputTypeDate = null;
-      let inputTypeString = "";
-
       $.ajax({
 				type: 'GET',
 				url: `/return/${returnId}`
@@ -168,33 +178,78 @@
     }
 
     $('#returnFormId').on('submit', function(event) {
+      console.log("test ")
       event.preventDefault();
       
-      $.ajax({
-        url: '/return',
-        method: 'PUT',
-        data: $('#returnFormId').serialize(),
-        success: function(res) {
-          if (res) {
-            getTable();
+      let formData = new FormData(this);
 
-            $('.ui.modal.return')
-              .modal('hide')
-            ;
-          } else {
-            $('#returnMessageId').show();
-            $('#returnMessageId').html("Pemulangan Gagal.");
-            $('#returnMessageId').addClass('red');
-          }
-        },
-        error: function(err) {
+      const maxSize = 2 * 1024 * 1024;
+      let fileInput = $('#returnFormId #returnEvidence')[0].files[0];
+      
+      if (fileInput) {
+        if (fileInput.size > maxSize) {
           $('#returnMessageId').show();
-          $('#returnMessageId').html("Pemulangan Gagal.");
-          $('#returnMessageId').addClass('red');
-          console.log('error: ' + err);
+          $('#returnMessageId').html('Saiz gambar melebihi 2MB. Sila pilih gambar dengan saiz yang lebih kecil.');
+        } else {
+          $('#returnMessageId').hide();
+          $('#returnMessageId').html('');
+
+          if ($('.ui.tiny.modal.return#returnFormId').form('is valid')) {
+            $.ajax({
+              url: '/return/update',
+              method: 'POST',
+              data: formData,
+              contentType: false,
+              processData: false,
+              success: function(res) {
+                if (res) {
+                  getTable();
+                  $('#returnFormId').form('reset');
+
+                  $('.ui.modal.return')
+                    .modal('hide')
+                  ;
+                } else {
+                  $('#returnMessageId').show();
+                  $('#returnMessageId').html("Pemulangan Gagal.");
+                }
+              },
+              error: function(err) {
+                $('#returnMessageId').show();
+                $('#returnMessageId').html("Pemulangan Gagal.");
+                console.log('error: ' + err);
+              }
+            });
+          }
         }
-      });
+      }
     });
+
+    function closeReturnMessage() {
+      $('#returnMessageId').hide();
+      $('#returnMessageId').html('');
+    }
+
+    function evidencePrompt(returnId) {
+      $.ajax({
+        type: 'GET',
+        url: '/return/file/' + returnId
+      }).then(function(res) {
+        $('#returnEvidenceId').attr('src', `data:image/jpeg;base64,${res.data}`);
+        $('#returnEvidenceDownloadId').attr('href', `data:image/jpeg;base64,${res.data}`);
+        $('#returnEvidenceDownloadId').attr('download', 'Bukti Pemulangan');
+
+        $('.ui.small.modal.evidence')
+          .modal('show')
+        ;
+      });
+    }
+
+    function resetEvidencePrompt() {
+      $('#returnEvidenceId').attr('src', '');
+      $('#returnEvidenceDownloadId').attr('href', '');
+      $('#returnEvidenceDownloadId').attr('download', '');
+    }
   </script>
 </body>
 </html>

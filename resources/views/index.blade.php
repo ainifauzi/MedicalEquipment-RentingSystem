@@ -36,7 +36,7 @@
           <div class="ui red message" id="staffMessageId"></div>
           <div class="field">
             <label>Nombor KP</label>
-            <input type="text" placeholder="sila isi nombor kad pengenalan" name="staffIcNumber" value="990507-02-5545">
+            <input type="text" placeholder="sila isi nombor kad pengenalan" name="staffIcNumber" value="990507-02-5544">
           </div>
           <div class="field">
             <label>Kata Laluan</label>
@@ -225,7 +225,7 @@
               $('#registerFormId').trigger('reset');
 
               $('#registerMessageId').show();
-              $('#registerMessageId').html("Pendaftaran Berjaya.");
+              $('#registerMessageId').html("Pendaftaran BERJAYA.");
               $('#registerMessageId').addClass('green');
             } else {
               $('#registerMessageId').show();

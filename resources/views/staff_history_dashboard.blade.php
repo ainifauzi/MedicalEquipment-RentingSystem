@@ -48,11 +48,7 @@
   </script>
 </head>
 <body>
-  <div class="topnav border-top border-bottom">
-    <a class="p-15px-25px" href="#"></a>
-    <a class="p-15px-25px" href="javascript:void(0);" onclick="promptLogout()">Log Keluar</a>
-    <a class="p-15px-25px" href="javascript:void(0);" onclick="displayProfile()">Profil</a>
-  </div>
+  @include('section.staff_top_nav')
   <div>
     <div class="ui visible left vertical sidebar menu bg-primary-almond">
       <a class="item h-100px" href="/staff_application_dashboard"></a>

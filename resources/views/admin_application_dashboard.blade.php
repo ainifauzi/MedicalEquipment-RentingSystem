@@ -166,9 +166,9 @@
               <i class="dropdown icon"></i>
               <div class="text" id="applicationStatus"></div>
               <div class="menu">
-                <div class="item" data-value="Dalam Proses">Dalam Proses</div>
-                <div class="item" data-value="Berjaya">Berjaya</div>
-                <div class="item" data-value="Gagal">Gagal</div>
+                <div class="item" data-value="DALAM PROSES">DALAM PROSES</div>
+                <div class="item" data-value="BERJAYA">BERJAYA</div>
+                <div class="item" data-value="GAGAL">GAGAL</div>
               </div>
             </div>
           </div>

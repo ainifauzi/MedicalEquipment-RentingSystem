@@ -10,9 +10,15 @@ class DashboardResponse extends Model
   use HasFactory;
 
   protected $fillable = [
+    // admin dashboard response
     'totalStaff',
     'totalClient',
     'totalEquipment',
-    'totalApplication'
+    'totalApplication',
+
+    // client dashboard response
+    'equipmentName',
+    'totalUnavailableEquipment',
+    'totalAvailableEquipment',
   ];
 }

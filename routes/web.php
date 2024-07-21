@@ -91,10 +91,12 @@ Route::get('/payment/{id}', [ PaymentController::class, 'read' ]);
 Route::get('/payment/file/{id}', [ PaymentController::class, 'readFile' ]);
 
 // return routes
+Route::post('/return/update', [ ReturnController::class, 'update' ]);
 Route::get('/returns', [ ReturnController::class, 'readAll' ]);
 Route::put('/return', [ ReturnController::class, 'update' ]);
 Route::get('/returns/client/{clientId}', [ ReturnController::class, 'readByClient' ]);
 Route::get('/return/{id}', [ ReturnController::class, 'read' ]);
+Route::get('/return/file/{id}', [ ReturnController::class, 'readFile' ]);
 
 // staff routes
 Route::post('/staff/signin', [ StaffController::class, 'signin' ]);

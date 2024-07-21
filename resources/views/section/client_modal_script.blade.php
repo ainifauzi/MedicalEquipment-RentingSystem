@@ -60,7 +60,7 @@
             $('#clientMembership').html(res.data.clientMembership);
             
             $('#updateProfileMessageId').show();
-            $('#updateProfileMessageId').html("Pendaftaran Berjaya.");
+            $('#updateProfileMessageId').html("Pendaftaran BERJAYA.");
             $('#updateProfileMessageId').addClass('green');
           } else {
             $('#updateProfileMessageId').show();
