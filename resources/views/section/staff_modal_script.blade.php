@@ -83,4 +83,10 @@
       });
     }
   });
+
+  function displayNotificationList() {
+    $('.ui.tiny.modal.notification')
+      .modal('show')
+    ;
+  }
 </script>

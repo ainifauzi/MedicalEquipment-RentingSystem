@@ -5,14 +5,7 @@
   <script>
     $(function() {
       displayDashboard();
-      // $.toast({
-      //   displayTime: 6000,
-      //   message: 'Permohonan anda telah diluluskan.',
-      //   class : 'green',
-      //   className: {
-      //     toast: 'ui message'
-      //   }
-      // });
+      displayNotification();
     });
 
     function displayDashboard() {
@@ -69,6 +62,42 @@
       const formattedTime = currentDate.toLocaleTimeString('en-US', optionsTime);
 
       return `data sehingga ${formattedDate}, ${formattedTime}`;
+    }
+    
+    function displayNotification() {
+      $.ajax({
+        type: 'GET',
+        url: '/dashboard/client/noti'
+      }).then(function(res) {
+        if (res.data.length) {
+          res.data.forEach((element, index, array) => {
+            let message = element.applicationStatus === 'BERJAYA' ? 'diluluskan' : 'ditolak';
+            let color = element.applicationStatus === 'BERJAYA' ? 'green' : 'red';
+
+            if (element.clientNotiStatus === 0) {
+              $.toast({
+                displayTime: 10000,
+                message: `Permohonan anda telah <b>${message}</b>`,
+                class : color,
+                className: {
+                  toast: 'ui message'
+                }
+              });
+            }
+
+            var $segment = $('<div>', { class: 'ui segment' });
+            
+            var $paragraph = $('<p>').text('Permohonan ');
+            var $link = $('<a>', { href: '/client_application_dashboard', text: element.equipmentName });
+            var $textAfterLink = document.createTextNode(` anda telah ${message}.`);
+            
+            $paragraph.append($link).append($textAfterLink);
+            $segment.append($paragraph);
+            
+            $('#segmentContainer').append($segment);
+          })
+        }
+      });
     }
   </script>
 </head>

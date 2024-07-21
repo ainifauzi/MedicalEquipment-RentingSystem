@@ -36,7 +36,7 @@
           <div class="ui red message" id="staffMessageId"></div>
           <div class="field">
             <label>Nombor KP</label>
-            <input type="text" placeholder="sila isi nombor kad pengenalan" name="staffIcNumber" value="990507-02-5544">
+            <input type="text" placeholder="sila isi nombor kad pengenalan" name="staffIcNumber" value="990507-02-5545">
           </div>
           <div class="field">
             <label>Kata Laluan</label>

@@ -19,7 +19,9 @@ class Application extends Model
     'applicationStatus',
     'clientId',
     'staffId',
-    'equipmentId'
+    'equipmentId',
+    'adminNotiStatus',
+    'clientNotiStatus'
   ];
 
   public $timestamps = false;

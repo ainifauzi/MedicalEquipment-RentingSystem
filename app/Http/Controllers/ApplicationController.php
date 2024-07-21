@@ -89,6 +89,8 @@ class ApplicationController extends Controller
     $applicationResponse -> applicationRentPrice = $application -> applicationRentPrice;
     $applicationResponse -> applicationMedicLetter = $application -> applicationMedicLetter;
     $applicationResponse -> applicationStatus = $application -> applicationStatus;
+    $applicationResponse -> adminNotiStatus = $application -> adminNotiStatus;
+    $applicationResponse -> clientNotiStatus = $application -> clientNotiStatus;
 
     $client = Client::find($application -> clientId);
     $applicationResponse -> clientId = $application -> clientId;
@@ -176,6 +178,58 @@ class ApplicationController extends Controller
     return response() -> json(array('data' => $application -> applicationMedicLetter), 200);
   }
 
+  public function readAdminNoti()
+  {
+    $applications = Application::all();
+    $applicationResponses = [];
+
+    foreach ($applications as $application) {
+      $applicationResponse = new ApplicationResponse();
+
+      $applicationResponse -> applicationStatus = $application -> applicationStatus;
+
+      $equipment = Equipment::find($application -> equipmentId);
+      $applicationResponse -> equipmentId = $application -> equipmentId;
+      $applicationResponse -> adminNotiStatus = $application -> adminNotiStatus;
+      $applicationResponse -> equipmentName = $equipment -> equipmentName;
+
+      $applicationResponses[] = $applicationResponse;
+
+      $existingApplication = Application::find($application -> applicationId);
+
+      $existingApplication -> adminNotiStatus = true;
+      $existingApplication -> save();
+    }
+
+    return response() -> json(array('data' => $applicationResponses), 200);
+  }
+
+  public function readClientNoti()
+  {
+    $applications = Application::all();
+    $applicationResponses = [];
+
+    foreach ($applications as $application) {
+      $applicationResponse = new ApplicationResponse();
+
+      $applicationResponse -> applicationStatus = $application -> applicationStatus;
+
+      $equipment = Equipment::find($application -> equipmentId);
+      $applicationResponse -> equipmentId = $application -> equipmentId;
+      $applicationResponse -> clientNotiStatus = $application -> clientNotiStatus;
+      $applicationResponse -> equipmentName = $equipment -> equipmentName;
+
+      $applicationResponses[] = $applicationResponse;
+
+      $existingApplication = Application::find($application -> applicationId);
+
+      $existingApplication -> clientNotiStatus = true;
+      $existingApplication -> save();
+    }
+
+    return response() -> json(array('data' => $applicationResponses), 200);
+  }
+
   public function create(Request $request)
   {
     $applicationMedicLetter = $request -> file('applicationMedicLetter');
@@ -207,7 +261,8 @@ class ApplicationController extends Controller
       'applicationMedicLetter' => $applicationMedicLetterContent,
       'applicationStatus' => $request -> input('applicationStatus'),
       'clientId' => $request -> input('clientId'),
-      'equipmentId' => $request -> input('equipmentId')
+      'equipmentId' => $request -> input('equipmentId'),
+      'adminNotiStatus' => false
     ]);
 
     $createPayment = Payment::create([

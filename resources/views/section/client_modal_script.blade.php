@@ -83,7 +83,7 @@
     $('#updateProfileFormId').form('clear');
   }
 
-  function displayNotification() {
+  function displayNotificationList() {
     $('.ui.tiny.modal.notification')
       .modal('show')
     ;

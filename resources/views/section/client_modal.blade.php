@@ -95,23 +95,7 @@
 <div class="ui tiny modal notification">
   <div class="header bg-primary-grey">Notifikasi</div>
   <div class="content">
-    <div class="ui segments">
-      <div class="ui segment">
-        <p>Permohonan <a href="">KERUSI RODA</a> anda telah diluluskan.</p>
-      </div>
-      <div class="ui segment">
-        <p>Middle</p>
-      </div>
-      <div class="ui segment">
-        <p>Middle</p>
-      </div>
-      <div class="ui segment">
-        <p>Middle</p>
-      </div>
-      <div class="ui segment">
-        <p>Bottom</p>
-      </div>
-    </div>
+    <div class="ui segments" id="segmentContainer"></div>
   </div>
   <div class="actions">
     <button class="ui right labeled icon deny button">

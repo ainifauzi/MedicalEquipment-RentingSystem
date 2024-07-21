@@ -59,6 +59,8 @@ Route::get('/admin_application_dashboard', function () {
 
 Route::get('/dashboard/admin', [ DashboardController::class, 'adminDashboard' ]);
 Route::get('/dashboard/client', [ DashboardController::class, 'clientDashboard' ]);
+Route::get('/dashboard/admin/noti', [ ApplicationController::class, 'readAdminNoti' ]);
+Route::get('/dashboard/client/noti', [ ApplicationController::class, 'readClientNoti' ]);
 
 // client routes
 Route::post('/client/signin', [ ClientController::class, 'signin' ]);

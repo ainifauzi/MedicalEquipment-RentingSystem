@@ -85,3 +85,16 @@
     </button>
   </div>
 </div>
+<!-- notification modal -->
+<div class="ui tiny modal notification">
+  <div class="header bg-primary-grey">Notifikasi</div>
+  <div class="content">
+    <div class="ui segments" id="segmentContainer"></div>
+  </div>
+  <div class="actions">
+    <button class="ui right labeled icon deny button">
+      <i class="close icon"></i>
+      Tutup
+    </button>
+  </div>
+</div>

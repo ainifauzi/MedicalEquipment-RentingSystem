@@ -154,6 +154,8 @@
     <div class="content bg-primary-grey">
       <div class="ui form info">
         <input type="hidden" name="applicationId" id="applicationId">
+        <input type="hidden" name="adminNotiStatus">
+        <input type="hidden" name="clientNotiStatus" id="clientNotiStatus">
         <div class="two fields">
           <div class="field">
             <label>Peralatan</label>
@@ -166,7 +168,6 @@
               <i class="dropdown icon"></i>
               <div class="text" id="applicationStatus"></div>
               <div class="menu">
-                <div class="item" data-value="DALAM PROSES">DALAM PROSES</div>
                 <div class="item" data-value="BERJAYA">BERJAYA</div>
                 <div class="item" data-value="GAGAL">GAGAL</div>
               </div>
@@ -237,6 +238,7 @@
       }).then(function(res) {
         onSetForm('updateFormId', res.data);
         $('#applicationStatus').html(res.data.applicationStatus);
+        $('#clientNotiStatus').val(0);
 
         $('.ui.modal.update')
           .modal('show')

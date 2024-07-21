@@ -29,6 +29,8 @@ class ApplicationResponse extends Model
     'paymentDate',
     'paymentColor',
     'returnId',
-    'returnCondition'
+    'returnCondition',
+    'adminNotiStatus',
+    'clientNotiStatus'
   ];
 }

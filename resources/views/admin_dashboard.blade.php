@@ -6,14 +6,7 @@
     $(function() {
       displayCurrentTime('displayDate');
       displayDashboard();
-      // $.toast({
-      //   displayTime: 6000,
-      //   message: 'Anda mempunyai permohonan baru. <a href="https://www.google.com/" style="text-decoration: underline;">Lihat</a>',
-      //   class : 'yellow',
-      //   className: {
-      //     toast: 'ui message'
-      //   }
-      // });
+      displayNotification();
     });
 
     function displayCurrentTime(htmlClass) {
@@ -46,6 +39,36 @@
         $('#totalClient').html(res.data.totalClient);
         $('#totalEquipment').html(res.data.totalEquipment);
         $('#totalApplication').html(res.data.totalApplication);
+      });
+    }
+
+    function displayNotification() {
+      $.ajax({
+        type: 'GET',
+        url: '/dashboard/admin/noti'
+      }).then(function(res) {
+        if (res.data.length) {
+          res.data.forEach((element, index, array) => {
+
+            if (element.adminNotiStatus === 0) {
+              $.toast({
+                displayTime: 10000,
+                message: 'Anda mempunyai permohonan baru. <a href="/admin_application_dashboard" style="text-decoration: underline;">Lihat</a>',
+                class : 'yellow',
+                className: {
+                  toast: 'ui message'
+                }
+              });
+            }
+
+            var $segment = $('<div>', { class: 'ui segment' });
+
+            var $paragraph = $('<p>').html('Anda mempunyai permohonan baru. <a href="/admin_application_dashboard" style="text-decoration: underline;">Lihat</a>');
+            $segment.append($paragraph);
+
+            $('#segmentContainer').append($segment);
+          })
+        }
       });
     }
   </script>
