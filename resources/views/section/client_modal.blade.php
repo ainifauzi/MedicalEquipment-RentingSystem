@@ -8,7 +8,7 @@
       <div class="two fields">
         <div class="field">
           <label>Nombor KP</label>
-          <input type="text" placeholder="sila isi nombor kad pengenalan" name="clientIcNumber" readonly>
+          <input type="text" name="clientIcNumber" readonly>
         </div>
         <div class="field">
           <label>Nama Penuh</label>

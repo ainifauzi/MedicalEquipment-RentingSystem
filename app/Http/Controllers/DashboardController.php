@@ -61,6 +61,7 @@ class DashboardController extends Controller
       }
       
       $dashboardResponse -> equipmentName = $equipment -> equipmentName;
+      $dashboardResponse -> equipmentImage = $equipment -> equipmentImage;
       $dashboardResponse -> totalEquipment = $totalEquipment;
       $dashboardResponse -> totalAvailableEquipment = $totalAvailable;
       $dashboardResponse -> totalUnavailableEquipment = $totalUnavailable;

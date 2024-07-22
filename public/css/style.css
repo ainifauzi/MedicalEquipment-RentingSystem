@@ -41,10 +41,15 @@ html, body, body *, .ui {
   flex: 1;
   padding: 10px;
 }
-.grid-3-equal {
+.index-grid-3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   height: calc(100vh - 51.5875px);
+}
+.grid-3-equal {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 .grid-4-equal {
   display: grid;

@@ -42,7 +42,7 @@ class EquipmentController extends Controller
       'equipmentName' => $request -> input('equipmentName'),
       'equipmentBuyDate' => $request -> input('equipmentBuyDate'),
       'equipmentBuyPrice' => $request -> input('equipmentBuyPrice'),
-      'equipmentRentPrice' => $request -> input('equipmentRentPrice'),
+      // 'equipmentRentPrice' => $request -> input('equipmentRentPrice'),
       'equipmentQuantity' => $request -> input('equipmentQuantity'),
       'equipmentSponsor' => $request -> input('equipmentSponsor'),
       'equipmentImage' => $equipmentImageContent,
@@ -61,7 +61,7 @@ class EquipmentController extends Controller
     $equipment -> equipmentName = $request -> equipmentName;
     $equipment -> equipmentBuyDate = $request -> equipmentBuyDate;
     $equipment -> equipmentBuyPrice = $request -> equipmentBuyPrice;
-    $equipment -> equipmentRentPrice = $request -> equipmentRentPrice;
+    // $equipment -> equipmentRentPrice = $request -> equipmentRentPrice;
     $equipment -> equipmentQuantity = $request -> equipmentQuantity;
     $equipment -> equipmentSponsor = $request -> equipmentSponsor;
     $equipment -> equipmentImage = $equipmentImageContent;

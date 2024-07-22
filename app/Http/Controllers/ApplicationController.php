@@ -235,8 +235,15 @@ class ApplicationController extends Controller
     $applicationMedicLetter = $request -> file('applicationMedicLetter');
     $applicationMedicLetterContent = base64_encode($applicationMedicLetter -> get());
 
-    $equipment = Equipment::find($request -> input('equipmentId'));
-    $equipmentRentPrice = $equipment -> equipmentRentPrice;
+    $client = Client::find($request -> input('clientId'));
+    if ($client -> clientMembership == 'AHLI') {
+      $equipmentRentPrice = 300;
+    } else if ($client -> clientMembership == 'BUKAN AHLI') {
+      $equipmentRentPrice = 500;
+    }
+
+    // $equipment = Equipment::find($request -> input('equipmentId'));
+    // $equipmentRentPrice = $equipment -> equipmentRentPrice;
 
     $rentDuration = 0;
     $rentStartDate = new DateTime($request -> input('applicationStartDate'));

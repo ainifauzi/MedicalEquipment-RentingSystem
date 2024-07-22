@@ -18,6 +18,7 @@ class DashboardResponse extends Model
 
     // client dashboard response
     'equipmentName',
+    'equipmentImage',
     'totalUnavailableEquipment',
     'totalAvailableEquipment',
   ];

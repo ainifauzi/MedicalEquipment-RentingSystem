@@ -17,7 +17,7 @@
     <a class="p-15px-25px" href="javascript:void(0);" onclick="register()">Daftar Masuk</a>
     <a class="p-15px-25px" href="#">Tentang Kami</a>
   </div>
-  <div class="grid-3-equal">
+  <div class="index-grid-3">
     <div class="grid-landing-page-item p-5em">
       <div class="ui piled segment">
         <h4 class="ui header">A header</h4>
@@ -40,7 +40,7 @@
           </div>
           <div class="field">
             <label>Kata Laluan</label>
-            <input type="password" placeholder="sila isi kata laluan" name="staffPassword" value="password">
+            <input type="password" placeholder="sila isi kata laluan" name="staffPassword" value="password123">
           </div>
           <div class="ui info message">
             <div class="header">Garis Panduan</div>
@@ -65,7 +65,7 @@
           </div>
           <div class="field">
             <label>Kata Laluan</label>
-            <input type="password" placeholder="sila isi kata laluan" name="clientPassword" value="password">
+            <input type="password" placeholder="sila isi kata laluan" name="clientPassword" value="password123">
           </div>
           <div class="ui info message">
             <div class="header">Garis Panduan</div>

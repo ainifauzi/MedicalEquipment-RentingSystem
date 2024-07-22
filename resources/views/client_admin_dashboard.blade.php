@@ -18,23 +18,38 @@
         if (res.data.length) {
           res.data.forEach((element, index, array) => {
             let div = $('<div>');
-            let card = $('<div>', { class: 'ui card w-100pct' });
             
-            let header = $('<div>', { class: 'content' }).append(
-              $('<div>', { class: 'header', text: element.equipmentName }),
-              $('<div>', { class: 'meta', text: currentTime, css: { marginTop: '4px' } })
-            );
-            
-            let content = $('<div>', { class: 'content' }).append(
-              $('<h1>', { text: element.totalEquipment })
-            );
-            
-            let footer = $('<div>', { class: 'extra content' }).append(
-              $('<button>', { class: 'ui red button', text: element.totalUnavailableEquipment }),
-              $('<button>', { class: 'ui green button', text: element.totalAvailableEquipment })
-            );
-            
-            card.append(header, content, footer);
+            var card = $('<div>', { class: 'ui card', css: { width: '100%' } });
+
+            var imageDiv = $('<div>', { class: 'image' });
+            var img = $('<img>', { src: `data:image/jpeg;base64,${element.equipmentImage}` });
+            imageDiv.append(img);
+
+            var contentDiv = $('<div>', { class: 'content' });
+            var header = $('<a>', { class: 'header', text: element.equipmentName });
+            var metaDiv = $('<div>', { class: 'meta' });
+            var metaLink = $('<a>', { text: currentTime });
+            metaDiv.append(metaLink);
+
+            contentDiv.append(header).append(metaDiv);
+
+            var extraContentDiv = $('<div>', { class: 'extra content' });
+            var blueLabel = $('<a>', { class: 'ui blue label', text: 'Total' });
+            var blueDetail = $('<div>', { class: 'detail', text: element.totalEquipment });
+            blueLabel.append(blueDetail);
+
+            var greenLabel = $('<a>', { class: 'ui green label', text: 'Available' });
+            var greenDetail = $('<div>', { class: 'detail', text: element.totalAvailableEquipment });
+            greenLabel.append(greenDetail);
+
+            var redLabel = $('<a>', { class: 'ui red label', text: 'Unavailable' });
+            var redDetail = $('<div>', { class: 'detail', text: element.totalUnavailableEquipment });
+            redLabel.append(redDetail);
+
+            extraContentDiv.append(blueLabel).append(greenLabel).append(redLabel);
+
+            card.append(imageDiv).append(contentDiv).append(extraContentDiv);
+
             div.append(card);
             $('#cardContainer').append(div);
           });
@@ -124,7 +139,7 @@
         </div>
       </div>
       <div class="p-2em">
-        <div class="grid-4-equal" id="cardContainer"></div>
+        <div class="grid-3-equal" id="cardContainer"></div>
       </div>
     </div>
   </div>

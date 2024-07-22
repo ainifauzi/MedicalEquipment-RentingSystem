@@ -33,7 +33,7 @@
             .append($('<td>').append(equipment.equipmentName))
             .append($('<td>').append(equipment.equipmentBuyDate))
             .append($('<td>').append(equipment.equipmentBuyPrice))
-            .append($('<td>').append(equipment.equipmentRentPrice))
+            // .append($('<td>').append(equipment.equipmentRentPrice))
             .append($('<td>').append(equipment.equipmentQuantity))
             .append($('<td>').append(equipment.equipmentSponsor))
             .append($('<td>').append(updateButton).append(deleteButton).append(fileButton))
@@ -95,7 +95,7 @@
                 <th>Nama</th>
                 <th>Tarikh Beli</th>
                 <th>Harga Belian</th>
-                <th>Harga Sewaan</th>
+                <!-- <th>Harga Sewaan</th> -->
                 <th>Kuantiti</th>
                 <th>Penaja</th>
                 <th>Tindakan</th>
@@ -117,7 +117,7 @@
           <label>Nama Peralatan</label>
           <input type="text" placeholder="sila isi nama peralatan" name="equipmentName">
         </div>
-        <div class="three fields">
+        <div class="two fields">
           <div class="field">
             <label>Harga Belian</label>
             <div class="ui left labeled input">
@@ -125,13 +125,13 @@
               <input type="text" placeholder="sila isi harga belian - e.g: 10.00" name="equipmentBuyPrice">
             </div>
           </div>
-          <div class="field">
+          <!-- <div class="field">
             <label>Harga Sewaan</label>
             <div class="ui left labeled input">
               <div class="ui basic label">RM</div>
               <input type="text" placeholder="sila isi harga sewaan - e.g: 10.00" name="equipmentRentPrice">
             </div>
-          </div>
+          </div> -->
           <div class="field">
             <label>Kuantiti</label>
             <input type="number" placeholder="sila isi kuantiti" name="equipmentQuantity">
@@ -215,12 +215,12 @@
             type: 'regExp[/^\\d+(\\.\\d{1,2})?$/]',
           }]
         },
-        equipmentRentPrice : {
-          identifier: 'equipmentRentPrice',
-          rules: [{
-            type: 'regExp[/^\\d+(\\.\\d{1,2})?$/]',
-          }]
-        },
+        // equipmentRentPrice : {
+        //   identifier: 'equipmentRentPrice',
+        //   rules: [{
+        //     type: 'regExp[/^\\d+(\\.\\d{1,2})?$/]',
+        //   }]
+        // },
         equipmentQuantity : 'empty',
         equipmentBuyDate : 'empty',
         equipmentSponsor : 'empty',
