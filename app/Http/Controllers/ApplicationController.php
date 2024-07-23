@@ -237,23 +237,16 @@ class ApplicationController extends Controller
 
     $diffInMonths = 0;
     $rentQuantity = $request -> input('applicationQuantity');
-    $equipmentRentPrice = 0;
-    $equipmentDepositPrice = 0;
-    $equipmentMonthlyPrice = 0;
-    $equipmentMaintenancePrice = 0;
-    $equipmentTransportationPrice = 100;
+    $equipmentOverallCost = 0;
+    $equipmentMonthlyCost = 0;
 
     $client = Client::find($request -> input('clientId'));
     if ($client -> clientMembership == 'AHLI') {
-      $equipmentRentPrice = 300;
-      $equipmentDepositPrice = 100;
-      $equipmentMonthlyPrice = 0;
-      $equipmentMaintenancePrice = 100;
+      $equipmentOverallCost = 300;
+      $equipmentMonthlyCost = 1;
     } else if ($client -> clientMembership == 'BUKAN AHLI') {
-      $equipmentRentPrice = 500;
-      $equipmentDepositPrice = 200;
-      $equipmentMonthlyPrice = 200;
-      $equipmentMaintenancePrice = 0;
+      $equipmentOverallCost = 500;
+      $equipmentMonthlyCost = 200;
     }
 
     // $equipment = Equipment::find($request -> input('equipmentId'));
@@ -278,7 +271,7 @@ class ApplicationController extends Controller
       $diffInMonths = 1;
     }
 
-    $applicationRentPrice = ($equipmentRentPrice + $equipmentDepositPrice + $equipmentMonthlyPrice + $equipmentMaintenancePrice + $equipmentTransportationPrice) * $rentQuantity * $diffInMonths;
+    $applicationRentPrice = ($equipmentOverallCost + ($diffInMonths * $equipmentMonthlyCost)) * $rentQuantity;
 
     $applicationId = Str::uuid() -> toString();
     $createApplication = Application::create([
