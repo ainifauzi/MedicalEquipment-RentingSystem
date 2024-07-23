@@ -235,28 +235,50 @@ class ApplicationController extends Controller
     $applicationMedicLetter = $request -> file('applicationMedicLetter');
     $applicationMedicLetterContent = base64_encode($applicationMedicLetter -> get());
 
+    $diffInMonths = 0;
+    $rentQuantity = $request -> input('applicationQuantity');
+    $equipmentRentPrice = 0;
+    $equipmentDepositPrice = 0;
+    $equipmentMonthlyPrice = 0;
+    $equipmentMaintenancePrice = 0;
+    $equipmentTransportationPrice = 100;
+
     $client = Client::find($request -> input('clientId'));
     if ($client -> clientMembership == 'AHLI') {
       $equipmentRentPrice = 300;
+      $equipmentDepositPrice = 100;
+      $equipmentMonthlyPrice = 0;
+      $equipmentMaintenancePrice = 100;
     } else if ($client -> clientMembership == 'BUKAN AHLI') {
       $equipmentRentPrice = 500;
+      $equipmentDepositPrice = 200;
+      $equipmentMonthlyPrice = 200;
+      $equipmentMaintenancePrice = 0;
     }
 
     // $equipment = Equipment::find($request -> input('equipmentId'));
     // $equipmentRentPrice = $equipment -> equipmentRentPrice;
 
-    $rentDuration = 0;
-    $rentStartDate = new DateTime($request -> input('applicationStartDate'));
-    $rentEndDate = new DateTime($request -> input('applicationEndDate'));
-    $rentQuantity = $request -> input('applicationQuantity');
+    // $rentDuration = 0;
+    // $rentStartDate = new DateTime($request -> input('applicationStartDate'));
+    // $rentEndDate = new DateTime($request -> input('applicationEndDate'));
 
-    if ($rentStartDate == $rentEndDate) {
-      $rentDuration = 1;
-    } else {
-      $rentDuration = ($rentEndDate -> diff($rentStartDate)) -> days;
+    // if ($rentStartDate == $rentEndDate) {
+    //   $rentDuration = 1;
+    // } else {
+    //   $rentDuration = ($rentEndDate -> diff($rentStartDate)) -> days;
+    // }
+
+    $rentStartDate = Carbon::parse($request -> input('applicationStartDate'));
+    $rentEndDate = Carbon::parse($request -> input('applicationEndDate'));
+    
+    $diffInMonths = $rentStartDate -> diffInMonths($rentEndDate);
+
+    if ($diffInMonths < 1) {
+      $diffInMonths = 1;
     }
 
-    $applicationRentPrice = $rentDuration * $equipmentRentPrice * $rentQuantity;
+    $applicationRentPrice = ($equipmentRentPrice + $equipmentDepositPrice + $equipmentMonthlyPrice + $equipmentMaintenancePrice + $equipmentTransportationPrice) * $rentQuantity * $diffInMonths;
 
     $applicationId = Str::uuid() -> toString();
     $createApplication = Application::create([
