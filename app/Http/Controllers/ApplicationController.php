@@ -236,16 +236,15 @@ class ApplicationController extends Controller
     $applicationMedicLetterContent = base64_encode($applicationMedicLetter -> get());
 
     $diffInMonths = 0;
-    $rentQuantity = $request -> input('applicationQuantity');
     $equipmentOverallCost = 0;
     $equipmentMonthlyCost = 0;
+    $rentQuantity = $request -> input('applicationQuantity');
 
     $client = Client::find($request -> input('clientId'));
     if ($client -> clientMembership == 'AHLI') {
       $equipmentOverallCost = 300;
-      $equipmentMonthlyCost = 1;
     } else if ($client -> clientMembership == 'BUKAN AHLI') {
-      $equipmentOverallCost = 500;
+      $equipmentOverallCost = 300;
       $equipmentMonthlyCost = 200;
     }
 
