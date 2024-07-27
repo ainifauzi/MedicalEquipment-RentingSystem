@@ -1,6 +1,7 @@
 <div class="topnav border-top border-bottom">
   <a class="p-15px-25px" href="#"></a>
-  <a class="p-15px-25px" href="javascript:void(0);" onclick="promptLogout()">Log Keluar</a>
-  <a class="p-15px-25px" href="javascript:void(0);" onclick="displayProfile()">Profil</a>
-  <a class="p-15px-25px" href="javascript:void(0);" onclick="displayNotificationList()">Notifikasi</a>
+  <a class="p-15px-25px" href="javascript:void(0);" onclick="promptLogout()"><i class="fa fa-sign-out"style='font-size:24px'></i><br>Log Keluar</a>
+  <a class="p-15px-25px" href="javascript:void(0);" onclick="displayProfile()"><i class='fas fa-user-alt'style='font-size:24px' ></i><br>Profil</a>
+  <a class="p-15px-25px" href="javascript:void(0);" onclick="displayNotificationList()"><i class='fas fa-bell'style='font-size:24px'></i><br>Notifikasi</a>
+  </div>Notifikasi</a>
 </div>

@@ -44,7 +44,7 @@
           "searching": true,
           "info": false,
           "language": {
-            "search": ""
+            "search": "<i class='fas fa-search'></i> Cari"
           }
         });
       });
@@ -55,20 +55,22 @@
   @include('section.admin_top_nav')
   <div>
     <div class="ui visible left vertical sidebar menu bg-primary-almond">
-      <a class="item h-100px" href="/admin_dashboard"></a>
-      <a class="item" href="/admin_dashboard">
+    <br>  
+    <h3>SISTEM SEWAAN <br> PERALATAN PERUBATAN</h3>
+      <a class="item h-50px" href="/admin_dashboard"></a>
+      <a class="item" href="/admin_dashboard"><i class="fas fa-home"></i>
         Laman Utama
       </a>
-      <a class="item" href="/admin_staff_dashboard">
+      <a class="item" href="/admin_staff_dashboard"><i class='fas fa-user-tie'></i>
         Petugas
       </a>
-      <a class="item active" href="/admin_customer_dashboard">
+      <a class="item active" href="/admin_customer_dashboard"><i class="fas fa-user"></i>
         Pelanggan
       </a>
-      <a class="item" href="/admin_equipment_dashboard">
+      <a class="item" href="/admin_equipment_dashboard"><i class="fas fa-medkit"></i>
         Peralatan
       </a>
-      <a class="item" href="/admin_application_dashboard">
+      <a class="item" href="/admin_application_dashboard"><i class="fa fa-envelope"></i>
         Permohonan Sewaan
       </a>
     </div>

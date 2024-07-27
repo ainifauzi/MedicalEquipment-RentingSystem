@@ -120,14 +120,16 @@
   @include('section.client_top_nav')
   <div>
     <div class="ui visible left vertical sidebar menu bg-primary-almond">
-      <a class="item h-100px" href="/client_admin_dashboard"></a>
-      <a class="item active" href="/client_admin_dashboard">
+    <br>  
+    <h3>SISTEM SEWAAN <br> PERALATAN PERUBATAN</h3>
+      <a class="item h-50px" href="/client_admin_dashboard"></a>
+      <a class="item active" href="/client_admin_dashboard"><i class="fas fa-home"></i>
         Laman Utama
       </a>
-      <a class="item" href="/client_application_dashboard">
+      <a class="item" href="/client_application_dashboard"><i class="fa fa-envelope"></i>
         Permohonan Sewaan
       </a>
-      <a class="item" href="/client_history_dashboard">
+      <a class="item" href="/client_history_dashboard"><i class="fa fa-history"></i>
         Sejarah Sewaan
       </a>
     </div>

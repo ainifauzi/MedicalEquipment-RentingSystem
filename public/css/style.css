@@ -1,10 +1,20 @@
 :root {
   --primary-grey: rgb(250, 250, 250);
-  --border-primary-grey: rgb(212, 212, 212);
-  --primary-almond: rgb(255, 235, 205);
+  --border-primary-grey: rgba(115, 115, 115, 0.958);
+  --primary-almond: rgb(217, 217, 217);
+  --primary-white: rgb(255, 255, 255);
 }
 html, body, body *, .ui {
   font-family: "Roboto", sans-serif;
+}
+
+.fa {
+  font-family: 'FontAwesome';
+}
+
+a {
+  color: #106eea;
+  text-decoration: none;
 }
 .topnav {
   background-color: var(--primary-grey);
@@ -27,6 +37,7 @@ html, body, body *, .ui {
 .sidenav-content {
   width: calc(100% - 260px) !important;
   height: calc(100vh - 51.5875px) !important;
+  
 }
 .content-header {
   width: 100%;
@@ -45,6 +56,7 @@ html, body, body *, .ui {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   height: calc(100vh - 51.5875px);
+  
 }
 .grid-3-equal {
   display: grid;
@@ -92,8 +104,8 @@ html, body, body *, .ui {
 .w-100pct {
   width: 100% !important;
 }
-.h-100px {
-  height: 100px !important;
+.h-50px {
+  height: 50px !important;
 }
 .border-top {
   border-top: 1px solid var(--border-primary-grey);
@@ -111,8 +123,9 @@ html, body, body *, .ui {
   border-radius: 0 0 .28571429rem .28571429rem;
 }
 .ui.tabular.menu .item.active {
-  background-color: var(--primary-grey);
+  background-color: var(--primary-grey);  
 }
+
 .bg-primary-grey {
   background-color: var(--primary-grey) !important;
 }
@@ -161,3 +174,129 @@ input[type="search"]::-webkit-search-results-decoration {
 input[type="search"]:focus {
   outline: none !important;
 }
+
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+.image-section {
+  width: 100%;
+  overflow: hidden; /* Prevents scrolling */
+}
+
+.responsive-image {
+  width: 100%; /* Ensures the image fits the section width */
+  height: auto; /* Maintains the aspect ratio */
+  display: inline; /* Removes bottom margin */
+}
+
+* {box-sizing:border-box}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 100%;
+  position: relative;
+  margin: auto;
+  white-space: nowrap;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: inline;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 100px) {
+  .text {font-size: 11px}
+}
+
+.navbar-brand,
+.navbar-brand:hover {
+  font-size: var(--h5-font-size);
+}
+
+.navbar-expand-lg .navbar-nav {
+  padding-bottom: 20px;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+  padding: 0;
+  margin-bottom: 0;
+}
+
+

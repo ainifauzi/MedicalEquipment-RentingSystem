@@ -9,23 +9,76 @@
         .dropdown()
       ;
     });
-  </script>
+
+let slideIndex = 0;
+showSlides();
+
+function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none"; 
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}    
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+  setTimeout(showSlides, 3000); // Change image every 3 seconds
+}
+
+</script>
+  
+  
+        
 </head>
 <body>
   <div class="topnav border-top border-bottom">
-    <a class="p-15px-25px" href="#">Peralatan Perubatan</a>
-    <a class="p-15px-25px" href="javascript:void(0);" onclick="register()">Daftar Masuk</a>
-    <a class="p-15px-25px" href="#">Tentang Kami</a>
+    
+    <a class="p-15px-25px" href="index.html"> SISTEM SEWAAN PERALATAN PERUBATAN</a>
+    <a class="p-15px-25px" href="#"><i class="fa fa-sign-in"></i> Log Masuk</a>
+    <a class="p-15px-25px" href="javascript:void(0);" onclick="register()"><i class="fa fa-user-plus"></i> Daftar Masuk</a>
+    <a class="p-15px-25px" href="#" onclick="register()"><i class='fa fa-book'></i> Tentang Kami</a>
   </div>
-  <div class="index-grid-3">
-    <div class="grid-landing-page-item p-5em">
-      <div class="ui piled segment">
-        <h4 class="ui header">A header</h4>
-        <p>Te eum doming eirmod, nominati pertinacia argumentum ad his. Ex eam alia facete scriptorem, est autem aliquip detraxit at. Usu ocurreret referrentur at, cu epicurei appellantur vix. Cum ea laoreet recteque electram, eos choro alterum definiebas in. Vim dolorum definiebas an. Mei ex natum rebum iisque.</p>
-         <p>Audiam quaerendum eu sea, pro omittam definiebas ex. Te est latine definitiones. Quot wisi nulla ex duo. Vis sint solet expetenda ne, his te phaedrum referrentur consectetuer. Id vix fabulas oporteat, ei quo vide phaedrum, vim vivendum maiestatis in.</p>
-         <p>Eu quo homero blandit intellegebat. Incorrupte consequuntur mei id. Mei ut facer dolores adolescens, no illum aperiri quo, usu odio brute at. Qui te porro electram, ea dico facete utroque quo. Populo quodsi te eam, wisi everti eos ex, eum elitr altera utamur at. Quodsi convenire mnesarchum eu per, quas minimum postulant per id.</p>
-      </div>
+  
+<!--Hero Section -->
+ 
+<!-- Slideshow container -->
+<section id="hero" class="image-section">
+  <div class="slideshow-container" data-aos="zoom-out" data-aos-delay="100">
+    <h2 class="ui header"><img src= "assets/img/logo ppkm.jpg" width="" height="" >PERTUBUHAN PEJUANG KANSER MELAKA</h2>
+       
+<!-- Full-width images with number and caption text -->
+    <div class="mySlides fade">
+      <img src="assets/img/kanser.jpg" style="width:100%" class="responsive-image">
     </div>
+
+    <div class="mySlides fade">
+      <img src="assets/img/ajkppkm.jpg" style="width:100%" class="responsive-image">
+    </div>
+
+    <div class="mySlides fade">
+      <img src="assets/img/merdeka.jpg" style="width:100%" class="responsive-image">
+    </div>
+
+<!-- Next and previous buttons -->
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+<br>
+
+</section>
     <div class="grid-landing-page-item p-5em-2em">
       <div class="ui tabular menu m-0">
         <div class="item w-50pct cursor-pointer" data-tab="staff-login">Petugas</div>
@@ -36,11 +89,11 @@
           <div class="ui red message" id="staffMessageId"></div>
           <div class="field">
             <label>Nombor KP</label>
-            <input type="text" placeholder="sila isi nombor kad pengenalan" name="staffIcNumber" value="990507-02-5545">
+            <input type="text" placeholder="sila isi nombor kad pengenalan" name="staffIcNumber" value="">
           </div>
           <div class="field">
             <label>Kata Laluan</label>
-            <input type="password" placeholder="sila isi kata laluan" name="staffPassword" value="password123">
+            <input type="password" placeholder="sila isi kata laluan" name="staffPassword" value="">
           </div>
           <div class="ui info message">
             <div class="header">Garis Panduan</div>
@@ -61,11 +114,11 @@
         <div class="ui red message" id="clientMessageId"></div>
           <div class="field">
             <label>Nombor KP</label>
-            <input type="text" placeholder="sila isi nombor kad pengenalan" name="clientIcNumber" value="990507-01-4474">
+            <input type="text" placeholder="sila isi nombor kad pengenalan" name="clientIcNumber" value="">
           </div>
           <div class="field">
             <label>Kata Laluan</label>
-            <input type="password" placeholder="sila isi kata laluan" name="clientPassword" value="password123">
+            <input type="password" placeholder="sila isi kata laluan" name="clientPassword" value="">
           </div>
           <div class="ui info message">
             <div class="header">Garis Panduan</div>
