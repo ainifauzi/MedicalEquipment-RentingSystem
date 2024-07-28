@@ -5,83 +5,57 @@
   <script>
     $(function() {
       $('.tabular.menu .item').tab();
+
       $('.selection.dropdown.member')
         .dropdown()
       ;
     });
-
-let slideIndex = 0;
-showSlides();
-
-function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
-
-        function currentSlide(n) {
-            showSlides(slideIndex = n);
-        }
-
-function showSlides() {
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("dot");
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none"; 
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}    
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-  setTimeout(showSlides, 3000); // Change image every 3 seconds
-}
-
-</script>
-  
-  
-        
+  </script>
 </head>
-<body>
+<body class="index">
   <div class="topnav border-top border-bottom">
-    
-    <a class="p-15px-25px" href="index.html"> SISTEM SEWAAN PERALATAN PERUBATAN</a>
-    <a class="p-15px-25px" href="#" onclick="login()"><i class="fa fa-sign-in"></i> Log Masuk</a>
-    <a class="p-15px-25px" href="javascript:void(0);" onclick="register()"><i class="fa fa-user-plus"></i> Daftar Masuk</a>
-    <a class="p-15px-25px" href="javascript:void(0);"><i class='fa fa-book'></i> Tentang Kami</a>
+    <a style="pointer-events: none; color: black;" class="p-15px-25px" href="/"> SISTEM SEWAAN PERALATAN PERUBATAN</a>
+    <a class="p-15px-25px" href="javascript:void(0);" onclick="login()"><i style="margin-right: 5px" class="fa fa-sign-in"></i> Log Masuk</a>
+    <a class="p-15px-25px" href="javascript:void(0);" onclick="register()"><i style="margin-right: 5px" class="fa fa-user-plus"></i> Daftar Masuk</a>
+    <a class="p-15px-25px" href="javascript:void(0);" onclick="aboutUs()"><i style="margin-right: 5px" class='fa fa-book'></i> Tentang Kami</a>
   </div>
-  
-<!--Hero Section -->
- 
-<!-- Slideshow container -->
-<section id="hero" class="image-section">
-  <div class="slideshow-container" data-aos="zoom-out" data-aos-delay="100">
-    <h2 class="ui header"><img src= "assets/img/logo ppkm.jpg" width="" height="" >PERTUBUHAN PEJUANG KANSER MELAKA</h2>
-       
-<!-- Full-width images with number and caption text -->
-    <div class="mySlides fade">
-      <img src="assets/img/kanser.jpg" style="width:100%" class="responsive-image">
-    </div>
 
-    <div class="mySlides fade">
-      <img src="assets/img/ajkppkm.jpg" style="width:100%" class="responsive-image">
+  <div class="slideshow-container">
+    <div class="container slide-class fade">
+      <img class="slide-image-class" src="assets/img/kanser.jpg">
+      <div class="centered">
+        <h1>PERTUBUHAN PEJUANG KANSER MELAKA (PPKM)</h1>
+        <h2 style="font-family: 'Playwrite DK Loopet', cursive;">"Unite with the Power of Love"</h2>
+      </div>
     </div>
-
-    <div class="mySlides fade">
-      <img src="assets/img/merdeka.jpg" style="width:100%" class="responsive-image">
+    <div class="container slide-class fade">
+      <img class="slide-image-class" src="assets/img/ajkppkm.jpg">
+      <div class="centered">
+        <h1>PERTUBUHAN PEJUANG KANSER MELAKA (PPKM)</h1>
+        <h2 style="font-family: 'Playwrite DK Loopet', cursive;">"Unite with the Power of Love"</h2>
+      </div>
     </div>
-
-<!-- Next and previous buttons -->
-    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-    <a class="next" onclick="plusSlides(1)">&#10095;</a>
-</div>
-<br>
-
-</section>
-    <div class="grid-landing-page-item p-5em-2em">
-      
+    <div class="container slide-class fade">
+      <img class="slide-image-class" src="assets/img/merdeka.jpg">
+      <div class="centered">
+        <h1>PERTUBUHAN PEJUANG KANSER MELAKA (PPKM)</h1>
+        <h2 style="font-family: 'Playwrite DK Loopet', cursive;">"Unite with the Power of Love"</h2>
+      </div>
     </div>
+    <div class="container slide-class fade">
+      <img class="slide-image-class" src="assets/img/program.jpg">
+      <div class="centered">
+        <h1>PERTUBUHAN PEJUANG KANSER MELAKA (PPKM)</h1>
+        <h2 style="font-family: 'Playwrite DK Loopet', cursive;">"Unite with the Power of Love"</h2>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div style="text-align:center">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
   </div>
   <form class="ui modal register" id="registerFormId" method="post" enctype="multipart/form-data">
     <div class="header bg-primary-grey">Daftar Akaun</div>
@@ -162,11 +136,10 @@ function showSlides() {
       </button>
     </div>
   </form>
-  
   <div class="ui modal login">
     <div class="header bg-primary-grey">Daftar Akaun</div>
     <div class="content bg-primary-grey">
-    <div class="ui tabular menu m-0">
+      <div class="ui tabular menu m-0">
         <div class="item w-50pct cursor-pointer" data-tab="staff-login">Petugas</div>
         <div class="item w-50pct cursor-pointer" data-tab="client-login">Pelanggan</div>
       </div>
@@ -188,7 +161,6 @@ function showSlides() {
               <li>Perlu mengandungi gabungan huruf, nombor & simbol.</li>
             </ul>
           </div>
-          <!-- <button class="ui right labeled icon blue button" onclick="window.location.href='client_admin_dashboard.html'"> -->
           <button type="submit" class="ui right labeled icon blue button">
             <i class="right arrow icon"></i>
             Log Masuk
@@ -213,7 +185,6 @@ function showSlides() {
               <li>Perlu mengandungi gabungan huruf, nombor & simbol.</li>
             </ul>
           </div>
-          <!-- <button class="ui right labeled icon blue button" onclick="window.location.href='client_admin_dashboard.html'"> -->
           <button type="submit" class="ui right labeled icon blue button">
             <i class="right arrow icon"></i>
             Log Masuk
@@ -222,7 +193,79 @@ function showSlides() {
       </div>
     </div>
   </div>
+  <div class="ui modal about us">
+    <div class="header bg-primary-grey">Tentang Kami</div>
+    <div class="scrolling content bg-primary-grey" style="padding: 40px !important">
+      <ol>
+        <b><li>Pengenalan Pertubuhan</li></b>
+        <br>
+        <div>
+          Pertubuhan Pejuang Kanser Melaka (PPKM) bersama barisan ahli jawatankuasa yang dilantik telah menubuhkan dan mendaftarkan Pertubuhan ini dibawah Akta Pertubuhan 1966 pada 19 Ogos 2020 dan beralamat di Melaka. Tujuan penubuhan antaranya adalah untuk memberikan sokongan moral dan bantuan peralatan sokongan kesihatan serta keperluan asas kepada ahli, waris atau penjaga pesakit kanser. Kepimpinan pertubuhan ini adalah terdiri daripada jururawat, doktor, pesakit kanser dan waris yang berkhidmat secara sukarela. 
+        </div>
+        <br>
+        <br>
+        <b><li>Latar Belakang Pertubuhan</li></b>
+        <br>
+        <div>
+          Pertubuhan ini telah lama aktif dengan aktiviti ziarah kasih dan penyampaian sumbangan masyarakat kepada ahli dibawah kategori B40 sejak sebelum ini dengan nama Power Of Love. Pada masa ini ahli adalah terdiri daripada pelbagai latar belakang masyarakat dan bangsa iaitu golongan B40, asnaf, ibu tunggal, warga emas mahupun orang kelainan upaya (OKU) yang merupakan penduduk negeri Melaka.
+          Keahlian pertubuhan ini telah mencecah hampir 400 orang sehingga Disember 2022 dan yuran keahlian yang dikenakan adalah serendah RM10.00 sahaja setiap tahun.
+          Kini, PPKM bergerak di bawah tema Unite With The Power of Love.
+        </div>
+        <br>
+        <br>
+        <b><li>Maklumat Pertubuhan</li></b>
+        <br>
+        <ol style="margin-left: 30px">
+          <li>Memberi bantuan dan sokongan dari segi sosial, fizikal dan mental.</li>
+          <li>Menganjurkan program motivasi dan kerohanian yang bersesuaian dengan ahli persatuan.</li>
+          <li>Memberi sokongan emosi yang bersesuaian kepada ahli yang memerlukan.</li>
+          <li>Memberi bantuan peralatan sokongan kesihatan yang bersesuaian dan berkaitan seperti mesin oksigen, katil pesakit, wheelchair, commode chair dan lain-lain peralatan pakai buang yang diperlukan oleh pesakit.</li>
+        </ol>
+        <br>
+        <br>
+        <b><li>Kelebihan Menyertai Pertubuhan ini</li></b>
+        <br>
+        <ol style="margin-left: 30px">
+          <li>Ahli boleh mendapatkan peralatan perubatan dengan kadar sewa yang rendah.</li>
+          <li>Ahli boleh mengikuti semua program motivasi dan aktiviti yang dianjurkan oleh PPKM pada setiap masa.</li>
+          <li>Ahli boleh mendapatkan khidmat nasihat dan kumpulan sokongan sepanjang mendapatkan rawatan serta selepas rawatan.</li>
+          <li>Ahli akan mendapat silaturrahim dan ukhwah bersama pejuang-pejuang kanser yang telah melalui pengalaman yang sama.</li>
+          <li>Ahli yang terdiri daripada golongan asnaf, b40, ibu tunggal dan warga emas berpeluang untuk mendapatkan sumbangan semasa perayaan.</li>
+        </ol>
+      </ol>  
+    </div>
+    <div class="center aligned actions">
+      <button onclick="location.href='https://www.youtube.com/channel/UCwap28eCwOWxa_rM8sv_GKw';" style="background-color: #FF0000; color: #fff" type="button" class="ui right labeled icon clear button">
+        <i class="youtube icon"></i>
+        YouTube
+      </button>
+      <button onclick="location.href='https://www.facebook.com/groups/pejuangkansermelaka';" style="background-color: #4267B2; color: #fff" type="button" class="ui right labeled icon clear button">
+        <i class="facebook icon"></i>
+        Facebook
+      </button>
+    </div>
+  </div>
   <script>
+    let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+      let i;
+      let slides = document.getElementsByClassName("slide-class");
+      let dots = document.getElementsByClassName("dot");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {slideIndex = 1}    
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" dot-active", "");
+      }
+      slides[slideIndex-1].style.display = "block";  
+      dots[slideIndex-1].className += " dot-active";
+      setTimeout(showSlides, 4000);
+    }
+
     onUpperCaseForm('registerFormId');
 
     $('#staffMessageId').hide();
@@ -240,6 +283,7 @@ function showSlides() {
         },
       }
     });
+
     $('.ui.form.info#clientSigninId').form({
       fields: {
         clientIcNumber : 'empty',
@@ -251,6 +295,7 @@ function showSlides() {
         },
       }
     });
+    
     $('.ui.modal.register#registerFormId').form({
       fields: {
         clientIcNumber : {
@@ -289,6 +334,12 @@ function showSlides() {
 
     function login() {
       $('.ui.modal.login')
+        .modal('show')
+      ;
+    }
+
+    function aboutUs() {
+      $('.ui.modal.about.us')
         .modal('show')
       ;
     }
