@@ -37,7 +37,7 @@
             .append($('<td>').append(application.equipmentName))
             .append($('<td>').append(`<a class="ui ${application.applicationColor} label">${application.applicationStatus}</a>`))
             .append($('<td>').append(`<a class="ui ${application.paymentColor} label">${application.paymentStatus}</a>`))
-            .append($('<td>').append(detailButton).append(updateButton))
+            .append($('<td>').append(detailButton).append(updateButton).append(medicLetterButton))
           );
         }
 
@@ -219,6 +219,22 @@
     </div>
   </form>
   
+  <div class="ui small modal medical letter">
+    <div class="header bg-primary-grey">Gambar Surat Sakit</div>
+    <div class="scrolling content">
+      <img id="applicationMedicLetterId" alt="Medical Letter">
+    </div>
+    <div class="actions">
+      <button onclick="resetMedicalLetterPrompt()" type="button" class="ui right labeled icon deny button">
+        <i class="close icon"></i>
+        Tutup
+      </button>
+      <a id="applicationMedicLetterDownloadId" class="ui right labeled icon blue button">
+        <i class="arrow down icon"></i>
+        Muat Turun
+      </a>
+    </div>
+  </div>
   @include('section.staff_modal')
   @include('section.staff_modal_script')
   
@@ -273,7 +289,26 @@
       });
     });
 
-    
+    function medicalLetterPrompt(applicationId) {
+      $.ajax({
+        type: 'GET',
+        url: '/application/file/' + applicationId
+      }).then(function(res) {
+        $('#applicationMedicLetterId').attr('src', `data:image/jpeg;base64,${res.data}`);
+        $('#applicationMedicLetterDownloadId').attr('href', `data:image/jpeg;base64,${res.data}`);
+        $('#applicationMedicLetterDownloadId').attr('download', 'Surat Sakit');
+
+        $('.ui.small.modal.medical.letter')
+          .modal('show')
+        ;
+      });
+    }
+
+    function resetMedicalLetterPrompt() {
+      $('#applicationMedicLetterId').attr('src', '');
+      $('#applicationMedicLetterDownloadId').attr('href', '');
+      $('#applicationMedicLetterDownloadId').attr('download', '');
+    }
   </script>
 </body>
 </html>
