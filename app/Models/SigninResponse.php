@@ -11,6 +11,7 @@ class SigninResponse extends Model
 
     protected $fillable = [
         'responseId',
+        'responseName',
         'responseRole',
         'responseStatus',
         'responseMessage'

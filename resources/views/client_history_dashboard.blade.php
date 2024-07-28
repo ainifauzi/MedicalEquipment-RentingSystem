@@ -51,9 +51,9 @@
   @include('section.client_top_nav')
   <div>
     <div class="ui visible left vertical sidebar menu bg-primary-almond">
-    <br>  
-    <h3>SISTEM SEWAAN <br> PERALATAN PERUBATAN</h3>
-      <a class="item h-50px" href="/client_admin_dashboard"></a>
+      <a class="item" href="/client_admin_dashboard">
+        <h3>SISTEM SEWAAN <br> PERALATAN PERUBATAN</h3>
+      </a>
       <a class="item" href="/client_admin_dashboard"><i class="fas fa-home"></i>
         Laman Utama
       </a>

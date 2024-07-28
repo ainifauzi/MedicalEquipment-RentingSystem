@@ -61,9 +61,9 @@
   @include('section.staff_top_nav')
   <div>
     <div class="ui visible left vertical sidebar menu bg-primary-almond">
-    <br>  
-    <h3>SISTEM SEWAAN <br> PERALATAN PERUBATAN</h3>
-      <a class="item h-100px" href="/staff_application_dashboard"></a>
+      <a class="item" href="/client_admin_dashboard">
+        <h3>SISTEM SEWAAN <br> PERALATAN PERUBATAN</h3>
+      </a>
       <a class="item active" href="/staff_application_dashboard"><i class="fa fa-envelope"></i>
         Permohonan Sewaan
       </a>

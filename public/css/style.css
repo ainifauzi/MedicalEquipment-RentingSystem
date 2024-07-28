@@ -25,6 +25,10 @@ a {
   text-align: center;
   text-decoration: none;
 }
+.sidebar a:first-child {
+  pointer-events: none;
+  padding: 3em 1em !important;
+}
 .topnav a {
   float: right;
   text-align: center;

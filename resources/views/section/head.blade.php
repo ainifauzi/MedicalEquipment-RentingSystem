@@ -17,7 +17,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
-<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> 
 <script>
 	$.ajaxSetup({
 		headers: {
@@ -29,19 +28,15 @@
 		$('.selection.dropdown.profile.role')
 			.dropdown()
 		;
-  });
-
-	$(function() {
 		$('.selection.dropdown.profile.member')
 			.dropdown()
 		;
-	});
-
-	$(function() {
 		$('.selection.dropdown.profile.role')
 			.dropdown()
 		;
-	});
+
+		$('#loginName').html(sessionStorage.getItem('user_name'));
+  });
 
 	function onSetForm(formId, formObject) {
 		$("form#" + formId + " :input").each(function() {

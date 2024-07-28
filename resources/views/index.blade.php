@@ -47,9 +47,9 @@ function showSlides() {
   <div class="topnav border-top border-bottom">
     
     <a class="p-15px-25px" href="index.html"> SISTEM SEWAAN PERALATAN PERUBATAN</a>
-    <a class="p-15px-25px" href="#"><i class="fa fa-sign-in"></i> Log Masuk</a>
+    <a class="p-15px-25px" href="#" onclick="login()"><i class="fa fa-sign-in"></i> Log Masuk</a>
     <a class="p-15px-25px" href="javascript:void(0);" onclick="register()"><i class="fa fa-user-plus"></i> Daftar Masuk</a>
-    <a class="p-15px-25px" href="#" onclick="register()"><i class='fa fa-book'></i> Tentang Kami</a>
+    <a class="p-15px-25px" href="javascript:void(0);"><i class='fa fa-book'></i> Tentang Kami</a>
   </div>
   
 <!--Hero Section -->
@@ -80,60 +80,7 @@ function showSlides() {
 
 </section>
     <div class="grid-landing-page-item p-5em-2em">
-      <div class="ui tabular menu m-0">
-        <div class="item w-50pct cursor-pointer" data-tab="staff-login">Petugas</div>
-        <div class="item w-50pct cursor-pointer" data-tab="client-login">Pelanggan</div>
-      </div>
-      <div class="ui tab p-40px border-bottom border-left border-right border-bottom-radius bg-primary-grey" data-tab="staff-login">
-        <form class="ui form info" id="staffSigninId" method="post" enctype="multipart/form-data">
-          <div class="ui red message" id="staffMessageId"></div>
-          <div class="field">
-            <label>Nombor KP</label>
-            <input type="text" placeholder="sila isi nombor kad pengenalan" name="staffIcNumber" value="">
-          </div>
-          <div class="field">
-            <label>Kata Laluan</label>
-            <input type="password" placeholder="sila isi kata laluan" name="staffPassword" value="">
-          </div>
-          <div class="ui info message">
-            <div class="header">Garis Panduan</div>
-            <ul class="list">
-              <li>Perlu mengandungi lebih daripada 8 karakter.</li>
-              <li>Perlu mengandungi gabungan huruf, nombor & simbol.</li>
-            </ul>
-          </div>
-          <!-- <button class="ui right labeled icon blue button" onclick="window.location.href='client_admin_dashboard.html'"> -->
-          <button type="submit" class="ui right labeled icon blue button">
-            <i class="right arrow icon"></i>
-            Log Masuk
-          </button>
-        </form>
-      </div>
-      <div class="ui tab p-40px border-bottom border-left border-right border-bottom-radius bg-primary-grey" data-tab="client-login">
-        <form class="ui form info" id="clientSigninId" method="post" enctype="multipart/form-data">
-        <div class="ui red message" id="clientMessageId"></div>
-          <div class="field">
-            <label>Nombor KP</label>
-            <input type="text" placeholder="sila isi nombor kad pengenalan" name="clientIcNumber" value="">
-          </div>
-          <div class="field">
-            <label>Kata Laluan</label>
-            <input type="password" placeholder="sila isi kata laluan" name="clientPassword" value="">
-          </div>
-          <div class="ui info message">
-            <div class="header">Garis Panduan</div>
-            <ul class="list">
-              <li>Perlu mengandungi lebih daripada 8 karakter.</li>
-              <li>Perlu mengandungi gabungan huruf, nombor & simbol.</li>
-            </ul>
-          </div>
-          <!-- <button class="ui right labeled icon blue button" onclick="window.location.href='client_admin_dashboard.html'"> -->
-          <button type="submit" class="ui right labeled icon blue button">
-            <i class="right arrow icon"></i>
-            Log Masuk
-          </button>
-        </form>
-      </div>
+      
     </div>
   </div>
   <form class="ui modal register" id="registerFormId" method="post" enctype="multipart/form-data">
@@ -215,6 +162,66 @@ function showSlides() {
       </button>
     </div>
   </form>
+  
+  <div class="ui modal login">
+    <div class="header bg-primary-grey">Daftar Akaun</div>
+    <div class="content bg-primary-grey">
+    <div class="ui tabular menu m-0">
+        <div class="item w-50pct cursor-pointer" data-tab="staff-login">Petugas</div>
+        <div class="item w-50pct cursor-pointer" data-tab="client-login">Pelanggan</div>
+      </div>
+      <div class="ui tab p-40px border-bottom border-left border-right border-bottom-radius bg-primary-grey" data-tab="staff-login">
+        <form class="ui form info" id="staffSigninId" method="post" enctype="multipart/form-data">
+          <div class="ui red message" id="staffMessageId"></div>
+          <div class="field">
+            <label>Nombor KP</label>
+            <input type="text" placeholder="sila isi nombor kad pengenalan" name="staffIcNumber" value="">
+          </div>
+          <div class="field">
+            <label>Kata Laluan</label>
+            <input type="password" placeholder="sila isi kata laluan" name="staffPassword" value="">
+          </div>
+          <div class="ui info message">
+            <div class="header">Garis Panduan</div>
+            <ul class="list">
+              <li>Perlu mengandungi lebih daripada 8 karakter.</li>
+              <li>Perlu mengandungi gabungan huruf, nombor & simbol.</li>
+            </ul>
+          </div>
+          <!-- <button class="ui right labeled icon blue button" onclick="window.location.href='client_admin_dashboard.html'"> -->
+          <button type="submit" class="ui right labeled icon blue button">
+            <i class="right arrow icon"></i>
+            Log Masuk
+          </button>
+        </form>
+      </div>
+      <div class="ui tab p-40px border-bottom border-left border-right border-bottom-radius bg-primary-grey" data-tab="client-login">
+        <form class="ui form info" id="clientSigninId" method="post" enctype="multipart/form-data">
+        <div class="ui red message" id="clientMessageId"></div>
+          <div class="field">
+            <label>Nombor KP</label>
+            <input type="text" placeholder="sila isi nombor kad pengenalan" name="clientIcNumber" value="">
+          </div>
+          <div class="field">
+            <label>Kata Laluan</label>
+            <input type="password" placeholder="sila isi kata laluan" name="clientPassword" value="">
+          </div>
+          <div class="ui info message">
+            <div class="header">Garis Panduan</div>
+            <ul class="list">
+              <li>Perlu mengandungi lebih daripada 8 karakter.</li>
+              <li>Perlu mengandungi gabungan huruf, nombor & simbol.</li>
+            </ul>
+          </div>
+          <!-- <button class="ui right labeled icon blue button" onclick="window.location.href='client_admin_dashboard.html'"> -->
+          <button type="submit" class="ui right labeled icon blue button">
+            <i class="right arrow icon"></i>
+            Log Masuk
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
   <script>
     onUpperCaseForm('registerFormId');
 
@@ -280,6 +287,12 @@ function showSlides() {
       ;
     }
 
+    function login() {
+      $('.ui.modal.login')
+        .modal('show')
+      ;
+    }
+
     $('#registerFormId').on('submit', function(event) {
       event.preventDefault();
       
@@ -327,6 +340,7 @@ function showSlides() {
           success: function(res) {
             if (res.data.responseStatus) {
               sessionStorage.setItem('user_id', res.data.responseId);
+              sessionStorage.setItem('user_name', res.data.responseName);
               window.location.href = '/client_admin_dashboard';
             } else {
               $('#clientMessageId').show();
@@ -351,6 +365,7 @@ function showSlides() {
           success: function(res) {
             if (res.data.responseStatus) {
               sessionStorage.setItem('user_id', res.data.responseId);
+              sessionStorage.setItem('user_name', res.data.responseName);
               if (res.data.responseRole === 'PETUGAS') {
                 window.location.href = '/staff_application_dashboard';
               } else if (res.data.responseRole === 'PENTADBIR') {

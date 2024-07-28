@@ -17,6 +17,7 @@ class ClientController extends Controller
     if(!empty($existingClient)) {
       if (strcmp($existingClient -> clientPassword, $request -> input('clientPassword')) == 0) {
         $signinResponse -> responseId = $existingClient -> clientId;
+        $signinResponse -> responseName = Str::title($existingClient -> clientName);
         $signinResponse -> responseStatus = true;
       } else {
         $signinResponse -> responseStatus = false;

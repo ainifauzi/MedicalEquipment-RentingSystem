@@ -17,6 +17,7 @@ class StaffController extends Controller
     if(!empty($existingStaff)) {
       if (strcmp($existingStaff -> staffPassword, $request -> input('staffPassword')) == 0) {
         $signinResponse -> responseRole = $existingStaff -> staffRole;
+        $signinResponse -> responseName = Str::title($existingStaff -> staffName);
         $signinResponse -> responseId = $existingStaff -> staffId;
         $signinResponse -> responseStatus = true;
       } else {
