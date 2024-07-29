@@ -44,12 +44,14 @@ class DashboardController extends Controller
       if (!$applications -> isEmpty()) {
         // application for the equipment - all equipment available
         foreach ($applications as $application) {
-          $return = ReturnModel::where('applicationId', $application -> applicationId) -> first();
+          if ($application -> applicationStatus == 'LULUS') {
+            $return = ReturnModel::where('applicationId', $application -> applicationId) -> first();
           
-          if ($return) {
-            if (!$return -> returnCondition) {
-              // check if application already return
-              $totalUnavailable = $totalUnavailable + $application -> applicationQuantity;
+            if ($return) {
+              if (!$return -> returnCondition) {
+                // check if application already return
+                $totalUnavailable = $totalUnavailable + $application -> applicationQuantity;
+              }
             }
           }
         }
