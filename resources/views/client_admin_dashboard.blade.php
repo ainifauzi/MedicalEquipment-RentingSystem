@@ -34,15 +34,15 @@
             contentDiv.append(header).append(metaDiv);
 
             var extraContentDiv = $('<div>', { class: 'extra content' });
-            var blueLabel = $('<a>', { class: 'ui blue label', text: 'Total' });
+            var blueLabel = $('<a>', { class: 'ui blue label', text: 'Jumlah' });
             var blueDetail = $('<div>', { class: 'detail', text: element.totalEquipment });
             blueLabel.append(blueDetail);
 
-            var greenLabel = $('<a>', { class: 'ui green label', text: 'Available' });
+            var greenLabel = $('<a>', { class: 'ui green label', text: 'Sedia Ada' });
             var greenDetail = $('<div>', { class: 'detail', text: element.totalAvailableEquipment });
             greenLabel.append(greenDetail);
 
-            var redLabel = $('<a>', { class: 'ui red label', text: 'Unavailable' });
+            var redLabel = $('<a>', { class: 'ui red label', text: 'Tidak Sedia' });
             var redDetail = $('<div>', { class: 'detail', text: element.totalUnavailableEquipment });
             redLabel.append(redDetail);
 
@@ -86,8 +86,8 @@
       }).then(function(res) {
         if (res.data.length) {
           res.data.forEach((element, index, array) => {
-            let message = element.applicationStatus === 'BERJAYA' ? 'diluluskan' : 'ditolak';
-            let color = element.applicationStatus === 'BERJAYA' ? 'green' : 'red';
+            let message = element.applicationStatus === 'LULUS' ? 'diluluskan' : 'ditolak';
+            let color = element.applicationStatus === 'LULUS' ? 'green' : 'red';
 
             if (element.clientNotiStatus === 0) {
               $.toast({

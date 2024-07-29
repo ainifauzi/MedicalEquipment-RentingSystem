@@ -36,7 +36,7 @@ class ApplicationController extends Controller
         case 'DALAM PROSES':
           $applicationResponse -> applicationColor = 'yellow';
           break;
-        case 'BERJAYA':
+        case 'LULUS':
           $applicationResponse -> applicationColor = 'green';
           break;
         case 'GAGAL':
@@ -135,7 +135,7 @@ class ApplicationController extends Controller
         case 'DALAM PROSES':
           $applicationResponse -> applicationColor = 'yellow';
           break;
-        case 'BERJAYA':
+        case 'LULUS':
           $applicationResponse -> applicationColor = 'green';
           break;
         case 'GAGAL':

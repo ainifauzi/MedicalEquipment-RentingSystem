@@ -14,10 +14,10 @@
 </head>
 <body class="index">
   <div class="topnav border-top border-bottom">
-    <a style="pointer-events: none; color: black;" class="p-15px-25px" href="/"> SISTEM SEWAAN PERALATAN PERUBATAN</a>
+    <a style="pointer-events: none; color: black;" class="p-15px-25px" href="/"><b> SISTEM SEWAAN PERALATAN PERUBATAN</b></a>
     <a class="p-15px-25px" href="javascript:void(0);" onclick="login()"><i style="margin-right: 5px" class="fa fa-sign-in"></i> Log Masuk</a>
     <a class="p-15px-25px" href="javascript:void(0);" onclick="register()"><i style="margin-right: 5px" class="fa fa-user-plus"></i> Daftar Masuk</a>
-    <a class="p-15px-25px" href="javascript:void(0);" onclick="aboutUs()"><i style="margin-right: 5px" class='fa fa-book'></i> Tentang Kami</a>
+    <a class="p-15px-25px nav-link scrollto" href="#about" ><i style="margin-right: 5px" class='fa fa-book'></i> Tentang Kami</a>
   </div>
 
   <div class="slideshow-container">
@@ -137,7 +137,7 @@
     </div>
   </form>
   <div class="ui modal login">
-    <div class="header bg-primary-grey">Daftar Akaun</div>
+    <div class="header bg-primary-grey">Akaun Log Masuk</div>
     <div class="content bg-primary-grey">
       <div class="ui tabular menu m-0">
         <div class="item w-50pct cursor-pointer" data-tab="staff-login">Petugas</div>
@@ -193,6 +193,7 @@
       </div>
     </div>
   </div>
+  <!--
   <div class="ui modal about us">
     <div class="header bg-primary-grey">Tentang Kami</div>
     <div class="scrolling content bg-primary-grey" style="padding: 40px !important">
@@ -245,6 +246,78 @@
       </button>
     </div>
   </div>
+  -->
+ <!-- =====About Section ===== -->
+  <section id= "about" class="about section-bg">
+    <div class="slideshow-container" data-aos="fade-up">
+      <div class="section-title">
+        <h2>Kenali Kami</h2>
+      </div>
+    <div class="row">
+    <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
+            <img src="assets/img/ahli.jpg" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
+            <h3>Pertubuhan Pejuang Kanser Melaka (PPKM)</h3>
+            <br>
+            <p>
+            Pertubuhan Pejuang Kanser Melaka (PPKM) bersama barisan ahli jawatankuasa yang dilantik telah menubuhkan dan mendaftarkan Pertubuhan ini dibawah Akta Pertubuhan 1966 pada 19 Ogos 2020 dan beralamat di Melaka. Tujuan penubuhan antaranya adalah untuk memberikan sokongan moral dan bantuan peralatan sokongan kesihatan serta keperluan asas kepada ahli, waris atau penjaga pesakit kanser. Kepimpinan pertubuhan ini adalah terdiri daripada jururawat, doktor, pesakit kanser dan waris yang berkhidmat secara sukarela. 
+            </p>
+            <br><h3>Latar Belakang Pertubuhan</h3></br>
+        <div>
+          Pertubuhan ini telah lama aktif dengan aktiviti ziarah kasih dan penyampaian sumbangan masyarakat kepada ahli dibawah kategori B40 sejak sebelum ini dengan nama Power Of Love. Pada masa ini ahli adalah terdiri daripada pelbagai latar belakang masyarakat dan bangsa iaitu golongan B40, asnaf, ibu tunggal, warga emas mahupun orang kelainan upaya (OKU) yang merupakan penduduk negeri Melaka.
+          Keahlian pertubuhan ini telah mencecah hampir 400 orang sehingga Disember 2022 dan yuran keahlian yang dikenakan adalah serendah RM10.00 sahaja setiap tahun.
+          Kini, PPKM bergerak di bawah tema Unite With The Power of Love.
+        </div>
+        
+          </div>
+        </div>
+   
+    </section><!-- End About Section -->
+    </main><!-- End #main -->
+
+    <footer id="footer">
+
+    <div class="footer-top">
+      <div class="slideshow-container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>PPKM</h3>
+            <p>
+              Pejabat Korporat: 1936-D, Jalan Permatang Pasir, Taman Alai Murni,<br> 75460 Melaka<br>
+              <strong>Phone:</strong> +012 607 7073<br>
+              <strong>Email:</strong> ppkmmelaka@gmail.com
+              
+            </p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Media Sosial</h4>
+            <div class="social-links mt-3">
+            <button onclick="location.href='https://www.youtube.com/channel/UCwap28eCwOWxa_rM8sv_GKw';" style="background-color: #FF0000; color: #fff" type="button" class="ui right labeled icon clear button">
+            <i class="youtube icon"></i>
+            YouTube
+            </button>
+            <button onclick="location.href='https://www.facebook.com/groups/pejuangkansermelaka';" style="background-color: #4267B2; color: #fff" type="button" class="ui right labeled icon clear button">
+            <i class="facebook icon"></i>
+            Facebook
+            </button>
+          </div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="slideshow-container py-4">
+      <div class="copyright">
+        &copy; Copyright <strong><span>PPKM</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+      </div> 
+    </div>
+  </footer><!-- End Footer -->
   <script>
     let slideIndex = 0;
     showSlides();

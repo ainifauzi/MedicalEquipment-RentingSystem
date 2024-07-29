@@ -49,7 +49,7 @@
           let medicLetterButton = `<button class="ui right labeled icon purple button" onclick="medicalLetterPrompt('${application.applicationId}')"><i class="expand alternate icon"></i>Surat Sakit</button>`;
           
           let paymentButton = '';
-          if (application.applicationStatus === 'BERJAYA' && application.paymentStatus === 'BELUM DIBAYAR') {
+          if (application.applicationStatus === 'LULUS' && application.paymentStatus === 'BELUM DIBAYAR') {
             paymentButton = `<button class="ui right labeled icon teal button" onclick="paymentPrompt('${application.paymentId}')"><i class="credit card outline icon"></i>Bayar</button>`;
           }
           let receiptButton = '';

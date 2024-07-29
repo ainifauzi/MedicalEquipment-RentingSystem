@@ -171,7 +171,7 @@
               <i class="dropdown icon"></i>
               <div class="text" id="applicationStatus"></div>
               <div class="menu">
-                <div class="item" data-value="BERJAYA">BERJAYA</div>
+                <div class="item" data-value="LULUS">LULUS</div>
                 <div class="item" data-value="GAGAL">GAGAL</div>
               </div>
             </div>

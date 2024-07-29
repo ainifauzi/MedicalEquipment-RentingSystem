@@ -5,5 +5,5 @@
   <a class="p-15px-25px" href="javascript:void(0);" onclick="displayNotificationList()"><i class='fas fa-bell'style='font-size:24px'></i><br>Notifikasi</a>
 </div>
 <div class="border-bottom" style="padding: 10px !important">
-  <a style="padding-left: 260px; pointer-events: none; color: black">Selamat Datang, <span id="loginName"></span></a>
+  <a style="padding-left: 260px; pointer-events: none; color: black"><b>Selamat Datang, <span id="loginName"></b></span></a>
 </div>
