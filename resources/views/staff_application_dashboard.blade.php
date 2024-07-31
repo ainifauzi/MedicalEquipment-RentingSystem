@@ -28,20 +28,22 @@
         url: `/applications`
       }).then(function(res) {
         for (let application of res.data) {
-          let returnButton = `<button class="ui right labeled icon brown button" onclick="returnPrompt('${application.returnId}')"><i class="info icon"></i>Pemulangan</button>`;
+          if (application.applicationStatus !== 'GAGAL') {
+            let returnButton = `<button class="ui right labeled icon brown button" onclick="returnPrompt('${application.returnId}')"><i class="info icon"></i>Pemulangan</button>`;
 
-          let evidenceButton = '';
-          if (application.returnCondition) {
-            evidenceButton = `<button class="ui right labeled icon teal button" onclick="evidencePrompt('${application.returnId}')"><i class="expand alternate icon"></i>Bukti</button>`;
+            let evidenceButton = '';
+            if (application.returnCondition) {
+              evidenceButton = `<button class="ui right labeled icon teal button" onclick="evidencePrompt('${application.returnId}')"><i class="expand alternate icon"></i>Bukti</button>`;
+            }
+
+            $('#datatable > tbody:last').append($('<tr>')
+              .append($('<td>').append(application.clientName))
+              .append($('<td>').append(application.equipmentName))
+              .append($('<td>').append(`<a class="ui ${application.applicationColor} label">${application.applicationStatus}</a>`))
+              .append($('<td>').append(`<a class="ui ${application.paymentColor} label">${application.paymentStatus}</a>`))
+              .append($('<td>').append(returnButton).append(evidenceButton))
+            );
           }
-
-          $('#datatable > tbody:last').append($('<tr>')
-            .append($('<td>').append(application.clientName))
-            .append($('<td>').append(application.equipmentName))
-            .append($('<td>').append(`<a class="ui ${application.applicationColor} label">${application.applicationStatus}</a>`))
-            .append($('<td>').append(`<a class="ui ${application.paymentColor} label">${application.paymentStatus}</a>`))
-            .append($('<td>').append(returnButton).append(evidenceButton))
-          );
         }
 
         $('#datatable').DataTable({
