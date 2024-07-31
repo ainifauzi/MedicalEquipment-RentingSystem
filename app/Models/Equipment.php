@@ -14,7 +14,7 @@ class Equipment extends Model
     'equipmentName',
     'equipmentBuyDate',
     'equipmentBuyPrice',
-    'equipmentRentPrice',
+    //'equipmentRentPrice',
     'equipmentQuantity',
     'equipmentSponsor',
     'equipmentImage'

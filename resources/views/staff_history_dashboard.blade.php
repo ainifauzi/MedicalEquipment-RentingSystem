@@ -55,7 +55,7 @@
         <h3>SISTEM SEWAAN <br> PERALATAN PERUBATAN</h3>
       </a>
       <a class="item" href="/staff_application_dashboard"><i class="fa fa-envelope"></i>
-        Permohonan Sewaan
+        Pemulangan Sewaan
       </a>
       <a class="item active" href="/staff_history_dashboard"><i class="fa fa-history"></i>
         Sejarah Sewaan

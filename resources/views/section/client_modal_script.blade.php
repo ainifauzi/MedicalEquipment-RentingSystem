@@ -65,11 +65,11 @@
             $('#clientMembership').html(res.data.clientMembership);
             
             $('#updateProfileMessageId').show();
-            $('#updateProfileMessageId').html("Pendaftaran BERJAYA.");
+            $('#updateProfileMessageId').html("Kemaskini BERJAYA.");
             $('#updateProfileMessageId').addClass('green');
           } else {
             $('#updateProfileMessageId').show();
-            $('#updateProfileMessageId').html("Pendaftaran Gagal.");
+            $('#updateProfileMessageId').html("Kemaskini Gagal.");
             $('#updateProfileMessageId').addClass('red');
           }
         },

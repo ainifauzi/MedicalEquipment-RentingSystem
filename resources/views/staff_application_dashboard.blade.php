@@ -67,7 +67,7 @@
         <h3>SISTEM SEWAAN <br> PERALATAN PERUBATAN</h3>
       </a>
       <a class="item active" href="/staff_application_dashboard"><i class="fa fa-envelope"></i>
-        Permohonan Sewaan
+        Pemulangan Sewaan
       </a>
       <a class="item" href="/staff_history_dashboard"><i class="fa fa-history"></i>
         Sejarah Sewaan
@@ -77,7 +77,7 @@
       <div class=" border-bottom content-header">
         <div class="content-small-header border-right"></div>
         <div class="content-large-header">
-          <h2>PERMOHONAN SEWAAN</h2>
+          <h2>PEMULANGAN SEWAAN</h2>
         </div>
       </div>
       <div class="p-2em">
