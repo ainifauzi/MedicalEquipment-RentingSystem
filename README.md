@@ -56,11 +56,14 @@ If you have a suggestion that would make this better, please fork the repo and c
      fixing a bug, adding a feature, improving documentation, etc.
    
    b)Stage and Commit Your Changes: Once you’re done, stage and commit your changes:
-     git add .
-     git commit -m "A brief description of the changes"
+   
+      git add .
+   
+      git commit -m "A brief description of the changes"
 7. Push the Changes: Send your changes to your forked repository on GitHub:
+   
    git push origin feature-branch-name
-8. Create a Pull Request: Open a Pull Request: Go to the original repository on GitHub. You’ll 
+9. Create a Pull Request: Open a Pull Request: Go to the original repository on GitHub. You’ll 
   see an option to create a pull request (PR) from your branch. Click on it, add a description, 
   and submit your PR.
 
