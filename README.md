@@ -41,22 +41,24 @@ If you have a suggestion that would make this better, please fork the repo and c
 1. Fork the Project: Forking creates a personal copy of the repository under your GitHub 
    account. Click the “Fork” button on the repository’s page.
 2. Clone the Repository: Clone your forked repository to your local machine using the command:
+   
    git clone https://github.com/your-username/repository-name.git
+   
    Replace 'your-username' with your GitHub username and 'repository-name' with the name of the 
    repository.
-3. Create a New Branch
+4. Create a New Branch
    git checkout -b feature-branch-name
    Replace 'feature-branch-name' with a meaningful name related to the issue or feature you’re 
    working on.
-4. Make Your Changes
+5. Make Your Changes
    a)Edit the Code: Make the necessary changes in your local repository. This could involve 
      fixing a bug, adding a feature, improving documentation, etc.
    b)Stage and Commit Your Changes: Once you’re done, stage and commit your changes:
      git add .
      git commit -m "A brief description of the changes"
-5. Push the Changes: Send your changes to your forked repository on GitHub:
+6. Push the Changes: Send your changes to your forked repository on GitHub:
    git push origin feature-branch-name
-6. Create a Pull Request: Open a Pull Request: Go to the original repository on GitHub. You’ll 
+7. Create a Pull Request: Open a Pull Request: Go to the original repository on GitHub. You’ll 
   see an option to create a pull request (PR) from your branch. Click on it, add a description, 
   and submit your PR.
 
