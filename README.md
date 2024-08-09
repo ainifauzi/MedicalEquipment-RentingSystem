@@ -1,6 +1,6 @@
 ## Cancer Patient Medical Equipment Renting System with Push Notification
 
-Built with Visual Studio Codo, using Laravel PHP Framework on Laravel 10.48.16, Bootstrap, and Dbeaver as database management
+Built with Visual Studio Code, using Laravel PHP Framework on Laravel 10.48.16, Bootstrap, and Dbeaver as database management
 
 ## About Project
 
