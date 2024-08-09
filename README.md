@@ -46,8 +46,10 @@ If you have a suggestion that would make this better, please fork the repo and c
    
    Replace 'your-username' with your GitHub username and 'repository-name' with the name of the 
    repository.
-4. Create a New Branch
+3. Create a New Branch
+   
    git checkout -b feature-branch-name
+   
    Replace 'feature-branch-name' with a meaningful name related to the issue or feature you’re 
    working on.
 5. Make Your Changes
@@ -60,10 +62,10 @@ If you have a suggestion that would make this better, please fork the repo and c
       git add .
    
       git commit -m "A brief description of the changes"
-7. Push the Changes: Send your changes to your forked repository on GitHub:
+6. Push the Changes: Send your changes to your forked repository on GitHub:
    
    git push origin feature-branch-name
-9. Create a Pull Request: Open a Pull Request: Go to the original repository on GitHub. You’ll 
+7. Create a Pull Request: Open a Pull Request: Go to the original repository on GitHub. You’ll 
   see an option to create a pull request (PR) from your branch. Click on it, add a description, 
   and submit your PR.
 
