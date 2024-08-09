@@ -1,66 +1,64 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Cancer Patient Medical Equipment Renting System with Push Notification
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Built with Visual Studio Codo, using Laravel PHP Framework on Laravel 10.48.16, Bootstrap, and Dbeaver as database management
 
-## About Laravel
+## About Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+A Web-Based Cancer Patient Medical Equipment Renting System is a web-based system for Pertubuhan Pejuang Kanser Melaka (PPKM). There are three users of the system, which are admin, staff and client. Admin can view and delete client and staff account details and manage medical equipment. Admin also can view and update the status application either success or failed. Staff can view and update their details, manage return item and view rental history. Meanwhile for client, client can view and update their account details, view available equipment and create application for renting the medical equipment. Then, client can view status application, upload proof payment and also can view rental history.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Problem
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The process of renting the medical equipment is by using WhatsApp or call. The information that has been taken will be stored in a file. However, there are several problems that have occurred with the current business process such as time consuming in the application process and no management platform for returns items.
 
-## Learning Laravel
+## Solution
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Cancer Patient Medical Equipment Renting System is a web-based system that is developed to ease the process of renting medical equipment that allows the client including its administrative and the staff to login from anywhere to easily and quickly renting medical equipment and manage the renting application. The outcome of the system is able to solve the problems states by the stakeholder by producing notification features to reduce the time consuming in application process.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Installation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Clone the repository
 
-## Laravel Sponsors
+   git clone https://github.com/ainifauzi/MedicalEquipment-RentingSystem.git
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. Navigate to your project's root directory, install development, and production dependencies.
 
-### Premium Partners
+   cd your-project
+   yarn install
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+3. Install NPM packages
+
+   npm install
+
+4. Open in your browser and navigate to http://localhost: .
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
 
-## Code of Conduct
+If you have a suggestion that would make this better, please fork the repo and create a pull request.  Here’s a step-by-step guide to help you get started:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Fork the Project: Forking creates a personal copy of the repository under your GitHub 
+   account. Click the “Fork” button on the repository’s page.
+2. Clone the Repository: Clone your forked repository to your local machine using the command:
+   git clone https://github.com/your-username/repository-name.git
+   Replace 'your-username' with your GitHub username and 'repository-name' with the name of the 
+   repository.
+3. Create a New Branch
+   git checkout -b feature-branch-name
+   Replace 'feature-branch-name' with a meaningful name related to the issue or feature you’re 
+   working on.
+4. Make Your Changes
+   a)Edit the Code: Make the necessary changes in your local repository. This could involve 
+     fixing a bug, adding a feature, improving documentation, etc.
+   b)Stage and Commit Your Changes: Once you’re done, stage and commit your changes:
+     git add .
+     git commit -m "A brief description of the changes"
+5. Push the Changes: Send your changes to your forked repository on GitHub:
+   git push origin feature-branch-name
+6. Create a Pull Request: Open a Pull Request: Go to the original repository on GitHub. You’ll 
+  see an option to create a pull request (PR) from your branch. Click on it, add a description, 
+  and submit your PR.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Distributed software licensed under the [MIT license](https://opensource.org/licenses/MIT).
