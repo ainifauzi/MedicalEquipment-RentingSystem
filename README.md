@@ -23,13 +23,14 @@ Cancer Patient Medical Equipment Renting System is a web-based system that is de
 2. Navigate to your project's root directory, install development, and production dependencies.
 
    cd your-project
+   
    yarn install
 
-3. Install NPM packages
+4. Install NPM packages
 
    npm install
 
-4. Open in your browser and navigate to http://localhost: .
+5. Open in your browser and navigate to http://localhost: .
 
 ## Contributing
 
